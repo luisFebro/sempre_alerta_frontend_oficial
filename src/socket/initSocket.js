@@ -1,20 +1,25 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { ROOT_DOMAIN } from "api/root";
-import getItems, { setItems } from "init/lStorage";
-import showToast from "components/toasts";
+import showToast from "components/Snackbar";
 
-export function useInitSocket({ namespace, origin = "dashboard" }) {
+export function useInitSocket({ namespace }) {
     // LESSON: always use useEffect to initialize methods like io(). It was bugging aorund with many requests and preventing using broadcast.imit to exclude the sender
     const [socketData, setSocketData] = useState(null);
 
     useEffect(() => {
-        const data = {
-            origin,
-        };
-
-        const socket = getInitSocket({ namespace, data });
+        const socket = getInitSocket({ namespace });
         startInitialListeners(socket);
+
+        // start room
+        const roomData = {
+            roomIdList: ["central", "school1", "school2"], 
+            userId: "FebroFromDashboard",
+            origin: "dashboard",
+        };
+    
+        socket.emit("joinRoom", roomData);
 
         return setSocketData(socket);
         // eslint-disable-next-line
@@ -26,9 +31,9 @@ export function useInitSocket({ namespace, origin = "dashboard" }) {
 // HELPERS
 export default function getInitSocket({ namespace, data }) {
     // every namespace should includes nsp before the actual name. e.g nspApp
-    const URL = `${ROOT_DOMAIN}/${namespace}`;
+    const SOCKET_URI = "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/nspApp";
 
-    const socket = io(URL, {
+    const socket = io(SOCKET_URI, {
         reconnection: true,
         reconnectionDelay: 1000, // The initial delay before reconnection in milliseconds (affected by the randomizationFactor value).
         reconnectionDelayMax: 5000, // The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.
@@ -36,34 +41,16 @@ export default function getInitSocket({ namespace, data }) {
         timeout: 20000,
         autoConnect: true,
         path: "/socket.io",
-        query: data,
+        query: { origin: "dashboard" },
         transports: ["websocket", "polling"], // a list of transports to try (in order). Engine always attempts to connect directly with the first one, provided the feature detection test for it passes.
     });
 
     return socket;
 }
 
-// save locally and socket - used both in every reconnection and starting right after click on continue button to enter in the support page
-// export function getSocketQueryData(data = {}) {
-//     const [roomId, userId, role] = getItems("global", [
-//         "roomId",
-//         "userId",
-//         "role",
-//     ]);
-
-//     const values = {
-//         roomId: data.roomId || roomId,
-//         userId: data.userId || userId,
-//         role: data.role || role,
-//     };
-
-//     setItems("global", values);
-//     return values;
-// }
-
 function startInitialListeners(socket) {
     socket.onAny((event, ...args) => {
-        console.log(event, args);
+        console.log(`socket.onAny: ${event}`, args);
     });
 
     socket.on(

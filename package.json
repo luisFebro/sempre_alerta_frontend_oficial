@@ -1,6 +1,6 @@
 {
   "name": "test_sempre_alerta_front",
-  "version": "0.1.0",
+  "version": "0.2.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,15 +11,22 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.13",
+    "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.10.8",
     "@mui/styles": "^5.10.10",
     "autoprefixer": "10.4.14",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "html-react-parser": "^4.2.2",
+    "nanoid": "^3.1.20",
     "next": "13.4.2",
     "postcss": "8.4.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.68.0",
     "socket.io-client": "^4.4.0",
     "tailwindcss": "3.3.2"
   }
