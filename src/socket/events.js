@@ -1,15 +1,21 @@
 import getId from "utils/getId";
 
-export default function eventStartEmergencyDashboard(socket, setData) {
+// ALL EVENTS
+function eventStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
         setData((prev) => ({
             ...prev,
-            defaultMsg: options.msg,
-            msgId: getId(),
+            startEmergencyMsg: options.msg,
+            startEmergencyMsgId: getId(),
             btnCounter: ++prev.btnCounter,
             userId: options.userId,
             roomId: options.roomId,
             userType: options.userType,
         }));
     });
+}
+// END ALL EVENTS
+
+export default function eventRunAll(socket, setData) {
+    eventStartEmergencyDashboard(socket, setData);
 }

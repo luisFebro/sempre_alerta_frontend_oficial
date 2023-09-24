@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#ff4757",
     },
     warning: {
-        backgroundColor: "#fff",
+        backgroundColor: "#34495e",
     },
     icon: {
         fontSize: 20,
@@ -60,7 +60,12 @@ const getStyles = () => ({
 
 const styles = getStyles();
 
-export default function Snackbar({ txt, type = "warning", duration = 3000, snackId }) {
+export default function Snackbar({
+    txt,
+    type = "warning",
+    duration = 3000,
+    snackId,
+}) {
     const [data, setData] = useState({
         open: false,
         msg: "",

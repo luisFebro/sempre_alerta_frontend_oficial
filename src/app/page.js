@@ -10,8 +10,8 @@ import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import Field from "components/fields/Field";
 import Select from "components/selects/Select";
-import eventStartEmergencyDashboard from "socket/events/eventStartEmergencyDashboard";
-import emitStopEmergencyDashboard from "socket/emits/emitStopEmergencyDashboard";
+import eventRunAll from "socket/events";
+import emitStopEmergencyDashboard from "socket/emits";
 import getId from "utils/getId";
 
 export default function Home() {
@@ -27,7 +27,7 @@ export default function Home() {
         userType: "n/a",
         // dashboard to app data
         toAppMsg: "Usuário ver esse mensagem quando painel desativa alerta",
-        toAppRoomId: "",
+        toAppRoomId: "central",
     });
     const {
         startEmergencyMsg,
@@ -52,7 +52,7 @@ export default function Home() {
         if (!isSocketAvailable) return;
         if (socket.disconnected) socket.connect();
 
-        eventStartEmergencyDashboard(socket, setData);
+        eventRunAll(socket, setData);
     }, [isSocketAvailable]);
 
     const triggerStopEmergency = () => {
@@ -63,11 +63,17 @@ export default function Home() {
 
         if (toAppMsg == "") return {};
 
-        emitStopEmergencyDashboard(socket, { dashboardUserId, toAppRoomId });
+        emitStopEmergencyDashboard(socket, {
+            dashboardUserId,
+            roomId: toAppRoomId,
+            msg: toAppMsg,
+        });
         setData((prev) => ({
             ...prev,
             stopEmergencyMsgId: getId(),
-            stopEmergencyMsg: "A emergência de todos os apps foi desativada",
+            stopEmergencyMsg: `A emergência foi DESATIVADA em todos os apps da sala ${
+                toAppRoomId && toAppRoomId.toUpperCase()
+            }`,
         }));
     };
 
@@ -116,7 +122,7 @@ export default function Home() {
             <hr className="lazer-purple" />
 
             <h2 className="pb-8 text-4xl text-center font-semibold">
-                APP <FontAwesomeIcon icon={faArrowAltCircleLeft} /> DO PAINEL
+                PARA APP <FontAwesomeIcon icon={faArrowAltCircleLeft} /> PAINEL
             </h2>
             <p className="text-2xl text-black text-center mb-5">
                 Mensagem de desativação para apps:
@@ -198,7 +204,8 @@ export default function Home() {
                 <Snackbar
                     snackId={startEmergencyMsgId}
                     txt={startEmergencyMsg}
-                    type="success"
+                    type="warning"
+                    duration={10000}
                 />
             )}
 
@@ -206,7 +213,8 @@ export default function Home() {
                 <Snackbar
                     snackId={stopEmergencyMsgId}
                     txt={stopEmergencyMsg}
-                    type="success"
+                    type="warning"
+                    duration={10000}
                 />
             )}
         </main>
