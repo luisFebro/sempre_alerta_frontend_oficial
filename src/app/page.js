@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useInitSocket } from "socket/initSocket";
+import { useInitSocket } from "socket/startSocket";
 import Snackbar from "components/Snackbar";
 import RadiusBtn from "components/buttons/RadiusBtn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import Field from "components/fields/Field";
 import Select from "components/selects/Select";
-import eventRunAll from "socket/events";
+import eventsListenAll from "socket/listens";
 import emitStopEmergencyDashboard from "socket/emits";
 import getId from "utils/getId";
 
@@ -52,7 +52,7 @@ export default function Home() {
         if (!isSocketAvailable) return;
         if (socket.disconnected) socket.connect();
 
-        eventRunAll(socket, setData);
+        eventsListenAll(socket, setData);
     }, [isSocketAvailable]);
 
     const triggerStopEmergency = () => {

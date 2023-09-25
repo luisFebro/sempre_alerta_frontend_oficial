@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -14,11 +14,11 @@ export function useInitSocket({ namespace }) {
 
         // start room
         const roomData = {
-            roomIdList: ["central", "school1", "school2"], 
+            roomIdList: ["central", "school1", "school2"],
             userId: "FebroFromDashboard",
             origin: "dashboard",
         };
-    
+
         socket.emit("joinRoom", roomData);
 
         return setSocketData(socket);
@@ -31,14 +31,15 @@ export function useInitSocket({ namespace }) {
 // HELPERS
 export default function getInitSocket({ namespace, data }) {
     // every namespace should includes nsp before the actual name. e.g nspApp
-    const SOCKET_URI = "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/nspApp";
+    const SOCKET_URI =
+        "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/nspApp";
 
     const socket = io(SOCKET_URI, {
         reconnection: true,
         reconnectionDelay: 1000, // The initial delay before reconnection in milliseconds (affected by the randomizationFactor value).
         reconnectionDelayMax: 5000, // The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.
         randomizationFactor: 0.5, //  n1
-        timeout: 20000,
+        timeout: 2000,
         autoConnect: true,
         path: "/socket.io",
         query: { origin: "dashboard" },

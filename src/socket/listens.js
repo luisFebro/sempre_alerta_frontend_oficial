@@ -1,7 +1,7 @@
 import getId from "utils/getId";
 
 // ALL EVENTS
-function eventStartEmergencyDashboard(socket, setData) {
+function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
         setData((prev) => ({
             ...prev,
@@ -16,6 +16,6 @@ function eventStartEmergencyDashboard(socket, setData) {
 }
 // END ALL EVENTS
 
-export default function eventRunAll(socket, setData) {
-    eventStartEmergencyDashboard(socket, setData);
+export default function eventsListenAll(socket, setData) {
+    listenStartEmergencyDashboard(socket, setData);
 }
