@@ -1,7 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
-import styled from "styled-components";
-import { spin } from "../../keyframes/spin";
-import Picture from "../../components/Picture";
+import { useEffect, useState, useCallback, Fragment } from "react";
 import PropTypes from "prop-types";
 
 const logoOpts = {
@@ -9,18 +6,6 @@ const logoOpts = {
     small: "50px",
     mini: "20px",
 };
-
-const SpinnerInner = styled.div`
-    position: relative;
-    height: ${({ size }) => logoOpts[size]};
-    width: ${({ size }) => logoOpts[size]};
-
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid var(--lightPurple);
-    border-radius: 100%;
-
-    animation: ${spin} 0.8s linear infinite;
-`;
 
 Spinner.propTypes = {
     expireSec: PropTypes.number,
@@ -53,7 +38,35 @@ export default function Spinner({
     }, [stopSpinnerAfter]);
 
     const showSpinner = (isRunning) =>
-        isRunning && <SpinnerInner size={size} />;
+        isRunning && (
+            <Fragment>
+                <div className="main-circle-spinner" />
+                <style jsx>
+                    {`
+                        .main-circle-spinner {
+                            position: relative;
+                            height: ${logoOpts[size]};
+                            width: ${logoOpts[size]};
+
+                            border: 3px solid #f3f3f3;
+                            border-top: 3px solid var(--lightPurple);
+                            border-radius: 100%;
+
+                            animation: circleSpin 0.8s linear infinite;
+                        }
+
+                        @keyframes circleSpin {
+                            from {
+                                transform: rotate(0deg);
+                            }
+                            to {
+                                transform: rotate(360deg);
+                            }
+                        }
+                    `}
+                </style>
+            </Fragment>
+        );
 
     const heightCond =
         typeof marginY === "number"
@@ -67,36 +80,14 @@ export default function Spinner({
             className={`${isCenter && "container-center"} ${
                 logo ? "container-center-col" : null
             }`}
-            style={{ minHeight: marginY ? marginY : "85px", margin }}
+            style={{ minHeight: marginY || "85px", margin }}
         >
             <div style={{ margin: !marginX ? 0 : calculatedRelativeMargin }}>
-                {logo && (
-                    <Picture
-                        path={`/img/official-logo-${logo}`}
-                        className={`${
-                            logo === "purple" ? "" : "svg-elevation"
-                        } mb-4`}
-                        alt="logo"
-                        width={70}
-                        height="auto"
-                    />
-                )}
+                {logo && null}
             </div>
             {showSpinner(run)}
         </section>
     );
 }
 
-/* ARCHIVES
-const SpinnerInner = styled(Wrapper)`
-`;
-
-let config = {
-    center: 'container-center',
-    left: '?',
-    right: '?',
-    none: ''
-}
- */
-
-/* concept from: https://codepen.io/smashtheshell/pen/jqGxzr*/
+/* concept from: https://codepen.io/smashtheshell/pen/jqGxzr */

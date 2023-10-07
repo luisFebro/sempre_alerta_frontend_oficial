@@ -1,4 +1,4 @@
-var clickEvent = new MouseEvent("click", {
+const clickEvent = new MouseEvent("click", {
     view: window,
     bubbles: true,
     cancelable: false,

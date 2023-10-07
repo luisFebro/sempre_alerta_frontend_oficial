@@ -1,26 +1,39 @@
 import { useCallback } from "react";
 import TextField from "@mui/material/TextField";
-import { handleEnterPress, handleOnChange } from "./helpers/index";
 import debounce from "utils/performance/debounce";
+import { handleEnterPress, handleOnChange } from "./helpers/index";
+import { Box } from "@mui/material";
+
+// Warning: use a <form></form> wrapper to a group or even an individual field.
+// TextField is simply rendered as a raw <input /> tag
 
 export default function Field({
-    size = "normal",
+    id,
+    label = "Label",
+    size = "medium",
     textAlign = "text-left",
     name,
-    value,
-    onChange,
+    value = " ",
+    // onChange,
     error,
     placeholder,
+    autoFocus = false,
     autoComplete = "off",
     variant = "outlined",
-    enterCallback,
-    onChangeCallback,
-    backgroundColor = "var(--mainWhite)",
+    enterCallback = () => null,
+    onChangeCallback = () => null,
     multiline = false,
-    rows = 3,
+    width,
+    rows = 1,
     fullWidth = true,
-    debounceCallback,
+    debounceCallback = () => null,
+    zIndex = 0,
+    maxLength,
+    maxWitdth = 500,
+    classNameRoot = "px-2 md:px-5",
 }) {
+    //
+    if (!name) throw new Error("it requires to pass name and value params");
     const sizes = ["small", "medium", "large"];
     const variants = ["filled", "outlined", "standard"];
     const textAligns = ["text-center", "text-left"];
@@ -28,79 +41,109 @@ export default function Field({
     if (!variants.includes(variant)) throw new Error("Invalid variant");
     if (!textAligns.includes(textAlign)) throw new Error("Invalid text align");
 
-    // Warning: use a <form></form> wrapper to a group or even an individual field.
-    // TextField is simply rendered as a raw <input /> tag
-
     // do not use a () => for debounce. If not function, it will return nothing only.
     const handler = useCallback(debounce(debounceCallback), []);
 
     return (
-        <section className="field">
-            <TextField
-                className={`${size} ${textAlign}`}
-                placeholder={placeholder}
-                name={name}
-                value={value}
-                variant={variant}
-                onChange={(e) => {
-                    handleOnChange(e, onChangeCallback);
-                    debounceCallback && handler();
+        <div className={`single-field--root field ${classNameRoot}`}>
+            <Box
+                component="form"
+                sx={{
+                    "& > :not(style)": {
+                        width: width || "100%",
+                        maxWidth: fullWidth ? undefined : maxWitdth,
+                    },
                 }}
-                onKeyPress={(e) => {
-                    handleEnterPress(e, enterCallback);
-                }}
-                error={error}
-                autoComplete={autoComplete}
-                multiline={multiline ? true : false}
-                rows={multiline ? rows : undefined}
-                fullWidth={fullWidth}
-            />
-            <style jsx global>
+                noValidate
+                autoComplete="off"
+            >
+                <TextField
+                    label={label}
+                    id={id}
+                    className={`${size} ${textAlign}`}
+                    placeholder={placeholder}
+                    name={name}
+                    value={value}
+                    variant={variant}
+                    onChange={(e) => {
+                        handleOnChange(e, onChangeCallback);
+                        if (debounceCallback) handler();
+                    }}
+                    onKeyPress={(e) => {
+                        handleEnterPress(e, enterCallback);
+                    }}
+                    error={error}
+                    autoComplete={autoComplete}
+                    multiline={multiline}
+                    rows={multiline ? rows : undefined}
+                    maxLength={maxLength}
+                    autoFocus={autoFocus}
+                />
+            </Box>
+            <style jsx>
                 {`
-                    .field .MuiInputBase-input {
-                        background-color: ${backgroundColor} !important;
+                    .single-field--root.field.width${width}
+                        .MuiFormControl-root {
+                        width: ${width ? `${width}px` : "none"};
+                    }
+                `}
+            </style>
+            <style jsx>
+                {`
+                    .single-field--root.field .MuiInputBase-input {
+                        // background-color: var(--mainWhite) !important;
                         z-index: 2000;
-                        color: var(--themeP) !important;
+                        color: var(--themeS) !important;
                         font: var(--mainFont);
-                        padding: 10px;
+                        //padding: 10px;
                     }
 
-                    .large {
+                    .single-field--root.field .large {
                         margin: 0 5px !important;
                     }
 
-                    .large div .MuiInputBase-input {
+                    .single-field--root.field .large div .MuiInputBase-input {
                         font-size: 2.5em;
                     }
 
-                    .large div .MuiInputBase-input .MuiOutlinedInput-input {
+                    .single-field--root.field
+                        .large
+                        div
+                        .MuiInputBase-input
+                        .MuiOutlinedInput-input {
                         padding: 10.5px 14px;
                     }
 
-                    .medium div .MuiInputBase-input {
-                        font-size: 1.5em;
+                    .single-field--root.field .medium div .MuiInputBase-input {
+                        font-size: var(--mainTxtSize);
                     }
 
-                    .small div .MuiInputBase-input {
+                    .single-field--root.field .small div .MuiInputBase-input {
                         font-size: 1em;
                     }
 
-                    .text-left div .MuiInputBase-input {
+                    .single-field--root.field
+                        .text-left
+                        div
+                        .MuiInputBase-input {
                         text-align: left !important;
                     }
 
-                    .text-center div .MuiInputBase-input {
+                    .single-field--root.field
+                        .text-center
+                        div
+                        .MuiInputBase-input {
                         text-align: center !important;
                     }
                 `}
             </style>
-        </section>
+            <style jsx>
+                {`
+                    .single-field--root.field .MuiInputBase-input {
+                        z-index: ${zIndex} !important;
+                    }
+                `}
+            </style>
+        </div>
     );
 }
-
-/*
-InputProps={{
-    style: styles.fieldFormValue, // alignText is not working here... tried input types and variations
-}}
-inputProps={{ style: styles.input }}
- */

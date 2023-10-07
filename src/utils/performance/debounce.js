@@ -1,19 +1,19 @@
+import isObj from "../isObj";
 // n1
 // DEFINITION
-// TRAILING EDGE - when we are only interested on the final value, after user stops an action.
-// LEADING FLAG on. We want to wait to the last letter typed.
+// TRAILING EDGE - run function only after the LAST keystroke and wait is passed
+// LEADING FLAG on. run function RIGHT AWAY when user starts typing the FIRST keystroke
 // for searching bar timing: _.debounce(function, 1300));
 // from lodash
 
-import isRealObj from "../isRealObj";
-const now = Date.now;
+const { now } = Date;
 
 /** Used as the `TypeError` message for "Functions" methods. */
-var FUNC_ERROR_TEXT = "Expected a function";
+const FUNC_ERROR_TEXT = "Expected a function";
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max,
-    nativeMin = Math.min;
+const nativeMax = Math.max;
+const nativeMin = Math.min;
 
 /**
  * Creates a debounced function that delays invoking `func` until after `wait`
@@ -65,21 +65,22 @@ var nativeMax = Math.max,
  * // Cancel the trailing debounced invocation.
  * jQuery(window).on('popstate', debounced.cancel);
  */
-export default function debounce(func, wait = 800, options) {
-    var lastArgs,
-        lastThis,
-        result,
-        timerId,
-        lastCallTime = 0,
-        lastInvokeTime = 0,
-        leading = false,
-        maxWait = false,
-        trailing = true;
+export default function debounce(func, wait, options) {
+    let lastArgs;
+    let lastThis;
+    let result;
+    let timerId;
+    let lastCallTime = 0;
+    let lastInvokeTime = 0;
+    let leading = false;
+    let maxWait = false;
+    let trailing = true;
 
-    if (typeof func !== "function") return; // archives
-
+    if (typeof func !== "function") {
+        throw new TypeError(FUNC_ERROR_TEXT);
+    }
     wait = Number(wait) || 0;
-    if (isRealObj(options)) {
+    if (isObj(options)) {
         leading = !!options.leading;
         maxWait =
             "maxWait" in options &&
@@ -88,8 +89,8 @@ export default function debounce(func, wait = 800, options) {
     }
 
     function invokeFunc(time) {
-        var args = lastArgs,
-            thisArg = lastThis;
+        const args = lastArgs;
+        const thisArg = lastThis;
 
         lastArgs = lastThis = undefined;
         lastInvokeTime = time;
@@ -107,9 +108,9 @@ export default function debounce(func, wait = 800, options) {
     }
 
     function remainingWait(time) {
-        var timeSinceLastCall = time - lastCallTime,
-            timeSinceLastInvoke = time - lastInvokeTime,
-            result = wait - timeSinceLastCall;
+        const timeSinceLastCall = time - lastCallTime;
+        const timeSinceLastInvoke = time - lastInvokeTime;
+        const result = wait - timeSinceLastCall;
 
         return maxWait === false
             ? result
@@ -117,8 +118,8 @@ export default function debounce(func, wait = 800, options) {
     }
 
     function shouldInvoke(time) {
-        var timeSinceLastCall = time - lastCallTime,
-            timeSinceLastInvoke = time - lastInvokeTime;
+        const timeSinceLastCall = time - lastCallTime;
+        const timeSinceLastInvoke = time - lastInvokeTime;
 
         // Either this is the first call, activity has stopped and we're at the
         // trailing edge, the system time has gone backwards and we're treating
@@ -132,7 +133,7 @@ export default function debounce(func, wait = 800, options) {
     }
 
     function timerExpired() {
-        var time = now();
+        const time = now();
         if (shouldInvoke(time)) {
             return trailingEdge(time);
         }
@@ -166,8 +167,8 @@ export default function debounce(func, wait = 800, options) {
     }
 
     function debounced() {
-        var time = now(),
-            isInvoking = shouldInvoke(time);
+        const time = now();
+        const isInvoking = shouldInvoke(time);
 
         lastArgs = arguments;
         lastThis = this;
@@ -222,9 +223,3 @@ window.onscroll = debounce(() => {
   }
 }, 100);
 */
-
-/* prior condition which break codes with no function. Only return need here from now
-{
-        throw new TypeError(FUNC_ERROR_TEXT);
-    }
- */

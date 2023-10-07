@@ -1,0 +1,114 @@
+/* @import "../../functions/setContrastedColor"; */
+
+:root {
+    /*
+    PRIMARY COLORS 
+    */
+
+    /*purple 900*/
+    --themeP: #1372a7;
+    --themePLight: #16c5ff;
+    --themePDark: #1372a7;
+
+    /*surface (such as cards, sheets, and menus) and background*/
+    --themeSurface: #275975;
+    --themeSurfacePill: #204255;
+    /* --themeBackground: #4a148c; */ /*same as primary*/
+    /*on colors - text*/
+    /*--mainBlack: black; use only: black */
+    --mainWhite: #ecf0f1;
+
+    --mainFont: "Rubik", sans-serif; /* "Poppins", sans-serif; */ /* Quicksand */
+    --mainTxtSize: 1.125rem;
+    /*THEMING*/
+    /*default*/
+    --themeP--default: #1372a7;
+    --themePLight--default: #16c5ff;
+    --themePDark--default: #1372a7;
+    --themeBackground--default: #4a148c;
+    /*purple*/
+    --themeP--purple: #4a148c;
+    --themePLight--purple: #7c43bd;
+    --themePDark--purple: #3a005e;
+    --themeBackground--purple: #4a148c;
+    /*END THEMING*/
+
+    --clr: #fff; /* magic nav */
+
+    /*
+    SECONDARY COLORS 
+    */
+
+    /*cyan (greenish-blue) a400*/
+    --themeS: #b2a300; /* PRIOR #00e5ff changed for not having over brightness with a lighter shade as in buttons */
+    --themeSLight: #b937f5; /* prior: #7c43bd */;
+    --themeSDark: #b2a300;
+    --themeBackground--secondary: #b2a300;
+
+    /*
+    CONNECTION ICON COLORS
+    */
+
+    --connected: #1cf499;
+    --connecting: #E1D509;
+    --disconnected: #ff9999;
+    --init: #cad3c8;
+
+    /*
+        CONNECTION TXT COLORS
+    */
+
+    --connectedTxt: green;
+    --connectingTxt: var(--darkYellow);
+    --disconnectedTxt: var(--expenseRed);
+    --initConnectTxt: #5a5e5a;
+
+
+    /*Secondary colors are best to accent select parts of your UI.:
+Floating action buttons
+Selection controls, like sliders and switches
+Highlighting selected text
+Progress bars
+Links and headlines
+
+To see interfaces:
+https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=4a148c&secondary.color=18FFFF*/
+}
+
+.main-font {
+    font-family: var(--mainFont);
+}
+
+
+
+/* THEMING */
+.theme-surface-pill {
+    background-color: var(--themeSurfacePill) !important;
+}
+.theme-back--default, .theme-s {
+    background-color: var(--themeS) !important;
+}
+.theme-s-light {
+    background-color: var(--themeSLight) !important;
+}
+
+
+/*TEXT*/
+/*palette colors for texts*/
+/*primary colors*/
+.text-p { color: var(--themeP); }
+.text-p-light { color: var(--themePLight); }
+.text-p-dark { color: var(--themePDark); }
+/*secondary colors*/
+.text-s { color: var(--themeS); }
+.text-s-light { color: var(--themeSLight); }
+.text-s-dark { color: var(--themeSDark); }
+/*"on" colors - texts*/
+.text-white { color: var(--mainWhite); }
+.text-black { color: black; }
+
+/* connection colors */
+.txt-connected { color: var(--connectedTxt); }
+.txt-connecting { color: var(--connectingTxt); }
+.txt-disconnected { color: var(--disconnectedTxt); }
+.txt-connectInit { color: var(--initConnectTxt); }

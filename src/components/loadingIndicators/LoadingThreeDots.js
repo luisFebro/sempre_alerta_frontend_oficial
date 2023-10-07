@@ -1,40 +1,40 @@
-//Three-dot bouncing loading effect
-//Resource: https://codepen.io/danielmorosan/pen/XmYBVx
+// Three-dot bouncing loading effect
+// Resource: https://codepen.io/danielmorosan/pen/XmYBVx
 
 export default function LoadingThreeDots({
     color = "var(--themeP)",
     disableTxt = true,
+    filterColor, // drop-shadow(0.001em 0.1em 0.1em grey)
 }) {
     return (
-        <section className="container-center">
+        <section className="three-dots container-center">
             <main className="loading-container">
                 {!disableTxt && <h2 className="main-font">Carregando</h2>}
                 <div className="spinner">
-                    <div className="bounce1"></div>
-                    <div className="bounce2"></div>
-                    <div className="bounce3"></div>
+                    <div className="bounce1" />
+                    <div className="bounce2" />
+                    <div className="bounce3" />
                 </div>
             </main>
             <style jsx>
                 {`
-                    .loading-container {
+                    .three-dots .loading-container {
                         display: flex;
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
-                        margin-top: 40px;
                     }
 
-                    .spinner {
+                    .three-dots .spinner {
                         display: flex;
                         flex-flow: row no-wrap;
                         //margin: 100px auto 0;
                         width: 100%;
                         text-align: center;
-                        filter: drop-shadow(0.001em 0.1em 0.1em grey);
+                        filter: ${filterColor || "none"};
                     }
 
-                    .spinner > div {
+                    .three-dots .spinner > div {
                         margin: 7px;
                         width: 9px;
                         height: 9px;
@@ -44,11 +44,11 @@ export default function LoadingThreeDots({
                         animation: bounceDots 1.4s infinite ease-in-out both;
                     }
 
-                    .spinner .bounce1 {
+                    .three-dots .spinner .bounce1 {
                         animation-delay: -0.32s;
                     }
 
-                    .spinner .bounce2 {
+                    .three-dots .spinner .bounce2 {
                         animation-delay: -0.16s;
                     }
 
@@ -66,11 +66,11 @@ export default function LoadingThreeDots({
             </style>
             <style jsx>
                 {`
-                    .loading-container {
+                    .three-dots .loading-container {
                         color: ${color};
                     }
 
-                    .spinner > div {
+                    .three-dots .spinner > div {
                         background-color: ${color || "#333"};
                     }
                 `}

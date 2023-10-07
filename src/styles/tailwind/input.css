@@ -1,0 +1,34 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+/* REUSABLE CLASSES EXTRACTIONS - only highly used classes here
+Why?
+You have to think up class names all the time — nothing will slow you down or drain your energy like coming up with a class name for something that doesn’t deserve to be named.
+You have to jump between multiple files to make changes — which is a way bigger workflow killer than you’d think before co-locating everything together.
+Changing styles is scarier — CSS is global, are you sure you can change the min-width value in that class without breaking something in another part of the site?
+Your CSS bundle will be bigger — oof.
+*/
+
+@layer components {
+    .container-center {
+        @apply flex justify-center items-center;
+    }
+
+    .text-title {
+        @apply text-2xl text-blue-900 font-bold;
+    }
+
+    .text-subtitle {
+        @apply text-lg text-gray-500;
+    }
+
+    .text-main, .text-normal {
+        @apply text-lg text-blue-900;
+    }
+
+    .absolute-center {
+        @apply left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    }
+}

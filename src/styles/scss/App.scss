@@ -1,0 +1,65 @@
+@import "theming/core";
+@import "typography/core";
+
+//  preventing horizontal scrolling
+// html, body {
+//     max-width: 100%;
+//     overflow-x: hidden;
+// }
+
+// body, html {
+//     position: relative !important;
+//     margin: 0 !important;
+//     overflow-x: hidden !important;
+//     overscroll-behavior-y: none !important;
+// }
+
+// SITE FONT
+body, h1, h2, h3, h4, h5, h6, p, span, * {
+    font-family: var(--mainFont);
+}
+
+// prevent user selection in any part of interface
+* {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+//CUSTOM SCROLLBAR
+::-webkit-scrollbar {
+    cursor: pointer;
+    overflow: hidden !important;
+    -webkit-appearance: none;
+    width: 0px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: transparent; // prior: rgba(0, 0, 0, 0.1)
+    -webkit-box-shadow: transparent;
+}
+
+@media only screen and (min-width: 768px) {
+    ::-webkit-scrollbar {
+        overflow: visible !important;
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--themeP);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
+}
+// END CUSTOM SCROLLBAR
+
+.img-center {
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+}
+
+@media only screen and (min-width: 500px) {
+    .img-center {
+        max-width: 500px;
+    }
+}

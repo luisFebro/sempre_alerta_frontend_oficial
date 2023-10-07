@@ -1,33 +1,75 @@
 {
   "name": "test_sempre_alerta_front",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "cypress:open": "cypress open",
+    "build:tailwind": "tailwindcss -i ./src/styles/tailwind/input.css -o ./src/styles/tailwind/output.css --env production",
+    "watch:tailwind": "tailwindcss -i ./src/styles/tailwind/input.css -o ./src/styles/tailwind/output.css --watch",
+    "start:react": "react-scripts start",
+    "start": "npm-run-all -p watch:tailwind start:react",
+    "build": "CI=false && npm run build:tailwind && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "npm:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.13",
-    "@mui/icons-material": "^5.14.9",
+    "@fortawesome/react-fontawesome": "^0.1.19",
+    "@material-tailwind/react": "^0.3.4",
+    "@material-ui/pickers": "^3.3.10",
+    "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
     "@mui/styles": "^5.10.10",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.40.0",
-    "eslint-config-next": "13.4.2",
-    "html-react-parser": "^4.2.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^1.1.3",
+    "chart.js": "^2.9.4",
+    "date-fns": "^2.29.3",
+    "html-react-parser": "^3.0.4",
+    "localforage": "^1.10.0",
     "nanoid": "^3.1.20",
-    "next": "13.4.2",
-    "postcss": "8.4.23",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.68.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.6.0",
+    "react-loadable": "^5.5.0",
+    "react-loadable-visibility": "^3.0.2",
+    "react-router-dom": "^6.4.2",
+    "react-scripts": "^5.0.1",
     "socket.io-client": "^4.4.0",
-    "tailwindcss": "3.3.2"
+    "web-vitals": "^1.0.1",
+    "zenscroll": "^4.0.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "autoprefixer": "^10.2.5",
+    "cypress": "^12.0.2",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.13",
+    "postcss-cli": "^8.3.1",
+    "sass": "^1.55.0",
+    "tailwindcss": "^3.1.8"
   }
 }
