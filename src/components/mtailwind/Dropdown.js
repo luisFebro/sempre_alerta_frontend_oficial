@@ -76,8 +76,8 @@ export default function Dropdown() {
                 >
                     <img
                         src="/img/profile/avatar.svg"
-                        height="100"
-                        width="100"
+                        height="50"
+                        width="50"
                         className="rounded-full  max-w-full h-auto align-middle border-none undefined"
                     />
                     <p className="mt-1 text-white text-small text-center">

@@ -9,20 +9,6 @@ export const login = () => `${ROOT}/auth/login`; // POST
 export const loadDataInit = () => `${ROOT}/auth/load-user/init`; // POST
 // export const checkValidSession = () => `${ROOT}/auth/session-check`;
 
-// PUSH NOTIFICATIONS
-export const sendPushNotification = () => `${ROOT}/notif/send`;
-
-// GEO
-export const getGeoAutocompleteList = ({ base, segment }) =>
-    `${ROOT}/geo/autocomplete?limit=20&base=${base}&segment=${segment}`;
-
-// COMMUNICATION
-export const readMediaList = () => `${ROOT}/communication/media-list/read`; // GET
-export const updateMediaList = () => `${ROOT}/communication/media-list/update`; // POST
-
-// MEDIA
-export const setMediaProvider = () => `${ROOT}/media/provider`; // POST
-
 // export const uploadImages = (fileName) =>
 //     `${ROOT}/media/image/upload?fileName=${fileName}`; // POST
 // export const updateImages = (userId) =>

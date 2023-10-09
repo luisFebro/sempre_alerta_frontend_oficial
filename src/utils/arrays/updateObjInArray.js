@@ -1,11 +1,12 @@
 import isObj from "utils/isObj";
+import setUniqueObjsArray from "./setUniqueObjsArray";
 
 // INSTRUCTION
 // add or update unique objs in an array.
 // new data can be either an obj or array
 // newData replaces the found id in the arr.
 // if mergeNewData, the newData will be merged with current id in the arr instead of replace it altogether.
-function updateUniqueObjsInArray(mainArr = [], newData, options = {}) {
+export default function updateObjInArray(mainArr = [], newData, options = {}) {
     const { filterId = "id", mergeNewData = true } = options;
 
     // VALIDATION
@@ -26,7 +27,7 @@ function updateUniqueObjsInArray(mainArr = [], newData, options = {}) {
         const finalList = !newData ? mainArr : shapedArray;
 
         // merge data from objects by id
-        const finalResult = filterUniqueObjsArray(
+        const finalResult = setUniqueObjsArray(
             finalList.map((elem1) => ({
                 ...elem1,
                 ...newDataList.find(
@@ -44,18 +45,10 @@ function updateUniqueObjsInArray(mainArr = [], newData, options = {}) {
         : [...newData, ...mainArr];
     const finalList = !newData ? mainArr : shapedArray;
 
-    return filterUniqueObjsArray(finalList, filterId) || [];
+    return setUniqueObjsArray(finalList, filterId) || [];
 }
 
 // HELPERS
-function filterUniqueObjsArray(list, filterId) {
-    return list.filter(
-        (val, ind, selfArr) =>
-            selfArr.findIndex((t) => t[filterId] === val[filterId]) === ind
-    );
-}
-
-export default updateUniqueObjsInArray;
 
 // TEST ZONE
 // function isObj(value, options = {}) {

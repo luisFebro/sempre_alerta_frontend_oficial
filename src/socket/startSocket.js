@@ -3,33 +3,37 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import showToast from "components/toasts";
+import { emitJoinRoom } from "./emits";
+import { listenSocketEvents } from "./listens";
 
-export function useInitSocket({ namespace }) {
+export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
     // LESSON: always use useEffect to initialize methods like io(). It was bugging aorund with many requests and preventing using broadcast.imit to exclude the sender
     const [socketData, setSocketData] = useState(null);
 
     useEffect(() => {
-        const socket = getInitSocket({ namespace });
-        startInitialListeners(socket);
+        const socket = getInitSocket();
+        listenSocketEvents(socket);
 
-        // start room
-        const roomData = {
-            roomIdList: ["central", "school1", "school2"],
-            userId: "FebroFromDashboard",
-            origin: "dashboard",
-        };
-
-        socket.emit("joinRoom", roomData);
+        emitJoinRoom(socket, userId, roomIdList);
 
         return setSocketData(socket);
         // eslint-disable-next-line
-    }, [namespace]);
+    }, [roomIdList]);
 
     return socketData;
 }
 
+export function useConnectSocket(socket, focusScreenId) {
+    const isSocketAvailable = socket != null;
+
+    useEffect(() => {
+        if (!socket) return;
+        if (socket.disconnected) socket.connect();
+    }, [focusScreenId, isSocketAvailable]);
+}
+
 // HELPERS
-export default function getInitSocket({ namespace, data }) {
+export default function getInitSocket() {
     // every namespace should includes nsp before the actual name. e.g nspApp
     const SOCKET_URI =
         "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/nspApp";
@@ -47,28 +51,6 @@ export default function getInitSocket({ namespace, data }) {
     });
 
     return socket;
-}
-
-function startInitialListeners(socket) {
-    socket.onAny((event, ...args) => {
-        console.log(`socket.onAny: ${event}`, args);
-    });
-
-    socket.on(
-        "connect",
-        () => console.log(`connected!`) // : ${JSON.stringify(socket.args)}
-    );
-
-    socket.on("connect_error", (err) => {
-        console.log("socket connect_err", err);
-        if (err.message === "missing required data") {
-            showToast("ocorreu um erro ao conectar com socket.io");
-        }
-
-        if (err.message === "xhr post error") {
-            // removeItems("global", ["chatRoomId", "chatUserId"])
-        }
-    });
 }
 
 /* COMMENTS

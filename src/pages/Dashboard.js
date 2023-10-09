@@ -6,89 +6,71 @@ import StatusCard from "components/StatusCard";
 import { useGlobalContext } from "context/Context";
 import { useReadUI } from "init/useData";
 import { useMemo, useEffect, useState } from "react";
-import { useInitSocket } from "socket/startSocket";
+import { useConnectSocket, useInitSocket } from "socket/startSocket";
 import watchWindowFocus from "utils/window/watchWindowFocus";
-import AlertsMain from "./alerts/AlertsMain";
 import "./style_home.css";
+import showToast from "components/toasts/showToast";
+import AnimatedRankingList from "./alerts/alerts_list/AnimatedRankingList";
 
 export default function Dashboard() {
     const { uify } = useGlobalContext();
 
     const [data, setData] = useState({
-        totalOnlineUsersCount: "...",
+        alertMsg: "",
     });
-    const { totalOnlineUsersCount } = data;
+    const { alertMsg } = data;
 
-    const { userId, role } = useReadUI("profile");
+    const {
+        userId = "johndoe@gmail.com",
+        userDisplayName = "John Doe",
+        role,
+    } = useReadUI("profile");
     const globalData = useReadUI("global");
-    const { roomId } = globalData;
+    const { roomId = "central" } = globalData;
+
+    // TEST (on)
+    // dbList is loaded every time user loads the page (read only)
+    // only update in backend.
+    const dbList = [
+        {
+            alertId: "4:031023:04gdfsgds2652",
+            userId: "johndow@gmail.com",
+            userDisplayName: "John Doe",
+            userType: "equipe",
+            alertStatus: "finished",
+            utcDate: new Date(),
+        },
+    ];
 
     // update socket when user focusing.
     const focusScreenId = globalData.screenId;
-
-    const filter = useMemo(
-        () => ({
-            roomId: globalData.roomId,
-        }),
-        [globalData.roomId]
-    );
-
-    const socket = useInitSocket({
-        namespace: "nspApp",
-    });
 
     // eslint-disable-next-line
     const setUify = useMemo(() => uify, []);
 
     useEffect(() => {
         // init main dashboard data
-        loadInit(setUify);
+
+        // loadInit(setUify);
+
         watchWindowFocus(setUify);
     }, [setUify]);
 
     // MAIN SOCKET CONNECTION
-    useEffect(() => {
-        if (!socket || !userId || !filter.base) return;
-        if (socket.disconnected) socket.connect();
+    const socket = useInitSocket({
+        userId,
+        roomIdList: globalData.roomIdList,
+    });
+    useConnectSocket(socket, focusScreenId);
+    // END MAIN SOCKET CONNECTION
 
-        // handling server socket data
-        // populate init data
-        const roomData = {
-            userId,
-            roomId,
-            // roomIdList is every registered base list
-            roomIdList: globalData.roomIdList,
-            role,
-            origin: "dashboard",
-        };
-
-        socket.emit("joinRoom", roomData);
-        socket.emit("dashboardData", { filter });
-
-        // REAL TIME DATA UPDATING
-        socket.on("startEmergency", (options = {}) => {
-            const updatingData = options.updatingData;
-
-            // setData((prev) => ({
-            //     ...prev,
-            //     allConnectStatusChangeId: `connChange_${getId()}`, // set randomId to change list data in every change
-            //     allConnectStatusChangeList: updateUniqueObjsInArray(
-            //         prev.allConnectStatusChangeList,
-            //         updatingData,
-            //         { filterId: "userId" }
-            //     ),
-            // }));
-        });
-        // END REAL TIME DATA UPDATING
-
-        // return () => {
-        //     socket.disconnect();
-        //     socket.off("joinRoom");
-        //     socket.off("dashboardData");
-        // };
-    }, [focusScreenId, socket, role, roomId, userId, filter]);
-
-    const realTimeData = {};
+    const dataList = {
+        dbList,
+        userId,
+        roomId,
+        userDisplayName,
+        socket,
+    };
 
     return (
         <>
@@ -127,11 +109,7 @@ export default function Dashboard() {
                     title="Histórico de Alertas"
                     desc="Usuários que acionaram o alerta SOS"
                 />
-                <AlertsMain
-                    markerListDb={null}
-                    isLoadingDb={null}
-                    {...realTimeData}
-                />
+                <AnimatedRankingList {...dataList} />
             </section>
         </>
     );

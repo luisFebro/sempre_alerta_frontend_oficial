@@ -43,21 +43,23 @@ export default function AnimatedRankingItems(props) {
 
                 // n1 - Window.requestAnimationFrame();
                 // TEST TEMP - GLITCHING WITH REAL TIME
-                if (!newData.isNewElement) return;
+                // if (!newData.isNewElement) return;
                 requestAnimationFrame(() => {
                     const child = container.children[newData.index];
-                    child.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
-                    child.style.transition = "all 0s";
+                    if (child) {
+                        child.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+                        child.style.transition = "all 0s";
 
-                    if (newData.isNewElement) child.style.opacity = "0";
+                        if (newData.isNewElement) child.style.opacity = "0";
 
-                    requestAnimationFrame(() => {
-                        child.style.transition = "all 0.5s";
-                        child.style.transform = "translate3d(0, 0, 0)";
-                        if (newData.isNewElement) {
-                            child.style.opacity = "1";
-                        }
-                    });
+                        requestAnimationFrame(() => {
+                            child.style.transition = "all 0.5s";
+                            child.style.transform = "translate3d(0, 0, 0)";
+                            if (newData.isNewElement) {
+                                child.style.opacity = "1";
+                            }
+                        });
+                    }
                 });
             });
 

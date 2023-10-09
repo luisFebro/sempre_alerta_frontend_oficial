@@ -20,7 +20,7 @@ export default function MainBtn({
                 size={size}
                 className="py-2.5 px-2.5"
                 onClick={onClick}
-                style={{ background: "var(--themeSLight)" }}
+                style={{ background: "var(--themeSDark)" }}
             >
                 <span className="text-shadow text-sm">{title}</span>
                 {Icon && (
