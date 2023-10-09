@@ -38,7 +38,7 @@ export default function Dashboard() {
             userDisplayName: "John Doe",
             userType: "equipe",
             alertStatus: "finished",
-            utcDate: new Date(),
+            utcDate: "2023-10-09T04:15:52.315Z",
         },
     ];
 

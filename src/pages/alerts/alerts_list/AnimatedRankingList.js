@@ -2,7 +2,7 @@ import MainBtn from "components/btns/MainBtn";
 import useRun from "global-data/ui";
 import { setRun, useUify } from "global-data/ui";
 import { useEffect, useState } from "react";
-import { fromNow } from "utils/dates/dateFns";
+import { calendar } from "utils/dates/dateFns";
 import sortDatesFront from "utils/dates/sortDatesFront";
 import scrollIntoView from "utils/document/scrollIntoView";
 import FilterIcon from "@mui/icons-material/FilterAlt";
@@ -42,7 +42,8 @@ export default function AnimatedRankingList({
     };
 
     useEffect(() => {
-        if (alertMsg) showToast(alertMsg, { type: "error", dur: 60 * 60 * 60 });
+        if (alertMsg)
+            showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
     }, [alertMsg]);
 
     useEffect(() => {
@@ -115,7 +116,7 @@ export default function AnimatedRankingList({
                                 data-key={item.alertId}
                                 className="relative overflow-hidden item flex-col lg:flex-row lg:max-w-3xl px-[20px] py-[10px] lg:py-[32px] lg:px-[45px]"
                             >
-                                <section className="absolute top-0 left-10  pt-1 text-sm font-bold text-gray-600">
+                                <section className="absolute top-0 left-2.5  pt-1 text-sm font-bold text-gray-600">
                                     ID ALERTA:{" "}
                                     <span className="font-thin">
                                         {item.alertId}
@@ -132,15 +133,15 @@ export default function AnimatedRankingList({
                                 </div>
                                 <div className="lg:flex-[30%] lg:justify-center">
                                     <strong className="text-normal">
-                                        Alertou em:
+                                        Alertou:
                                     </strong>
                                     <br />{" "}
                                     {Boolean(item.utcDate)
-                                        ? fromNow(item.utcDate)
+                                        ? calendar(item.utcDate)
                                         : "sem data"}
                                 </div>
                                 <div className="lg:flex-[40%] self-center mt-5 lg:mt-0">
-                                    <div className="flex list-center items-center">
+                                    <div className="flex list-center items-center justify-center">
                                         <section className="relative">
                                             <img
                                                 src={getIcon(item.alertStatus)}
@@ -149,7 +150,9 @@ export default function AnimatedRankingList({
                                             />
                                         </section>
                                         {(item.alertStatus === "requested" ||
-                                            item.alertStatus === "pending") && (
+                                            item.alertStatus.includes(
+                                                "pending"
+                                            )) && (
                                             <MainBtn
                                                 title={handleCTATitle(
                                                     item.alertStatus
