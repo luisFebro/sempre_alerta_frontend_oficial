@@ -39,11 +39,13 @@ export default function Dashboard() {
             userType: "equipe",
             alertStatus: "finished",
             utcDate: "2023-10-09T04:15:52.315Z",
+            sosRequested: false,
         },
     ];
 
-    // update socket when user focusing.
+    // update socket when user is focusing.
     const focusScreenId = globalData.screenId;
+    console.log("focusScreenId: " + focusScreenId);
 
     // eslint-disable-next-line
     const setUify = useMemo(() => uify, []);
@@ -109,7 +111,10 @@ export default function Dashboard() {
                     title="Histórico de Alertas"
                     desc="Usuários que acionaram o alerta SOS"
                 />
-                <AnimatedRankingList {...dataList} />
+                <AnimatedRankingList
+                    dataList={dataList}
+                    focusScreenId={focusScreenId}
+                />
             </section>
         </>
     );

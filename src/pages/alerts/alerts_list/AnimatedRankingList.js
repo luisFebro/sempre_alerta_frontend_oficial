@@ -8,20 +8,20 @@ import scrollIntoView from "utils/document/scrollIntoView";
 import FilterIcon from "@mui/icons-material/FilterAlt";
 import showToast from "components/toasts/showToast";
 import { Icon } from "@material-tailwind/react";
-import { emitFinishEmergencyDashboard } from "socket/emits";
+import {
+    emitConfirmEmergency,
+    emitFinishEmergencyDashboard,
+} from "socket/emits";
 import AnimatedRankingItems from "./AnimatedRankingItems";
 import {
     listenStartEmergencyDashboard,
     listenUpdateEmergencyStage,
 } from "socket/listens";
+import { updateItem } from "./itemMethods";
 
-export default function AnimatedRankingList({
-    dbList,
-    userId,
-    roomId,
-    userDisplayName,
-    socket,
-}) {
+export default function AnimatedRankingList({ dataList, focusScreenId }) {
+    const { dbList, userId, roomId, userDisplayName, socket } = dataList;
+
     const { runObj = {} } = useRun();
 
     const [data, setData] = useState({
@@ -36,10 +36,6 @@ export default function AnimatedRankingList({
     const isPlural = listCount > 1;
 
     const gotlist = Boolean(list.length);
-
-    const handleCTATitle = (status) => {
-        return status === "requested" ? "finalizar" : "confirmar";
-    };
 
     useEffect(() => {
         if (alertMsg)
@@ -68,20 +64,57 @@ export default function AnimatedRankingList({
         setData((prev) => ({
             ...prev,
             list: prev.list,
+            updateListId: focusScreenId,
         }));
-    }, [updateListId]);
+    }, [focusScreenId]);
+
+    const confirmEmergency = (alertId) => {
+        if (!socket)
+            return console.log(
+                "Socket.io not ready. Maybe you rushed up too early to click on this btn"
+            );
+
+        const updatedItem = {
+            alertId,
+            sosRequested: null,
+        };
+
+        updateItem(updatedItem, setData);
+
+        const cb = (response) => {
+            const updatedItem = {
+                alertId: response.alertId,
+                sosRequested: true,
+            };
+
+            updateItem(updatedItem, setData);
+        };
+
+        emitConfirmEmergency(
+            socket,
+            {
+                origin: "dashboard",
+                userType: "admin",
+                alertId,
+                userDisplayName,
+                userId,
+                roomId,
+            },
+            cb
+        );
+    };
 
     const finishEmergency = (alertId) => {
         if (!socket)
             return console.log(
-                "Socket.io not ready. Maybe you rush up too early to click on this btn"
+                "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
         emitFinishEmergencyDashboard(socket, {
             alertId,
+            userDisplayName,
             userId,
             roomId,
-            msg: `Alerta SOS com ID ${alertId} foi marcada como concluída pelo admin ${userDisplayName}.`,
         });
     };
 
@@ -142,28 +175,50 @@ export default function AnimatedRankingList({
                                 </div>
                                 <div className="lg:flex-[40%] self-center mt-5 lg:mt-0">
                                     <div className="flex list-center items-center justify-center">
-                                        <section className="relative">
-                                            <img
-                                                src={getIcon(item.alertStatus)}
-                                                width="80px"
-                                                height="80px"
-                                            />
-                                        </section>
-                                        {(item.alertStatus === "requested" ||
+                                        {item.sosRequested !== null && (
+                                            <section className="relative">
+                                                <img
+                                                    src={getIcon(
+                                                        item.alertStatus
+                                                    )}
+                                                    width="80px"
+                                                    height="80px"
+                                                />
+                                            </section>
+                                        )}
+
+                                        {item.sosRequested !== null &&
                                             item.alertStatus.includes(
                                                 "pending"
-                                            )) && (
-                                            <MainBtn
-                                                title={handleCTATitle(
-                                                    item.alertStatus
-                                                )}
-                                                onClick={() =>
-                                                    finishEmergency(
-                                                        item.alertId
-                                                    )
-                                                }
-                                            />
+                                            ) && (
+                                                <MainBtn
+                                                    title="confirmar"
+                                                    onClick={() =>
+                                                        confirmEmergency(
+                                                            item.alertId
+                                                        )
+                                                    }
+                                                />
+                                            )}
+
+                                        {item.sosRequested === null && (
+                                            <p className="text-normal font-bold">
+                                                Aguardando confirmação...
+                                            </p>
                                         )}
+
+                                        {item.sosRequested &&
+                                            item.alertStatus ===
+                                                "requested" && (
+                                                <MainBtn
+                                                    title="finalizar"
+                                                    onClick={() =>
+                                                        finishEmergency(
+                                                            item.alertId
+                                                        )
+                                                    }
+                                                />
+                                            )}
                                     </div>
                                 </div>
                             </section>

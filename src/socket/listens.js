@@ -7,12 +7,13 @@ export function listenSocketEvents(socket) {
 
     socket.on(
         "connect",
-        () => console.log(`socket is connected!`) // : ${JSON.stringify(socket.args)}
+        () => console.log(`socket.io is CONNECTED!`) // : ${JSON.stringify(socket.args)}
     );
 
+    socket.on("disconnect", () => console.log("socket.io is DISCONNECTED!"));
+
     socket.on("connect_error", (err) => {
-        0;
-        console.log("socket connect_err", err);
+        console.log("socket.io connect_err", err);
         if (err.message === "missing required data") {
             showToast("ocorreu um erro ao conectar com socket.io");
         }
@@ -28,7 +29,7 @@ export function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
         setData((prev) => ({
             ...prev,
-            alertMsg: options.msg,
+            alertMsg: `Usuário ${options.userDisplayName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
         }));
 
         const newItem = {
@@ -36,7 +37,7 @@ export function listenStartEmergencyDashboard(socket, setData) {
             userId: options.userId,
             userDisplayName: options.userDisplayName,
             userType: options.userType,
-            alertStatus: options.alertStatus,
+            alertStatus: "pending_notify",
             utcDate: options.utcDate,
         };
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import showToast from "components/toasts";
@@ -36,7 +34,7 @@ export function useConnectSocket(socket, focusScreenId) {
 export default function getInitSocket() {
     // every namespace should includes nsp before the actual name. e.g nspApp
     const SOCKET_URI =
-        "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/nspApp";
+        "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/socket/nspApp";
 
     const socket = io(SOCKET_URI, {
         reconnection: true,

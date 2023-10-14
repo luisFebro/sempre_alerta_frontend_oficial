@@ -1,7 +1,7 @@
 export function emitJoinRoom(
     socket,
     userId,
-    roomIdList = ["central", "school1", "school2"]
+    roomIdList = ["central", "central-teste"]
 ) {
     const roomData = {
         userId,
@@ -10,6 +10,10 @@ export function emitJoinRoom(
     };
 
     socket.emit("joinRoom", roomData);
+}
+
+export function emitConfirmEmergency(socket, data, cb) {
+    socket.emit("confirmEmergency", data, cb);
 }
 
 export function emitFinishEmergencyDashboard(socket, data) {
