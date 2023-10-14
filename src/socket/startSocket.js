@@ -14,7 +14,10 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
 
         emitJoinRoom(socket, userId, roomIdList);
 
-        return setSocketData(socket);
+        setSocketData(socket);
+        return () => {
+            socket.disconnect();
+        };
         // eslint-disable-next-line
     }, [roomIdList]);
 

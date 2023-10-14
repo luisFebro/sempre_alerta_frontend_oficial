@@ -1,28 +1,20 @@
-import MainBtn from "components/btns/MainBtn";
-import useRun from "global-data/ui";
-import { setRun, useUify } from "global-data/ui";
+import { useUify } from "global-data/ui";
 import { useEffect, useState } from "react";
 import { calendar } from "utils/dates/dateFns";
 import sortDatesFront from "utils/dates/sortDatesFront";
-import scrollIntoView from "utils/document/scrollIntoView";
-import FilterIcon from "@mui/icons-material/FilterAlt";
 import showToast from "components/toasts/showToast";
 import { Icon } from "@material-tailwind/react";
-import {
-    emitConfirmEmergency,
-    emitFinishEmergencyDashboard,
-} from "socket/emits";
 import AnimatedRankingItems from "./AnimatedRankingItems";
 import {
     listenStartEmergencyDashboard,
     listenUpdateEmergencyStage,
 } from "socket/listens";
-import { updateItem } from "./itemMethods";
+import ItemModalBtn from "./items/ItemModalBtns";
 
 export default function AnimatedRankingList({ dataList, focusScreenId }) {
     const { dbList, userId, roomId, userDisplayName, socket } = dataList;
 
-    const { runObj = {} } = useRun();
+    // const { runObj = {} } = useRun();
 
     const [data, setData] = useState({
         list: [],
@@ -68,56 +60,6 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
         }));
     }, [focusScreenId]);
 
-    const confirmEmergency = (alertId) => {
-        if (!socket)
-            return console.log(
-                "Socket.io not ready. Maybe you rushed up too early to click on this btn"
-            );
-
-        const updatedItem = {
-            alertId,
-            sosRequested: null,
-        };
-
-        updateItem(updatedItem, setData);
-
-        const cb = (response) => {
-            const updatedItem = {
-                alertId: response.alertId,
-                sosRequested: true,
-            };
-
-            updateItem(updatedItem, setData);
-        };
-
-        emitConfirmEmergency(
-            socket,
-            {
-                origin: "dashboard",
-                userType: "admin",
-                alertId,
-                userDisplayName,
-                userId,
-                roomId,
-            },
-            cb
-        );
-    };
-
-    const finishEmergency = (alertId) => {
-        if (!socket)
-            return console.log(
-                "Socket.io not ready. Maybe you rushed up too early to click on this btn"
-            );
-
-        emitFinishEmergencyDashboard(socket, {
-            alertId,
-            userDisplayName,
-            userId,
-            roomId,
-        });
-    };
-
     const getIcon = (connStatus) => {
         if (connStatus.includes("pending"))
             return "/img/siren_status/siren_history_pending.png";
@@ -136,6 +78,12 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
             {isPlural ? "alertas" : "alerta"}
         </section>
     );
+
+    const dataModalBtns = {
+        userDisplayName,
+        userId,
+        roomId,
+    };
 
     return (
         <section className="mx-3 my-[200px]">
@@ -191,13 +139,12 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                             item.alertStatus.includes(
                                                 "pending"
                                             ) && (
-                                                <MainBtn
-                                                    title="confirmar"
-                                                    onClick={() =>
-                                                        confirmEmergency(
-                                                            item.alertId
-                                                        )
-                                                    }
+                                                <ItemModalBtn
+                                                    type="confirm"
+                                                    alertId={item.alertId}
+                                                    socket={socket}
+                                                    data={dataModalBtns}
+                                                    setData={setData}
                                                 />
                                             )}
 
@@ -210,13 +157,12 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         {item.sosRequested &&
                                             item.alertStatus ===
                                                 "requested" && (
-                                                <MainBtn
-                                                    title="finalizar"
-                                                    onClick={() =>
-                                                        finishEmergency(
-                                                            item.alertId
-                                                        )
-                                                    }
+                                                <ItemModalBtn
+                                                    type="finish"
+                                                    alertId={item.alertId}
+                                                    socket={socket}
+                                                    data={dataModalBtns}
+                                                    setData={setData}
                                                 />
                                             )}
                                     </div>

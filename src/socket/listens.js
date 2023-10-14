@@ -1,4 +1,7 @@
-import { addItem, updateItem } from "pages/alerts/alerts_list/itemMethods";
+import {
+    addItem,
+    updateItem,
+} from "pages/alerts/alerts_list/items/itemMethods";
 
 export function listenSocketEvents(socket) {
     socket.onAny((event, ...args) => {
@@ -13,7 +16,7 @@ export function listenSocketEvents(socket) {
     socket.on("disconnect", () => console.log("socket.io is DISCONNECTED!"));
 
     socket.on("connect_error", (err) => {
-        console.log("socket.io connect_err", err);
+        console.log("socket.io connect_err", err && err.message);
         if (err.message === "missing required data") {
             showToast("ocorreu um erro ao conectar com socket.io");
         }

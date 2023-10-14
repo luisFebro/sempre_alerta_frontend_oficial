@@ -903,6 +903,10 @@ video {
   margin-bottom: 4rem;
 }
 
+.mb-36 {
+  margin-bottom: 9rem;
+}
+
 .block {
   display: block;
 }
