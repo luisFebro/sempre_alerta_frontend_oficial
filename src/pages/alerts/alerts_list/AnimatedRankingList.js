@@ -97,7 +97,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                 data-key={item.alertId}
                                 className="relative overflow-hidden item flex-col lg:flex-row lg:max-w-3xl px-[20px] py-[10px] lg:py-[32px] lg:px-[45px]"
                             >
-                                <section className="absolute top-0 left-2.5  pt-1 text-sm font-bold text-gray-600">
+                                <section className="absolute top-0 left-2.5 text-sm font-bold bg-slate-500 text-white px-3 rounded-lg">
                                     ID ALERTA:{" "}
                                     <span className="font-thin">
                                         {item.alertId}

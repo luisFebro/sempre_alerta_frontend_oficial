@@ -80,7 +80,7 @@ export default function ItemModalBtn({
         ? "Conclusão - Alerta SOS"
         : "Confirmação - Alerta SOS";
     const subtitle = isFinished
-        ? "Se a emergência foi concluída ou resolvida, clique em SIM para avisar e arquivar o alerta SOS"
+        ? "Se a emergência foi concluída ou resolvida, clique em SIM para aviso de conclusão para os demais e marcar alerta como concluído"
         : `Para prosseguir com o protocolo de emergência, faça confirmação do alerta: <span style="font-weight:bold;">Você confirma que a emergência real?</span>`;
     const ctaFunc = isFinished ? finishEmergency : confirmEmergency;
     const ctaTitle = isFinished ? "SIM, CONCLUÍDA" : "SIM, CONFIRMO";
