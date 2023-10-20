@@ -36,8 +36,9 @@ export function useConnectSocket(socket, focusScreenId) {
 // HELPERS
 export default function getInitSocket() {
     // every namespace should includes nsp before the actual name. e.g nspApp
-    const SOCKET_URI =
-        "https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/socket/nspApp";
+    // server test: https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/socket/nspApp
+    const SOCKET_URI = "http://207.244.226.58:5001/socket/nspApp";
+    console.log("socket.io URI: " + SOCKET_URI);
 
     const socket = io(SOCKET_URI, {
         reconnection: true,

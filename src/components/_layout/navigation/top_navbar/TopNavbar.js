@@ -1,92 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { Button, Icon, NavbarInput } from "@material-tailwind/react";
-import Dropdown from "../mtailwind/Dropdown";
-import EditBtn from "./edit_btn/EditBtn";
-import { useState, useEffect } from "react";
-import { subDays, formatSlashDMY } from "utils/dates/dateFns";
-import { setItems } from "init/lStorage";
-import { updateUI, useReadUI } from "init/useData";
-import { useUify } from "global-data/ui";
+import Dropdown from "components/dropdowns/TailwindDropdown";
 
-export default function AdminNavbar({ showSidebar, setShowSidebar }) {
+export default function TopNavbar({ showSideBar, setShowSideBar }) {
     const location = useLocation().pathname;
 
-    const isSmall = window.Helper.isSmallScreen();
-    const truncate = (name, leng) => window.Helper.truncate(name, leng);
-
-    const DIFF_START_COUNT = 30;
-
-    const uify = useUify();
-    const { lists } = useReadUI("global");
-
-    const baseList = lists && lists.base;
-    const segmentList = lists && lists.segment;
-
-    const [data, setData] = useState({
-        baseList,
-        segmentList,
-        base: "",
-        segment: "",
-        // FILTER
-        period: "all",
-        // for custom date period
-        dateInit: subDays(new Date(), DIFF_START_COUNT),
-        dateEnd: new Date(),
-        diffInDays: DIFF_START_COUNT,
-    });
-    const { base, segment, period, dateInit, dateEnd, diffInDays } = data;
-
-    // making sure initial key values are stored for filter and correct display of data when there is no caching data.
-    useEffect(() => {
-        if (baseList && segmentList)
-            setData((prev) => ({
-                ...prev,
-                base: baseList[0],
-                segment: segmentList[0],
-                baseList: baseList,
-                segmentList: segmentList,
-            }));
-    }, [baseList, segmentList]);
-
-    useEffect(() => {
-        // base/segment need to be filled to properly return correct values
-        if (base === "" || segment === "") return;
-
-        const filterData = {
-            // need include base/segment to update current base in the filter
-            base,
-            segment,
-            period,
-            dateInit,
-            dateEnd,
-        };
-        updateUI("global", filterData, uify);
-    }, [base, period, segment, dateInit, dateEnd]);
-
-    const isCustomDate = period === "customDate";
-    const periodBr = period ? getPeriodBr(period) : "all";
-    const baseBr = base && base.cap();
-    const segmentBr = segment && segment.cap();
-
-    // const md = "[@media(min-width:870px)]:";
-    // RULES
-    // doensn't work on production properly
-    // 1. it requires colon declared here to run correctly
-    // 2. if there is at least one class with syntax error, all others can stop working...
-
-    const showCustomDateRange = () => {
-        return (
-            <section className="relative text-[11px] text-gray-400 m-0 p-0">
-                {formatSlashDMY(dateInit)} até {formatSlashDMY(dateEnd)}
-                <span className="block text-[11px] relative -top-1">
-                    ({diffInDays} dias)
-                </span>
-            </section>
-        );
-    };
-
-    // base only appears for technet admin since every base is limited to itself without access of other ones.
-    const showFilterBoard = () => (
+    const showInstituteBoard = () => (
         <section className="relative top-5 md:top-0">
             <section
                 className="flex bg-purple-700 rounded-lg px-2 py-2 [@media(min-width:870px)]:pb-6"
@@ -136,7 +55,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                         <div
                             className={`ml-6 md:ml-16 relative [@media(min-width:870px)]:block`}
                         >
-                            {showFilterBoard()}
+                            {showInstituteBoard()}
                         </div>
                     </div>
 
@@ -156,8 +75,8 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                                 rounded
                                 ripple="light"
                                 onClick={() =>
-                                    setShowSidebar(
-                                        showSidebar === "left-0"
+                                    setShowSideBar(
+                                        showSideBar === "left-0"
                                             ? "-left-64"
                                             : "left-0"
                                     )
@@ -168,7 +87,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                             >
                                 <Icon
                                     name={
-                                        showSidebar === "left-0"
+                                        showSideBar === "left-0"
                                             ? "close"
                                             : "menu"
                                     }
@@ -178,7 +97,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                             </Button>
                             <div
                                 className={`absolute top-2 md:hidden ${
-                                    showSidebar === "left-0"
+                                    showSideBar === "left-0"
                                         ? "left-64"
                                         : "-left-64"
                                 } z-50 transition-all duration-300`}
@@ -190,7 +109,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                                     iconOnly
                                     rounded
                                     ripple="light"
-                                    onClick={() => setShowSidebar("-left-64")}
+                                    onClick={() => setShowSideBar("-left-64")}
                                 >
                                     <Icon
                                         name="close"

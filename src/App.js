@@ -1,10 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Sidebar from "components/Sidebar";
-import Footer from "components/Footer";
 // Pages
-import Dashboard from "pages/Dashboard";
-import Users from "pages/Users";
+import Alerts from "pages/alerts/Alerts";
+import Users from "pages/users/Users";
+
+// Layouts
+import Navigation from "components/_layout/navigation/Navigation";
+import Footer from "components/_layout/Footer";
 
 // global context data
 import useGlobalApp from "global-data/useGlobalApp";
@@ -31,12 +33,12 @@ function App() {
     return (
         <BrowserRouter>
             <GlobalProvider store={store}>
-                <Sidebar />
+                <Navigation />
                 <div className="md:ml-64">
                     <Routes>
-                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/" element={<Alerts />} />
                         <Route path="/cadastros" element={<Users />} />
-                        <Route path="*" element={<Dashboard />} />
+                        <Route path="*" element={<Alerts />} />
                     </Routes>
                     <Footer />
                 </div>
@@ -46,10 +48,3 @@ function App() {
 }
 
 export default App;
-
-/*
-<Route exact path="/settings" component={Settings} />
-                        <Route exact path="/tables" component={Tables} />
-                        <Route exact path="/maps" component={Maps} />
-
-*/

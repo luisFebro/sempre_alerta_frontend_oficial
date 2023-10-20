@@ -1,7 +1,7 @@
 import { autocompleteClasses } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 
-export default function Dropdown() {
+export default function TailwindDropdown() {
     const [show, setShow] = useState(false);
 
     const wrapperRef = useRef(null);
