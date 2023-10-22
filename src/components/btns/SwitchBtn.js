@@ -50,7 +50,7 @@ export default function SwitchBtn({
     customColor,
     thisSColor = undefined,
     animationOn = true,
-    needCustomColor = false,
+    needCustomColor = true,
     needSameColor = false, // only the turn-on mode color will be displayed
     loading = false,
     disabled = false,
@@ -75,9 +75,7 @@ export default function SwitchBtn({
     const styles = getStyles({ pillStyle, pillBack });
 
     const handleClassColors = () => {
-        const defaultLightColor = needCustomColor
-            ? `var(--themeSLight--${thisSColor || sColor})`
-            : undefined;
+        const defaultLightColor = needCustomColor ? `var(--themeS)` : undefined;
 
         if (needSameColor)
             return {
@@ -146,26 +144,28 @@ export default function SwitchBtn({
     }
 
     return (
-        <section className="flex cursor-pointer" style={styles.pill}>
-            <p className="m-0 mr-2 inline-block text-normal font-bold text-purple">
+        <>
+            <p className="m-0 mr-2 block text-normal font-bold text-purple">
                 {titleQuestion}
             </p>
-            <p className={txtStyle1} onClick={setFalse}>
-                {titleLeft}
-            </p>
-            <Switch
-                classes={{
-                    switchBase: classes.switchBase,
-                    checked: classes.checked,
-                    track: classes.track,
-                }}
-                checked={checked}
-                onChange={handleChange}
-                disabled={disabled}
-            />
-            <p className={txtStyle2} onClick={setTrue}>
-                {titleRight}
-            </p>
-        </section>
+            <section className="flex cursor-pointer" style={styles.pill}>
+                <p className={txtStyle1} onClick={setFalse}>
+                    {titleLeft}
+                </p>
+                <Switch
+                    classes={{
+                        switchBase: classes.switchBase,
+                        checked: classes.checked,
+                        track: classes.track,
+                    }}
+                    checked={checked}
+                    onChange={handleChange}
+                    disabled={disabled}
+                />
+                <p className={txtStyle2} onClick={setTrue}>
+                    {titleRight}
+                </p>
+            </section>
+        </>
     );
 }

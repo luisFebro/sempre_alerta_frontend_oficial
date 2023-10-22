@@ -32,7 +32,7 @@ export default function Sidebar({ showSideBar, closeSideBar }) {
                                 end
                                 className={({ isActive }) =>
                                     isActive
-                                        ? `${activeItem} bg-gradient-to-tr from-light-yellow-500 to-light-yellow-700 text-white shadow-md`
+                                        ? `${activeItem} text-shadow bg-gradient-to-tr from-light-yellow-500 to-light-yellow-700 text-white shadow-md`
                                         : activeItem
                                 }
                                 onClick={closeSideBar}
@@ -47,7 +47,7 @@ export default function Sidebar({ showSideBar, closeSideBar }) {
                                 end
                                 className={({ isActive }) =>
                                     isActive
-                                        ? `${activeItem} bg-gradient-to-tr from-light-yellow-500 to-light-yellow-700 text-white shadow-md`
+                                        ? `${activeItem} text-shadow bg-gradient-to-tr from-light-yellow-500 to-light-yellow-700 text-white shadow-md`
                                         : activeItem
                                 }
                                 onClick={closeSideBar}

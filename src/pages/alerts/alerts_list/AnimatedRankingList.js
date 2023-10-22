@@ -79,6 +79,23 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
         </section>
     );
 
+    const showEmptyIllustration = () => (
+        <section>
+            <div className="relative -top-14 flex list-center flex-col justify-center items-center">
+                <span>
+                    <img
+                        src="/img/illustra/illustration_no_data_history.svg"
+                        width="300"
+                        height="300"
+                    />
+                </span>
+                <span className="text-title text-center text-gray-500 py-5 font-bold">
+                    Nenhum alerta
+                </span>
+            </div>
+        </section>
+    );
+
     const dataModalBtns = {
         userDisplayName,
         userId,
@@ -172,16 +189,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                     </AnimatedRankingItems>
                 </>
             ) : (
-                <section className="mt-5 text-normal">
-                    <div className="flex list-center">
-                        <span className="table">
-                            <Icon name="notifications_active" size="3xl" />{" "}
-                        </span>
-                        <span className="px-3 text-gray-500">
-                            Nenhum alerta
-                        </span>
-                    </div>
-                </section>
+                showEmptyIllustration()
             )}
             <style>{`
                 .item {

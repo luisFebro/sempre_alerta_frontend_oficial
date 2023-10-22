@@ -635,14 +635,6 @@ video {
   color: rgb(30 58 138 / var(--tw-text-opacity));
 }
 
-.absolute-center {
-  left: 50%;
-  --tw-translate-x: -50%;
-  --tw-translate-y: -50%;
-  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .visible {
   visibility: visible;
 }
@@ -667,8 +659,20 @@ video {
   top: -2rem;
 }
 
-.-top-20 {
-  top: -5rem;
+.top-32 {
+  top: 8rem;
+}
+
+.-left-64 {
+  left: -16rem;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.-top-14 {
+  top: -3.5rem;
 }
 
 .top-0 {
@@ -683,12 +687,12 @@ video {
   left: 0.5rem;
 }
 
-.-left-64 {
-  left: -16rem;
+.-top-20 {
+  top: -5rem;
 }
 
-.left-0 {
-  left: 0px;
+.-top-10 {
+  top: -2.5rem;
 }
 
 .top-5 {
@@ -715,20 +719,12 @@ video {
   left: 7rem;
 }
 
-.-top-32 {
-  top: -8rem;
+.-top-5 {
+  top: -1.25rem;
 }
 
-.top-32 {
-  top: 8rem;
-}
-
-.top-80 {
-  top: 20rem;
-}
-
-.top-40 {
-  top: 10rem;
+.-top-3 {
+  top: -0.75rem;
 }
 
 .z-50 {
@@ -761,6 +757,11 @@ video {
   margin-bottom: 1.25rem;
 }
 
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -769,11 +770,6 @@ video {
 .my-9 {
   margin-top: 2.25rem;
   margin-bottom: 2.25rem;
-}
-
-.mx-5 {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
 }
 
 .mx-3 {
@@ -811,16 +807,32 @@ video {
   margin-bottom: 4rem;
 }
 
+.mx-7 {
+  margin-left: 1.75rem;
+  margin-right: 1.75rem;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.my-7 {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
 
 .mr-2 {
   margin-right: 0.5rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
 }
 
 .mb-5 {
@@ -835,12 +847,16 @@ video {
   margin-top: 0.25rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
 
-.mt-40 {
-  margin-top: 10rem;
+.mt-96 {
+  margin-top: 24rem;
 }
 
 .-mt-24 {
@@ -919,12 +935,12 @@ video {
   height: auto;
 }
 
-.h-0 {
-  height: 0px;
-}
-
 .h-screen {
   height: 100vh;
+}
+
+.h-0 {
+  height: 0px;
 }
 
 .max-h-1 {
@@ -1009,6 +1025,10 @@ video {
   align-items: stretch;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -1052,10 +1072,6 @@ video {
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.whitespace-nowrap {
   white-space: nowrap;
 }
 
@@ -1118,6 +1134,10 @@ video {
 
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .p-2\.5 {
@@ -1186,6 +1206,11 @@ video {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 .px-\[20px\] {
@@ -1265,6 +1290,11 @@ video {
 
 .text-lg {
   font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
   line-height: 1.75rem;
 }
 
@@ -1451,6 +1481,12 @@ Changing styles is scarier — CSS is global, are you sure you can change the mi
 Your CSS bundle will be bigger — oof.
 */
 
+/* @layer utilities {
+    .btn-color {
+        @apply ;
+    }
+} */
+
 .hover\:bg-yellow-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
@@ -1482,16 +1518,8 @@ Your CSS bundle will be bigger — oof.
     top: 0px;
   }
 
-  .md\:-top-12 {
-    top: -3rem;
-  }
-
   .md\:left-0 {
     left: 0px;
-  }
-
-  .md\:-top-20 {
-    top: -5rem;
   }
 
   .md\:mx-1 {

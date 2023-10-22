@@ -5,7 +5,6 @@
     PRIMARY COLORS 
     */
 
-    /*purple 900*/
     --themeP: #1372a7;
     --themePLight: #16c5ff;
     --themePDark: #1372a7;
@@ -19,7 +18,7 @@
     --mainWhite: #ecf0f1;
 
     --mainFont: "Rubik", sans-serif; /* "Poppins", sans-serif; */ /* Quicksand */
-    --mainTxtSize: 1.125rem;
+    --mainTxtSize: 1.4rem;
     /*THEMING*/
     /*default*/
     --themeP--default: #1372a7;
@@ -41,7 +40,7 @@
 
     /*cyan (greenish-blue) a400*/
     --themeS: #b2a300; /* PRIOR #00e5ff changed for not having over brightness with a lighter shade as in buttons */
-    --themeSLight: #b937f5; /* prior: #7c43bd */;
+    --themeSLight: #b2a300; /* prior: #b937f5 */;
     --themeSDark: #b2a300;
     --themeBackground--secondary: #b2a300;
 
@@ -53,15 +52,6 @@
     --connecting: #E1D509;
     --disconnected: #ff9999;
     --init: #cad3c8;
-
-    /*
-        CONNECTION TXT COLORS
-    */
-
-    --connectedTxt: green;
-    --connectingTxt: var(--darkYellow);
-    --disconnectedTxt: var(--expenseRed);
-    --initConnectTxt: #5a5e5a;
 
 
     /*Secondary colors are best to accent select parts of your UI.:

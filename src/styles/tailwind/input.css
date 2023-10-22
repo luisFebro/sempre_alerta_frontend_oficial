@@ -10,6 +10,11 @@ You have to jump between multiple files to make changes — which is a way bigge
 Changing styles is scarier — CSS is global, are you sure you can change the min-width value in that class without breaking something in another part of the site?
 Your CSS bundle will be bigger — oof.
 */
+/* @layer utilities {
+    .btn-color {
+        @apply ;
+    }
+} */
 
 @layer components {
     .container-center {

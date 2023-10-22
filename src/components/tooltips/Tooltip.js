@@ -49,7 +49,7 @@ export default function Tooltip({
     hover = false,
     arrowBottom,
     disabled = false,
-    disablePortal = false, // need to be true to work in a modal
+    disablePortal = true, // need to be true to work in a modal
     disableTouchListener = true,
     // needClickAway = true,
 }) {

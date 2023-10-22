@@ -2,14 +2,15 @@ import { useCallback } from "react";
 import TextField from "@mui/material/TextField";
 import debounce from "utils/performance/debounce";
 import { handleEnterPress, handleOnChange } from "./helpers/index";
-import { Box } from "@mui/material";
+import { Box, InputAdornment, imageListClasses } from "@mui/material";
+import { Email } from "@mui/icons-material";
 
 // Warning: use a <form></form> wrapper to a group or even an individual field.
 // TextField is simply rendered as a raw <input /> tag
 
 export default function Field({
     id,
-    label = "Label",
+    label,
     size = "medium",
     textAlign = "text-left",
     name,
@@ -30,7 +31,9 @@ export default function Field({
     zIndex = 0,
     maxLength,
     maxWitdth = 500,
-    classNameRoot = "px-2 md:px-5",
+    classNameRoot = "", // px-2 md:px-5
+    FieldIcon,
+    callbackEventOnly = false,
 }) {
     //
     if (!name) throw new Error("it requires to pass name and value params");
@@ -43,6 +46,14 @@ export default function Field({
 
     // do not use a () => for debounce. If not function, it will return nothing only.
     const handler = useCallback(debounce(debounceCallback), []);
+
+    const getInputProps = FieldIcon
+        ? {
+              startAdornment: (
+                  <InputAdornment position="start">{FieldIcon}</InputAdornment>
+              ),
+          }
+        : undefined;
 
     return (
         <div className={`single-field--root field ${classNameRoot}`}>
@@ -66,6 +77,7 @@ export default function Field({
                     value={value}
                     variant={variant}
                     onChange={(e) => {
+                        if (callbackEventOnly) return onChangeCallback(e);
                         handleOnChange(e, onChangeCallback);
                         if (debounceCallback) handler();
                     }}
@@ -76,8 +88,11 @@ export default function Field({
                     autoComplete={autoComplete}
                     multiline={multiline}
                     rows={multiline ? rows : undefined}
-                    maxLength={maxLength}
+                    inputProps={{
+                        maxLength: maxLength,
+                    }}
                     autoFocus={autoFocus}
+                    InputProps={getInputProps}
                 />
             </Box>
             <style jsx>

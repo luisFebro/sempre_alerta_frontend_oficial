@@ -1,9 +1,12 @@
-export default function validatePhone(phone) { // n1
-    const regEx = /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/
+// landline = telefone fixo
+export default function validateLandlineAndMobilePhone(phone) {
+    // n1
+    const regEx = /^\([1-9]{2}\) (?:[2-8]|9[0-9])[0-9]{3}\-[0-9]{4}$/;
     return regEx.test(phone);
 }
 
 // reference: https://pt.stackoverflow.com/questions/46672/como-fazer-uma-express%C3%A3o-regular-para-telefone-celular
+// https://pt.stackoverflow.com/posts/46676/revisions
 /*
 n1:
 ^ - Início da string.

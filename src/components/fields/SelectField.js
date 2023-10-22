@@ -18,7 +18,7 @@ valuesArray={[
 
 // warning: if inside a modal, verify the zIndex in case of not appearing the popup menu. set needIndex={false} to ModalFullContent if this is the case...;
 export default function SelectField({
-    id,
+    id = "selected_field",
     title = null, // "selecione:"
     label = null, // "Selecione:"
     width = 300,
@@ -54,64 +54,55 @@ export default function SelectField({
     }, [selected]);
 
     return (
-        <Box sx={{ width }}>
-            <FormControl fullWidth size="lg">
-                <InputLabel
-                    variant="filled"
-                    id="period-filter-label"
-                    color="primary"
-                >
-                    {label}
-                </InputLabel>
-                <Select
-                    labelId={id}
-                    id={id}
-                    onChange={handleChange(setData, data)}
-                    name="selected"
-                    value={selected}
-                    variant="filled"
-                    error={false}
-                    style={{
-                        background: "#ffff",
-                        color: "var(--themeS)",
-                        fontSize: 23,
-                        top: 25,
-                    }}
-                >
-                    {(typeof title === "string" ||
-                        typeof label === "string") && (
-                        <MenuItem value={selected}>
-                            <span
-                                className="text-p text-normal"
-                                style={{
-                                    fontSize: "1.2em",
-                                    fontFamily: "Poppins, sans-serif",
-                                }}
-                            >
-                                {label || title}
-                            </span>
+        <FormControl fullWidth style={{ maxWidth: width }}>
+            <InputLabel htmlFor={id + "label"}>{label}</InputLabel>
+            <Select
+                labelId={id + "label"}
+                id={id}
+                onChange={handleChange(setData, data)}
+                name="selected"
+                label={label}
+                value={selected}
+                variant="outlined"
+                style={{
+                    background: "#ffff",
+                    color: "var(--themeS)",
+                    fontSize: 23,
+                    top: 40,
+                }}
+            >
+                {(typeof title === "string" || typeof label === "string") && (
+                    <MenuItem value={selected}>
+                        <span
+                            className="text-p text-normal"
+                            style={{
+                                fontSize: "1.2em",
+                                fontFamily: "Poppins, sans-serif",
+                            }}
+                        >
+                            {label || title}
+                        </span>
+                    </MenuItem>
+                )}
+                {valuesArray &&
+                    valuesArray.map((elem, ind) => (
+                        <MenuItem key={ind} value={elem.val}>
+                            {elem.showVal}
                         </MenuItem>
-                    )}
-                    {valuesArray &&
-                        valuesArray.map((elem, ind) => (
-                            <MenuItem key={ind} value={elem.val}>
-                                {elem.showVal}
-                            </MenuItem>
-                        ))}
-                </Select>
-                <style jsx global>
-                    {`
-                        .MuiMenuItem-root.MuiListItem-root,
-                        .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu {
-                            font-size: 1.2rem;
-                            color: var(--themeS);
-                        }
-                        .MuiPopover-root {
-                            z-index: ${zIndex} !important;
-                        }
-                    `}
-                </style>
-            </FormControl>
-        </Box>
+                    ))}
+            </Select>
+            <style jsx global>
+                {`
+                    .MuiMenuItem-root.MuiListItem-root,
+                    .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu {
+                        font-size: 1.2rem;
+                        color: var(--themeS);
+                    }
+                    .MuiPopover-root {
+                        z-index: ${zIndex} !important;
+                    }
+                `}
+            </style>
+        </FormControl>
     );
 }

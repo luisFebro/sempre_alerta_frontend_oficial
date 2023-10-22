@@ -26,15 +26,15 @@ export default function Alerts() {
     // dbList is loaded every time user loads the page (read only)
     // only update in backend.
     const dbList = [
-        {
-            alertId: "1:031023:042652",
-            userId: "johndow@gmail.com",
-            userDisplayName: "Roberta Lira",
-            userType: "equipe",
-            alertStatus: "finished",
-            utcDate: "2023-10-13T20:15:52.315Z",
-            sosRequested: false,
-        },
+        // {
+        //     alertId: "1:031023:042652",
+        //     userId: "johndow@gmail.com",
+        //     userDisplayName: "Roberta Lira",
+        //     userType: "equipe",
+        //     alertStatus: "finished",
+        //     utcDate: "2023-10-13T20:15:52.315Z",
+        //     sosRequested: false,
+        // },
     ];
 
     // update socket when user is focusing.
@@ -71,7 +71,7 @@ export default function Alerts() {
     return (
         <section className="relative">
             <MainTitle
-                className="relative whitespace-nowrap top-40 absolute-center"
+                className="relative top-32"
                 classNameTitle="text-black-500"
                 title="Histórico de Alertas"
                 desc="Usuários que acionaram o alerta SOS"
