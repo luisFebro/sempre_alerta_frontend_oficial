@@ -8,7 +8,7 @@ export default function InstructionBtn({
     text,
     animated = false,
     tooltipProps,
-    btnSize = 25,
+    btnSize = 20,
     className,
     // blurEffect = false,
 }) {
@@ -16,12 +16,13 @@ export default function InstructionBtn({
         size: "small",
         "aria-label": "info",
         style: {
-            color: "#ffffff",
-            background: "var(--themeSLight)",
+            color: "grey",
+            background: "#ffffff",
             width: btnSize,
             height: btnSize,
             minHeight: "5px",
-            borderRadius: "50%",
+            borderRadius: "100%",
+            cursor: "pointer",
         },
     };
 
@@ -30,9 +31,7 @@ export default function InstructionBtn({
 
     const TooltipBtn = (
         <div className={`${animated ? "animated zoomIn delay-1s" : ""}`}>
-            <Fab type="button" className="" onClick={null} {...defaultFabData}>
-                <InfoIcon />
-            </Fab>
+            <InfoIcon {...defaultFabData} />
         </div>
     );
 

@@ -72,7 +72,7 @@ export default function ItemModalBtn({
             cb
         );
 
-        setFullOpen(false);
+        handleFullClose();
     };
 
     const isFinished = type === "finish";

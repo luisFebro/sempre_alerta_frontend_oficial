@@ -1,6 +1,6 @@
 import MainTitle from "components/MainTitle";
 import SelectField from "components/fields/SelectField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RegisteredUsersList from "./users_list/RegisteredUsersList";
 
 export default function Users() {
@@ -8,7 +8,6 @@ export default function Users() {
         selectedUserType: "equipe",
     });
     const { selectedUserType } = data;
-    console.log("selectedUserType", selectedUserType);
 
     const userTypeData = [
         { val: "equipe", showVal: "Equipe" },
@@ -16,6 +15,63 @@ export default function Users() {
         { val: "autoridade", showVal: "Autoridade" },
         { val: "todos", showVal: "Todos" },
     ];
+
+    // TODO get the dbList here with useAPI
+    /*
+                        let { data: list, loading = false } = useAPI({
+        url: readUserSubIds(),
+        params,
+        needAuth: true,
+        trigger: needRunApi && selectedApp,
+        dataName: "allPushSubList",
+    }); */
+
+    /*
+        {
+            userName: "Luiza Lombardes",
+            userType: "equipe",
+            userId: "luiza.lombardes@gmail.com",
+            numberAlertList: [
+                {
+                    contact: "(21) 99266-7930",
+                    type: "sms",
+                },
+            ],
+        },
+        {
+            userName: "Pedro Souza",
+            userType: "admin",
+            userId: "pedrosouza@gmail.com",
+            numberAlertList: [
+                {
+                    contact: "(22) 99223-1112",
+                    type: "whatsapp",
+                },
+            ],
+        },
+        {
+            userName: "Guarda Municipal Local",
+            userType: "autoridade",
+            userId: "guardamunicipalmacae@gmail.com",
+            numberAlertList: [
+                {
+                    contact: "(22) 99225-7930",
+                    type: "sms",
+                },
+                {
+                    contact: "(22) 99999-8888",
+                    type: "whatsapp",
+                },
+                {
+                    contact: "(22) 2222-2222",
+                    type: "ligação",
+                },
+            ],
+        },
+
+    */
+
+    const dbList = [];
 
     return (
         <>
@@ -37,11 +93,12 @@ export default function Users() {
                             }))
                         }
                     />
-                    <RegisteredUsersList
-                        selectedUserType={selectedUserType}
-                        setDataForEverybodyForm={setData}
-                    />
                 </div>
+                <RegisteredUsersList
+                    selectedUserType={selectedUserType}
+                    setDataForEverybodyForm={setData}
+                    dbList={dbList}
+                />
             </section>
         </>
     );

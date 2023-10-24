@@ -12,6 +12,7 @@ export default function CheckboxesGroup({
     dataCheckbox = [],
     updateCheckbox,
     selectTitle = "Selecione opção:",
+    isUpdate = false,
 }) {
     const handleChangeCheckbox = (event) => {
         const label = event.target.name;
@@ -73,6 +74,7 @@ export default function CheckboxesGroup({
                                             sx={{
                                                 "& .MuiSvgIcon-root": {
                                                     fontSize: 30,
+                                                    margin: "7px 0",
                                                 },
                                             }}
                                         />
@@ -99,7 +101,13 @@ export default function CheckboxesGroup({
                                             });
                                         }}
                                     >
-                                        <section className="animated fadeInUp my-0">
+                                        <section
+                                            className={`${
+                                                isUpdate
+                                                    ? ""
+                                                    : "animated fadeInUp"
+                                            } my-0`}
+                                        >
                                             {fieldTitle}
                                             <Field
                                                 name={label}

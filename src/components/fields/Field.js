@@ -34,6 +34,7 @@ export default function Field({
     classNameRoot = "", // px-2 md:px-5
     FieldIcon,
     callbackEventOnly = false,
+    disabled = false,
 }) {
     //
     if (!name) throw new Error("it requires to pass name and value params");
@@ -93,6 +94,7 @@ export default function Field({
                     }}
                     autoFocus={autoFocus}
                     InputProps={getInputProps}
+                    disabled={disabled}
                 />
             </Box>
             <style jsx>

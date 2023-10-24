@@ -1,7 +1,7 @@
 import MainTitle from "components/MainTitle";
 import FabBtn from "components/btns/FabBtn";
 import Field from "components/fields/Field";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import capitalize from "utils/string/capitalize";
 import {
     Save,
@@ -9,7 +9,7 @@ import {
     PhoneAndroid,
     Person,
     Shield,
-    TurnedIn,
+    PublishedWithChanges,
 } from "@mui/icons-material";
 import CheckboxesGroup from "components/checkboxes/CheckboxesGroup";
 import InstructionBtn from "components/btns/InstructionBtn";
@@ -20,22 +20,36 @@ import validateMobilePhone from "utils/validation/validateMobilePhone";
 import validateEmail from "utils/validation/validateEmail";
 import SelectField from "components/fields/SelectField";
 import validateLandlineAndMobilePhone from "utils/validation/validateLandlineAndMobilePhone";
+import { addNumberAlertList } from "./helpers/numberAlertList";
+import {
+    saveUserToDb,
+    updateUserToDb,
+    removeUserToDb,
+} from "./crud/registerCRUD.js";
+import isValidNameWithSurname from "utils/validation/isValidNameWithSurname";
+import TxtBtn from "components/btns/TxtBtn";
+import useUpdateData from "./hooks/useUpdateData";
+import RemoveUserBtn from "./crud/RemoveUserBtn";
 
-export default function SignupContent({
+export default function FormsContent({
+    roomId = "central",
     selectedUserType,
     setDataForEverybodyForm,
+    setList,
+    handleFullClose,
+    updateData,
 }) {
     const [data, setData] = useState({
-        roomId: "central",
         userId: null, // email
         userName: null,
         userPhone: null, // only team, admin
         gotUserPhoneWhatsup: true,
-        alertList: [],
+        disabledCTA: false,
     });
     const [error, setError] = useState(null);
 
-    const { userId, userName, userPhone } = data;
+    const { userId, userName, userPhone, gotUserPhoneWhatsup, disabledCTA } =
+        data;
     const userPhoneDisplay = autoPhoneMask(userPhone);
 
     const isMobilePhoneReady =
@@ -43,6 +57,7 @@ export default function SignupContent({
 
     const isEverybody = selectedUserType === "todos";
     const isAuthority = selectedUserType === "autoridade";
+    const isUpdate = Boolean(updateData);
 
     const [dataCheckbox, updateCheckbox] = useState([
         {
@@ -68,6 +83,8 @@ export default function SignupContent({
         },
     ]);
 
+    useUpdateData({ updateData, isAuthority, setData, updateCheckbox });
+
     const handleWhatsappQuestion = (status) => {
         const isTrue = status && status.includes("true");
 
@@ -82,7 +99,6 @@ export default function SignupContent({
             { val: "equipe", showVal: "Equipe" },
             { val: "admin", showVal: "Admin" },
             { val: "autoridade", showVal: "Autoridade" },
-            { val: "todos", showVal: "Todos" },
         ];
 
         return (
@@ -91,12 +107,14 @@ export default function SignupContent({
                     label="Selecione tipo usuário:"
                     valuesArray={userTypeData}
                     defaultValue={selectedUserType}
-                    handleValue={(newVal) =>
-                        setDataForEverybodyForm((prev) => ({
-                            ...prev,
-                            selectedUserType: newVal,
-                        }))
-                    }
+                    handleValue={(newVal) => {
+                        if (typeof setDataForEverybodyForm === "function") {
+                            setDataForEverybodyForm((prev) => ({
+                                ...prev,
+                                selectedUserType: newVal,
+                            }));
+                        }
+                    }}
                 />
             </div>
         );
@@ -121,6 +139,7 @@ export default function SignupContent({
                     name="userId"
                     error={error === "userId"}
                     value={userId}
+                    disabled={isUpdate}
                     onChangeCallback={setData}
                     FieldIcon={<Email style={{ color: "var(--themeP)" }} />}
                 />
@@ -177,13 +196,14 @@ export default function SignupContent({
                 <Field
                     name="userId"
                     error={error === "userId"}
+                    disabled={isUpdate}
                     value={userId}
                     onChangeCallback={setData}
                     FieldIcon={<Email style={{ color: "var(--themeP)" }} />}
                 />
             </section>
             <section className="my-4">
-                Tipos de alerta SOS:
+                Número(s) para alerta SOS:
                 <InstructionBtn
                     className="-top-3"
                     text="São os meios de comunicações onde serão enviados os alertas SOS para esta autoridade cadastrada"
@@ -192,20 +212,50 @@ export default function SignupContent({
                     selectTitle="Selecione uma ou mais opções:"
                     dataCheckbox={dataCheckbox}
                     updateCheckbox={updateCheckbox}
+                    isUpdate={false}
                 />
             </section>
         </>
     );
 
-    const recordNewUser = async () => {
-        const userType = selectedUserType;
+    const allowCTAClick = (status = true) => {
+        setData((prev) => ({
+            ...prev,
+            disabledCTA: status,
+        }));
+    };
 
+    // CRUD
+    const handleDataToCRUD = () => {
+        const allMarkedAlerts = dataCheckbox.filter((elem) => elem.checked);
+
+        return {
+            ...data, // userId, userName, userPhone
+            roomId,
+            userType: selectedUserType,
+            numberAlertList: addNumberAlertList({
+                isAuthority,
+                allMarkedAlerts,
+                userPhone,
+                gotUserPhoneWhatsup,
+            }),
+        };
+    };
+
+    const saveNewUser = async () => {
         // VALIDATION
         if (!userName) {
             const msg = isAuthority
                 ? "Favor, informe o nome da instituição de emergência"
                 : "Favor, informe o nome do usuário a ser cadastrado";
             return showToast(msg, {
+                type: "error",
+                callback: () => setError("userName"),
+            });
+        }
+
+        if (!isAuthority && !isValidNameWithSurname(userName)) {
+            return showToast("Nome Inválido. Precisa de um nome e sobrenome.", {
                 type: "error",
                 callback: () => setError("userName"),
             });
@@ -326,9 +376,162 @@ export default function SignupContent({
                     allMarkedAlertsWithInvalidFields.length
             );
 
-            console.log(
-                "allMarkedAlertsWithInvalidFields: " +
-                    JSON.stringify(allMarkedAlertsWithInvalidFields)
+            if (gotInvalidFields) {
+                const itemWithIssue = allMarkedAlertsWithInvalidFields[0];
+                return showToast(
+                    `Contato de ${itemWithIssue.label} é inválido. Revise e tente novamente.`,
+                    {
+                        type: "error",
+                        callback: () =>
+                            markCheckboxFieldError(itemWithIssue.label),
+                    }
+                );
+            }
+        }
+        // END VALIDATION
+
+        const dataCRUD = handleDataToCRUD();
+
+        await saveUserToDb({
+            data: dataCRUD,
+            handleFullClose,
+            setList,
+            allowCTAClick,
+        });
+    };
+
+    const updateCurrentUser = async () => {
+        // VALIDATION
+        if (!userName) {
+            const msg = isAuthority
+                ? "Favor, informe o nome da instituição de emergência"
+                : "Favor, informe o nome do usuário a ser cadastrado";
+            return showToast(msg, {
+                type: "error",
+                callback: () => setError("userName"),
+            });
+        }
+
+        if (!isAuthority && !isValidNameWithSurname(userName)) {
+            return showToast("Nome Inválido. Precisa de um nome e sobrenome.", {
+                type: "error",
+                callback: () => setError("userName"),
+            });
+        }
+
+        if (!userId) {
+            const msg = isAuthority
+                ? "Favor, informe o email da instituição"
+                : "Favor, informe o email do novo usuário";
+
+            return showToast(msg, {
+                type: "error",
+                callback: () => setError("userId"),
+            });
+        }
+
+        if (!validateEmail(userId)) {
+            return showToast(
+                "O email informado é inválido. Revise e tente novamente",
+                {
+                    type: "error",
+                    callback: () => setError("userId"),
+                }
+            );
+        }
+
+        if (!isAuthority) {
+            if (!userPhone) {
+                return showToast(
+                    "Favor, informe um número celular para contato",
+                    {
+                        type: "error",
+                        callback: () => setError("userPhone"),
+                    }
+                );
+            }
+
+            if (!validateMobilePhone(userPhoneDisplay)) {
+                return showToast(
+                    "O número de celular é inválido. Revise e tente novamente.",
+                    {
+                        type: "error",
+                        callback: () => setError("userPhone"),
+                    }
+                );
+            }
+        }
+
+        if (isAuthority) {
+            const didUserMarkedNoAlert = dataCheckbox.every(
+                (elem) => elem.checked === false
+            );
+
+            if (didUserMarkedNoAlert) {
+                return showToast(
+                    "Você precisa selecionar um tipo de alerta para avisar a autoridade cadastrada.",
+                    {
+                        type: "error",
+                        callback: () => setError("userPhone"),
+                    }
+                );
+            }
+
+            const markCheckboxFieldError = (label) => {
+                updateCheckbox((prev) => {
+                    return prev.map((elem) => {
+                        if (elem.label === label) {
+                            return {
+                                ...elem,
+                                fieldError: true,
+                            };
+                        } else return elem;
+                    });
+                });
+            };
+
+            const allMarkedAlertsWithEmptyFields = dataCheckbox.filter(
+                (elem) => elem.checked && elem.fieldData === ""
+            );
+            const gotEmptyFields = Boolean(
+                allMarkedAlertsWithEmptyFields &&
+                    allMarkedAlertsWithEmptyFields.length
+            );
+
+            if (gotEmptyFields) {
+                const itemWithIssue = allMarkedAlertsWithEmptyFields[0];
+                return showToast(itemWithIssue.fieldTitle, {
+                    type: "error",
+                    callback: () => markCheckboxFieldError(itemWithIssue.label),
+                });
+            }
+
+            const allMarkedAlertsWithInvalidFields = dataCheckbox.filter(
+                (elem) => {
+                    const isChecked = elem.checked;
+
+                    const phoneData = elem.fieldData;
+
+                    if (isChecked) {
+                        if (
+                            elem.label === "Ligação" &&
+                            !validateLandlineAndMobilePhone(phoneData)
+                        )
+                            return true;
+                        if (
+                            elem.label !== "Ligação" &&
+                            !validateMobilePhone(phoneData)
+                        )
+                            return true;
+                    }
+
+                    return false;
+                }
+            );
+
+            const gotInvalidFields = Boolean(
+                allMarkedAlertsWithInvalidFields &&
+                    allMarkedAlertsWithInvalidFields.length
             );
 
             if (gotInvalidFields) {
@@ -345,31 +548,54 @@ export default function SignupContent({
         }
         // END VALIDATION
 
-        const allMarkedAlerts = dataCheckbox.filter((elem) => elem.checked);
-        console.log("allMarkedAlerts: " + JSON.stringify(allMarkedAlerts));
+        const dataCRUD = handleDataToCRUD();
 
-        showToast("Novo usuário registrado com sucesso!", {
-            type: "success",
+        await updateUserToDb({
+            data: dataCRUD,
+            handleFullClose,
+            setList,
+            allowCTAClick,
         });
     };
 
-    const IconBtn = <Save style={{ fontSize: 30 }} />;
+    const removeCurrentUser = async () => {
+        await removeUserToDb({
+            userId,
+            handleFullClose,
+            setList,
+            allowCTAClick,
+        });
+    };
+
+    // END CRUD
+
+    const IconRecordBtn = <Save style={{ fontSize: 30 }} />;
+    const IconUpdateBtn = <PublishedWithChanges style={{ fontSize: 30 }} />;
 
     const handleView = () => {
         if (isEverybody) return showEverybodyForm();
         return isAuthority ? showAuthorityForm() : showAdminTeamForm();
     };
 
+    const handleMainTitle = () => {
+        if (isUpdate) {
+            return `Atualização Cadastro ${capitalize(updateData.userType)}`;
+        }
+
+        return isEverybody
+            ? "Novo Cadastro"
+            : `Novo Cadastro ${capitalize(selectedUserType)}`;
+    };
+
+    const removalData = {
+        removeCurrentUser,
+        userName,
+        userId,
+    };
+
     return (
         <section>
-            <MainTitle
-                title={
-                    isEverybody
-                        ? "Novo Cadastro"
-                        : `Novo Cadastro ${capitalize(selectedUserType)}`
-                }
-                desc=""
-            />
+            <MainTitle title={handleMainTitle()} desc="" />
             <form
                 style={{ margin: "auto", width: "90%" }}
                 className="text-normal font-bold"
@@ -378,12 +604,27 @@ export default function SignupContent({
                 }}
             >
                 {handleView()}
-                {!isEverybody && (
+                {!isEverybody && !isUpdate && (
                     <div className="my-7 flex justify-center">
                         <FabBtn
                             title="CADASTRAR"
-                            Icon={IconBtn}
-                            onClick={recordNewUser}
+                            Icon={IconRecordBtn}
+                            onClick={saveNewUser}
+                            disabled={disabledCTA}
+                        />
+                    </div>
+                )}
+                {isUpdate && (
+                    <div className="my-7 flex justify-center items-center">
+                        <div className="mr-7">
+                            <RemoveUserBtn {...removalData} />
+                        </div>
+
+                        <FabBtn
+                            title="ATUALIZAR"
+                            Icon={IconUpdateBtn}
+                            onClick={updateCurrentUser}
+                            disabled={disabledCTA}
                         />
                     </div>
                 )}

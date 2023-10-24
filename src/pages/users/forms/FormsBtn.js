@@ -1,13 +1,10 @@
 import ModalFullContent from "components/modals/ModalFullContent";
 import React, { useState } from "react";
-import SignupContent from "./SignupContent";
+import FormsContent from "./FormsContent";
 import FabBtn from "components/btns/FabBtn";
 import { AddCircleOutline } from "@mui/icons-material";
 
-export default function SignupBtn({
-    selectedUserType,
-    setDataForEverybodyForm,
-}) {
+export default function FormsBtn(dataSignup) {
     const [fullOpen, setFullOpen] = useState(false);
 
     const handleFullOpen = () => {
@@ -19,10 +16,7 @@ export default function SignupBtn({
     };
 
     const Comp = (
-        <SignupContent
-            selectedUserType={selectedUserType}
-            setDataForEverybodyForm={setDataForEverybodyForm}
-        />
+        <FormsContent handleFullClose={handleFullClose} {...dataSignup} />
     );
     const Icon = <AddCircleOutline style={{ fontSize: 35 }} />;
     return (

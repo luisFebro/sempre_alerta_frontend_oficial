@@ -8,6 +8,7 @@ export default function FabBtn({
     Icon,
     size = "lg",
     onClick = () => null,
+    disabled = false,
 }) {
     let sizeHandled;
     if (size === "sm") sizeHandled = "small";
@@ -33,6 +34,7 @@ export default function FabBtn({
                     variant="extended"
                     className={`fab-btn inline-block ${gradientCss}`}
                     {...defaultData}
+                    disabled={disabled}
                 >
                     <span className={`text-shadow text-xl px-3`}>{title}</span>
                     {Icon}
