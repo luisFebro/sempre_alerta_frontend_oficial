@@ -1,5 +1,26 @@
 /* @import "../../functions/setContrastedColor"; */
 
+/* APP PALLEATE
+<color name="primary">#4f9fd1</color>
+    <color name="primary_light">#79CAFD</color>
+    <color name="primary_dark">#195f8a</color>
+    <color name="primary_darker">#103F5C</color>
+    <color name="secondary">#ffee33</color>
+    <color name="secondary_dark">#b2a300</color>
+    <color name="tertiary">#57606f</color>
+
+    <!--    Text -->
+    <color name="txt_gray">#848f94</color>
+    <color name="txt_gray_dark">#657379</color>
+    <color name="txt_gray_light">#BDC2C5</color>
+    <color name="txt_green_light">#008000</color>
+    <color name="txt_red">#FBBDC2</color>
+    <color name="txt_primary_light">#A9DEFF</color>
+    <color name="txt_white">#ecf0f1</color>
+    <color name="txt_shadow">#7F000000</color>
+    <color name="txt_shadow_white">#FFFFFF</color>
+*/
+
 :root {
     /*
     PRIMARY COLORS 
@@ -9,49 +30,31 @@
     --themePLight: #16c5ff;
     --themePDark: #1372a7;
 
-    /*surface (such as cards, sheets, and menus) and background*/
-    --themeSurface: #275975;
-    --themeSurfacePill: #204255;
-    /* --themeBackground: #4a148c; */ /*same as primary*/
-    /*on colors - text*/
-    /*--mainBlack: black; use only: black */
-    --mainWhite: #ecf0f1;
-
-    --mainFont: "Rubik", sans-serif; /* "Poppins", sans-serif; */ /* Quicksand */
-    --mainTxtSize: 1.4rem;
-    /*THEMING*/
-    /*default*/
-    --themeP--default: #1372a7;
-    --themePLight--default: #16c5ff;
-    --themePDark--default: #1372a7;
-    --themeBackground--default: #4a148c;
-    /*purple*/
-    --themeP--purple: #4a148c;
-    --themePLight--purple: #7c43bd;
-    --themePDark--purple: #3a005e;
-    --themeBackground--purple: #4a148c;
-    /*END THEMING*/
-
-    --clr: #fff; /* magic nav */
-
     /*
     SECONDARY COLORS 
     */
-
-    /*cyan (greenish-blue) a400*/
     --themeS: #b2a300; /* PRIOR #00e5ff changed for not having over brightness with a lighter shade as in buttons */
-    --themeSLight: #b2a300; /* prior: #b937f5 */;
+    --themeSLight: #ffee33; /* prior: #b937f5 */;
     --themeSDark: #b2a300;
     --themeBackground--secondary: #b2a300;
 
-    /*
-    CONNECTION ICON COLORS
-    */
 
-    --connected: #1cf499;
-    --connecting: #E1D509;
-    --disconnected: #ff9999;
-    --init: #cad3c8;
+    /* TEXTS */
+    --txtPrimaryLight: #A9DEFF;
+    --grayDark: #657379;
+
+        --clr: #fff; /* magic nav */
+
+      /*surface (such as cards, sheets, and menus) and background*/
+      --themeSurface: #275975;
+      --themeSurfacePill: #204255;
+      /* --themeBackground: #4a148c; */ /*same as primary*/
+      /*on colors - text*/
+      /*--mainBlack: black; use only: black */
+      --mainWhite: #ecf0f1;
+  
+      --mainFont: "Rubik", sans-serif; /* "Poppins", sans-serif; */ /* Quicksand */
+      --mainTxtSize: 1.4rem;
 
 
     /*Secondary colors are best to accent select parts of your UI.:
@@ -86,8 +89,8 @@ https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=4
 /*TEXT*/
 /*palette colors for texts*/
 /*primary colors*/
+.txt-p-light { color: var(--txtPrimaryLight); }
 .text-p { color: var(--themeP); }
-.text-p-light { color: var(--themePLight); }
 .text-p-dark { color: var(--themePDark); }
 /*secondary colors*/
 .text-s { color: var(--themeS); }
@@ -96,9 +99,5 @@ https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=4
 /*"on" colors - texts*/
 .text-white { color: var(--mainWhite); }
 .text-black { color: black; }
-
-/* connection colors */
-.txt-connected { color: var(--connectedTxt); }
-.txt-connecting { color: var(--connectingTxt); }
-.txt-disconnected { color: var(--disconnectedTxt); }
-.txt-connectInit { color: var(--initConnectTxt); }
+/* more colors */
+.txt-gray-dark, .surface-gray-dark { color: var(--grayDark); }

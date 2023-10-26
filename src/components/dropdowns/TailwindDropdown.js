@@ -1,8 +1,16 @@
-import { autocompleteClasses } from "@mui/material";
+import showToast from "components/toasts/showToast";
+import { updateUI, useUify } from "global-data/ui";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TailwindDropdown() {
     const [show, setShow] = useState(false);
+
+    const navigate = useNavigate();
+    const uify = useUify();
+
+    const userName = "L. Febro";
+    const userType = "admin";
 
     const wrapperRef = useRef(null);
 
@@ -28,6 +36,27 @@ export default function TailwindDropdown() {
         if (!show) document.removeEventListener("mousedown", () => null);
     }, [show]);
 
+    const logoutUser = () => {
+        // https://developers.google.com/identity/gsi/web/guides/automatic-sign-in-sign-out
+        // https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.disableAutoSelect
+        google.accounts.id.disableAutoSelect();
+        showToast("Desconectado com sucesso!", {
+            type: "warning",
+            dur: 5000,
+        });
+
+        updateUI(
+            "profile",
+            {
+                userId: null,
+                isLogout: true,
+            },
+            uify
+        );
+
+        navigate("/");
+    };
+
     const showUserAccessData = () => (
         <div className="mb-5">
             <h3 className="text-center text-base text-black py-1 font-bold">
@@ -35,12 +64,10 @@ export default function TailwindDropdown() {
             </h3>
             <div className="mb-2">
                 <p className="pl-3 m-0 text-base text-gray-500">
-                    &#8226; Usuário:
+                    &#8226; Usuário Admin:
                 </p>
                 <p className="pl-3 m-0 text-base font-bold text-yellow-600 text-left">
-                    John Doe
-                    <br />
-                    (admin)
+                    {userName}
                 </p>
             </div>
             <div
@@ -53,7 +80,7 @@ export default function TailwindDropdown() {
                     backgroundImage: `linear-gradient(
                         to right,
                         rgba(0, 0, 0, 0),
-                        rgba(126, 34, 206, 1),
+                        rgba(25, 95, 138, 1),
                         rgba(0, 0, 0, 0)`,
                 }}
             />
@@ -69,11 +96,7 @@ export default function TailwindDropdown() {
                 onClick={() => handleShow((prev) => !prev)}
                 style={{ padding: 0, color: "transparent" }}
             >
-                <div
-                    className={`w-12 relative ${
-                        show ? "-top-8 md:top-0" : ""
-                    } mx-5 sm:mx-5 md:mx-1 xl:mx-6`}
-                >
+                <div className={`w-12 relative mx-5 sm:mx-5 md:mx-1 xl:mx-6`}>
                     <img
                         src="/img/profile/avatar.svg"
                         height="50"
@@ -81,7 +104,7 @@ export default function TailwindDropdown() {
                         className="rounded-full  max-w-full h-auto align-middle border-none undefined"
                     />
                     <p className="mt-1 text-white text-small text-center">
-                        admin
+                        {userType}
                     </p>
                 </div>
                 <span className="hidden material-icons text-lg leading-none align-middle">
@@ -98,7 +121,7 @@ export default function TailwindDropdown() {
                     inset: "0px 0px auto auto",
                     margin: "0px",
                     marginRight: 10,
-                    transform: "translate3d(-5px, 80px, 0px)",
+                    transform: "translate3d(-10px, 110px, 0px)",
                 }}
             >
                 <div
@@ -122,13 +145,14 @@ export default function TailwindDropdown() {
                     >
                         <section>
                             <div
+                                onClick={logoutUser}
                                 className="bg-white text-base z-50 float-left list-none text-left rounded-lg shadow-lg mt-1 p-2 overflow-hidden transition-all duration-500"
                                 style={{
                                     minWidth: "10rem",
                                 }}
                             >
                                 {showUserAccessData()}
-                                <span className="block w-full text-sm py-3 px-4 font-normal cursor-pointer text-center whitespace-no-wrap rounded-md text-yellow-600 hover:text-white hover:bg-yellow-400 hover:shadow-md-purple transition-all duration-300">
+                                <span className="block w-full text-sm py-3 px-4 font-normal cursor-pointer text-center whitespace-no-wrap rounded-md text-yellow-600 hover:text-white hover:bg-gradient-to-tr from-light-yellow-500 to-light-yellow-700 hover:shadow-md-purple transition-all duration-300">
                                     SAIR
                                 </span>
                             </div>

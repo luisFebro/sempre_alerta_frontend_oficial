@@ -35,6 +35,7 @@ export default function Field({
     FieldIcon,
     callbackEventOnly = false,
     disabled = false,
+    txtColor = "var(--themeS)",
 }) {
     //
     if (!name) throw new Error("it requires to pass name and value params");
@@ -110,11 +111,14 @@ export default function Field({
                     .single-field--root.field .MuiInputBase-input {
                         // background-color: var(--mainWhite) !important;
                         z-index: 2000;
-                        color: var(--themeS) !important;
+                        color: ${txtColor} !important;
                         font: var(--mainFont);
                         //padding: 10px;
                     }
-
+                `}
+            </style>
+            <style jsx>
+                {`
                     .single-field--root.field .large {
                         margin: 0 5px !important;
                     }
@@ -151,6 +155,12 @@ export default function Field({
                         div
                         .MuiInputBase-input {
                         text-align: center !important;
+                    }
+
+                    .single-field--root .MuiOutlinedInput-root {
+                        border-radius: 25px;
+                        border-width: 4px;
+                        border-color: var(--grayDark);
                     }
                 `}
             </style>

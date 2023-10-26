@@ -26,7 +26,43 @@ export default function Users() {
         dataName: "allPushSubList",
     }); */
 
-    /*
+    const dbList = []; // n1
+
+    return (
+        <>
+            <section className="relative top-32">
+                <MainTitle
+                    classNameTitle="text-black-500"
+                    title="Usuários Cadastrados"
+                    desc="Acompanhe todos os cadastros da instituição"
+                />
+                <div className="flex justify-center items-center flex-col">
+                    <SelectField
+                        label="Selecione tipo usuário:"
+                        valuesArray={userTypeData}
+                        defaultValue={selectedUserType}
+                        handleValue={(newVal) =>
+                            setData((prev) => ({
+                                ...prev,
+                                selectedUserType: newVal,
+                            }))
+                        }
+                    />
+                </div>
+                <RegisteredUsersList
+                    selectedUserType={selectedUserType}
+                    setDataForEverybodyForm={setData}
+                    dbList={dbList}
+                />
+            </section>
+        </>
+    );
+}
+
+/* NOTES
+
+n1
+ /*
         {
             userName: "Luiza Lombardes",
             userType: "equipe",
@@ -70,36 +106,3 @@ export default function Users() {
         },
 
     */
-
-    const dbList = [];
-
-    return (
-        <>
-            <section className="relative top-32">
-                <MainTitle
-                    classNameTitle="text-black-500"
-                    title="Usuários Cadastrados"
-                    desc="Acompanhe todos os cadastros da instituição"
-                />
-                <div className="flex justify-center items-center flex-col">
-                    <SelectField
-                        label="Selecione tipo usuário:"
-                        valuesArray={userTypeData}
-                        defaultValue={selectedUserType}
-                        handleValue={(newVal) =>
-                            setData((prev) => ({
-                                ...prev,
-                                selectedUserType: newVal,
-                            }))
-                        }
-                    />
-                </div>
-                <RegisteredUsersList
-                    selectedUserType={selectedUserType}
-                    setDataForEverybodyForm={setData}
-                    dbList={dbList}
-                />
-            </section>
-        </>
-    );
-}

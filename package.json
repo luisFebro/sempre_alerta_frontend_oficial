@@ -1,6 +1,6 @@
 {
   "name": "test_sempre_alerta_front",
-  "version": "1.5.2",
+  "version": "1.6.5",
   "private": true,
   "proxy": "http://localhost:5000",
   "scripts": {
@@ -31,6 +31,7 @@
     "chart.js": "^2.9.4",
     "date-fns": "^2.29.3",
     "html-react-parser": "^3.0.4",
+    "jwt-decode": "^3.1.2",
     "localforage": "^1.10.0",
     "nanoid": "^3.1.20",
     "react": "^17.0.1",

@@ -1,18 +1,11 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import TopNavbar from "./top_navbar/TopNavbar";
 import SidebarNavbar from "./side_navbar/SidebarNavbar";
 import CurvesDesign from "./top_navbar/curves_design/CurvesDesign";
 
 export default function Navigation() {
     const [showSideBar, setShowSideBar] = useState("-left-64");
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        navigate("/");
-    }, []);
 
     const wrapperRef = useRef(null);
     useEffect(() => {

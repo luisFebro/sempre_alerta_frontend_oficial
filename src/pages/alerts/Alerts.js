@@ -16,7 +16,7 @@ export default function Alerts() {
 
     const {
         userId = "johndoe@gmail.com",
-        userDisplayName = "John Doe",
+        userDisplayName = "L. Febro",
         role,
     } = useReadUI("profile");
     const globalData = useReadUI("global");

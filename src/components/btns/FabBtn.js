@@ -6,9 +6,11 @@ export default function FabBtn({
     title,
     type,
     Icon,
+    IconLeft,
     size = "lg",
     onClick = () => null,
     disabled = false,
+    classNameTitle = "text-shadow text-xl px-3",
 }) {
     let sizeHandled;
     if (size === "sm") sizeHandled = "small";
@@ -36,7 +38,8 @@ export default function FabBtn({
                     {...defaultData}
                     disabled={disabled}
                 >
-                    <span className={`text-shadow text-xl px-3`}>{title}</span>
+                    {IconLeft}
+                    <span className={classNameTitle}>{title}</span>
                     {Icon}
                 </Fab>
                 <style jsx global>

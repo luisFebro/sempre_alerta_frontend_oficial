@@ -231,6 +231,8 @@ export default function FormsContent({
 
         return {
             ...data, // userId, userName, userPhone
+            userId: userId && userId.trim(),
+            userName: userName && userName.trim(),
             roomId,
             userType: selectedUserType,
             numberAlertList: addNumberAlertList({

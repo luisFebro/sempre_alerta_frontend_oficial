@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Pages
 import Alerts from "pages/alerts/Alerts";
 import Users from "pages/users/Users";
+import Access from "pages/access/Access";
 
 // Layouts
 import Navigation from "components/_layout/navigation/Navigation";
@@ -33,15 +34,30 @@ function App() {
     return (
         <BrowserRouter>
             <GlobalProvider store={store}>
-                <Navigation />
-                <div className="md:ml-64">
-                    <Routes>
-                        <Route path="/" element={<Alerts />} />
-                        <Route path="/cadastros" element={<Users />} />
-                        <Route path="*" element={<Alerts />} />
-                    </Routes>
-                    <Footer />
-                </div>
+                <Routes>
+                    <Route path="/" element={<Access />} />
+                    <Route
+                        path="/alertas"
+                        element={
+                            <>
+                                <Navigation />
+                                <Alerts />
+                                <Footer />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/cadastros"
+                        element={
+                            <>
+                                <Navigation />
+                                <Users />
+                                <Footer />
+                            </>
+                        }
+                    />
+                    <Route path="*" element={<Access />} />
+                </Routes>
             </GlobalProvider>
         </BrowserRouter>
     );

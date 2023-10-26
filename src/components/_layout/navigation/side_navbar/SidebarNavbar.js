@@ -28,7 +28,7 @@ export default function Sidebar({ showSideBar, closeSideBar }) {
                     <ul className="flex-col min-w-full flex list-none">
                         <li className="rounded-lg mb-4 text-yellow-600">
                             <NavLink
-                                to="/"
+                                to="/alertas"
                                 end
                                 className={({ isActive }) =>
                                     isActive

@@ -24,7 +24,7 @@ export default function RemoveUserBtn({ removeCurrentUser, userName, userId }) {
                 title="Confirmação de Exclusão"
                 noTitle="voltar"
                 noCallback={() => null}
-                subTitle={`Todos os dados do app e painel deste usuário será removido permanentemente. Tem certeza que deseja excluir o usuário <span class="font-bold">${userName} (${userId})</span> ?`}
+                subTitle={`Tem certeza que deseja excluir o usuário <span class="font-bold">${userName} (${userId})</span> ?`}
                 fullOpen={fullOpen}
                 yesTitle="SIM"
                 setFullOpen={() => {
