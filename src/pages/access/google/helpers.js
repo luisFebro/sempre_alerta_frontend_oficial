@@ -11,6 +11,9 @@ export const showGoogleOneTapPrompt = (data) => {
     init(google, handleSignInResponse);
 
     google.accounts.id.prompt((notification) => {
+        // TEST (on)
+        alert(notification.getNotDisplayedReason());
+
         const isPromptedNotDisplayed =
             notification.isNotDisplayed() || notification.isSkippedMoment();
         if (isPromptedNotDisplayed) {
@@ -41,9 +44,6 @@ export const showGoogleOneTapPrompt = (data) => {
                 dur: 3000,
             });
         }
-
-        // TEST (on)
-        alert(notification.getNotDisplayedReason());
     });
 };
 
