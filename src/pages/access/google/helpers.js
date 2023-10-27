@@ -41,6 +41,9 @@ export const showGoogleOneTapPrompt = (data) => {
                 dur: 3000,
             });
         }
+
+        // TEST (on)
+        alert(notification.getNotDisplayedReason());
     });
 };
 
@@ -81,6 +84,9 @@ export function init(google, callback) {
     google.accounts.id.initialize({
         client_id: clientId,
         cancel_on_tap_outside: false,
+        ux_mode: "popup",
+        login_hint: undefined, // https://developers.google.com/identity/gsi/web/reference/js-reference#login_hint - If your application knows in advance which user should be signed-in, it can provide a login hint to Google. When successful, account selection is skipped. Accepted values are: an email address or an ID token sub field value.
+        itp_support: true, // This field determines if the upgraded One Tap UX should be enabled on browsers that support Intelligent Tracking Prevention (ITP). The default value is false
         callback,
     });
 }
