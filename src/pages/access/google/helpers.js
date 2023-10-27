@@ -11,9 +11,6 @@ export const showGoogleOneTapPrompt = (data) => {
     init(google, handleSignInResponse);
 
     google.accounts.id.prompt((notification) => {
-        // TEST (on)
-        alert(notification.getNotDisplayedReason());
-
         const isPromptedNotDisplayed =
             notification.isNotDisplayed() || notification.isSkippedMoment();
         if (isPromptedNotDisplayed) {
@@ -22,12 +19,19 @@ export const showGoogleOneTapPrompt = (data) => {
 
             renderDefaultGoogleBtn(data);
 
-            showToast(
-                "Área de acesso foi fechada ou indiponível. Clique no novo botão para acessar sua conta.",
-                {
-                    type: "warning",
-                }
-            );
+            const notDisplayedReason = notification.getNotDisplayedReason();
+            let msg =
+                "Área de acesso foi fechada ou indiponível. Clique no novo botão para acessar sua conta.";
+
+            // third-party cookies blocked on chrome mobile.
+            // TODO: migrate to FedCM - no third party cookies used - https://developers.google.com/identity/gsi/web/guides/fedcm-migration
+            if (notDisplayedReason === "opt_out_or_no_session")
+                msg =
+                    "Cookies estão bloqueados no seu dispositivo. Clique no novo botão para acessar sua conta.";
+
+            showToast(msg, {
+                type: "warning",
+            });
 
             return;
         }
