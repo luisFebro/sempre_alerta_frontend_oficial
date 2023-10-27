@@ -73,8 +73,10 @@ function renderDefaultGoogleBtn({ google, handleSignInResponse, setCurrBtn }) {
 
 /* HELPERS */
 export function init(google, callback) {
+    // LESSON: for production, check if client ID has change at https://console.cloud.google.com/apis/credentials/oauthclient/206323177014-i52ksv5v0dk254oqdliqsg6p232gcmv2.apps.googleusercontent.com?project=sempre-alerta-official&supportedpurview=project
+    // also: Note: It may take 5 minutes to a few hours for settings to take effect
     const clientId =
-        "206323177014-sd9e35j7a85q8v5hq0083prlu0gsft20.apps.googleusercontent.com";
+        "206323177014-i52ksv5v0dk254oqdliqsg6p232gcmv2.apps.googleusercontent.com";
 
     google.accounts.id.initialize({
         client_id: clientId,
