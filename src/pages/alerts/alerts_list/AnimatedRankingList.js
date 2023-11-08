@@ -126,7 +126,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                     </strong>
                                     <br />
                                     <span className="break-words text-center">
-                                        {item.userDisplayName} ({item.userType})
+                                        {item.userDisplayName} ({item.role})
                                     </span>
                                 </div>
                                 <div className="lg:flex-[30%] lg:justify-center">

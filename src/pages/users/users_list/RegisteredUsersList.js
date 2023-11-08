@@ -4,22 +4,22 @@ import FormsBtn from "../forms/FormsBtn";
 import RegisteredUsersTable from "./table_list/RegisteredUsersTable";
 
 export default function RegisteredUsersList({
-    selectedUserType = " ",
+    selectedRole = " ",
     setDataForEverybodyForm,
     dbList,
 }) {
     const [list, setList] = useState([]); // n1
-    const isEverybody = selectedUserType === "todos";
-    const isAuthority = selectedUserType === "autoridade";
+    const isEverybody = selectedRole === "todos";
+    const isAuthority = selectedRole === "autoridade";
     const loading = false;
 
     const filteredList = isEverybody
         ? list
-        : list.filter((elem) => elem.userType === selectedUserType);
+        : list.filter((elem) => elem.role === selectedRole);
     const isEmptyList = Boolean(filteredList && filteredList.length === 0);
 
     const dataSignup = {
-        selectedUserType,
+        selectedRole,
         setDataForEverybodyForm,
         setList,
     };
@@ -45,7 +45,7 @@ export default function RegisteredUsersList({
                         <span>
                             Nenhum cadastro de{" "}
                             <span style={{ color: "var(--themeS)" }}>
-                                {capitalize(selectedUserType)}
+                                {capitalize(selectedRole)}
                             </span>
                         </span>
                     )}
@@ -63,7 +63,7 @@ export default function RegisteredUsersList({
             isAuthority,
             dataSignup,
             filteredList,
-            selectedUserType,
+            selectedRole,
             loading,
         };
 
@@ -86,6 +86,6 @@ export default function RegisteredUsersList({
 
 /* EXAMPLE
 
-[{"userId":"fdsfsda@gmail.com","userName":"fdkasf sd","userPhone":"(92) 9999-99999","gotUserPhoneWhatsup":true,"disabledCTA":false,"roomId":"central","userType":"autoridade","numberAlertList":[{"contact":92999999999,"type":"ligação"}]}]
+[{"userId":"fdsfsda@gmail.com","userName":"fdkasf sd","userPhone":"(92) 9999-99999","isPhoneWhatsapp":true,"disabledCTA":false,"roomId":"central","role":"autoridade","numberAlertList":[{"contact":92999999999,"type":"ligação"}]}]
 
 */

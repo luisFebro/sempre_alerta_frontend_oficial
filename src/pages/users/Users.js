@@ -5,11 +5,11 @@ import RegisteredUsersList from "./users_list/RegisteredUsersList";
 
 export default function Users() {
     const [data, setData] = useState({
-        selectedUserType: "equipe",
+        selectedRole: "equipe",
     });
-    const { selectedUserType } = data;
+    const { selectedRole } = data;
 
-    const userTypeData = [
+    const roleData = [
         { val: "equipe", showVal: "Equipe" },
         { val: "admin", showVal: "Admin" },
         { val: "autoridade", showVal: "Autoridade" },
@@ -39,18 +39,18 @@ export default function Users() {
                 <div className="flex justify-center items-center flex-col">
                     <SelectField
                         label="Selecione tipo usuário:"
-                        valuesArray={userTypeData}
-                        defaultValue={selectedUserType}
+                        valuesArray={roleData}
+                        defaultValue={selectedRole}
                         handleValue={(newVal) =>
                             setData((prev) => ({
                                 ...prev,
-                                selectedUserType: newVal,
+                                selectedRole: newVal,
                             }))
                         }
                     />
                 </div>
                 <RegisteredUsersList
-                    selectedUserType={selectedUserType}
+                    selectedRole={selectedRole}
                     setDataForEverybodyForm={setData}
                     dbList={dbList}
                 />
@@ -65,7 +65,7 @@ n1
  /*
         {
             userName: "Luiza Lombardes",
-            userType: "equipe",
+            role: "equipe",
             userId: "luiza.lombardes@gmail.com",
             numberAlertList: [
                 {
@@ -76,7 +76,7 @@ n1
         },
         {
             userName: "Pedro Souza",
-            userType: "admin",
+            role: "admin",
             userId: "pedrosouza@gmail.com",
             numberAlertList: [
                 {
@@ -87,7 +87,7 @@ n1
         },
         {
             userName: "Guarda Municipal Local",
-            userType: "autoridade",
+            role: "autoridade",
             userId: "guardamunicipalmacae@gmail.com",
             numberAlertList: [
                 {

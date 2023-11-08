@@ -23,7 +23,7 @@ export async function saveUserToDb({
 
     // NOTE: all data is wiped out when the modal is closed, no need clearForm
     /* dataToSend example
-        {"userId":"febro@gmail.com","userName":"febro lusi","userPhone":"(92) 9999-99999","gotUserPhoneWhatsup":false,"disabledCTA":false,"roomId":"central","userType":"admin","numberAlertList":[{"contact":92999999999,"type":"sms"}]}
+        {"userId":"febro@gmail.com","userName":"febro lusi","userPhone":"(92) 9999-99999","isPhoneWhatsapp":false,"disabledCTA":false,"roomId":"central","role":"admin","numberAlertList":[{"contact":92999999999,"type":"sms"}]}
     */
 
     showToast("Novo usuário registrado com sucesso!", {

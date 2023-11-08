@@ -8,7 +8,7 @@ export default function RegisteredUsersTable({
     isAuthority,
     dataSignup,
     filteredList,
-    selectedUserType,
+    selectedRole,
     loading,
 }) {
     const handleLabelUserNameTitle = () => {
@@ -40,7 +40,7 @@ export default function RegisteredUsersTable({
 
     if (isEverybody)
         headCells.splice(1, 0, {
-            id: "userType",
+            id: "role",
             numeric: false,
             disablePadding: false,
             label: "Tipo Usuário",
@@ -75,7 +75,7 @@ export default function RegisteredUsersTable({
                     isEverybody
                         ? "Todos os usuários"
                         : `Lista usuários - ${
-                              selectedUserType && selectedUserType.cap()
+                              selectedRole && selectedRole.cap()
                           }`
                 }
                 rowsData={filteredList}

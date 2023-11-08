@@ -10,7 +10,7 @@ export default function TailwindDropdown() {
     const uify = useUify();
 
     const userName = "L. Febro";
-    const userType = "admin";
+    const role = "admin";
 
     const wrapperRef = useRef(null);
 
@@ -104,7 +104,7 @@ export default function TailwindDropdown() {
                         className="rounded-full  max-w-full h-auto align-middle border-none undefined"
                     />
                     <p className="mt-1 text-white text-small text-center">
-                        {userType}
+                        {role}
                     </p>
                 </div>
                 <span className="hidden material-icons text-lg leading-none align-middle">

@@ -33,7 +33,7 @@ import RemoveUserBtn from "./crud/RemoveUserBtn";
 
 export default function FormsContent({
     roomId = "central",
-    selectedUserType,
+    selectedRole,
     setDataForEverybodyForm,
     setList,
     handleFullClose,
@@ -43,20 +43,19 @@ export default function FormsContent({
         userId: null, // email
         userName: null,
         userPhone: null, // only team, admin
-        gotUserPhoneWhatsup: true,
+        isPhoneWhatsapp: true,
         disabledCTA: false,
     });
     const [error, setError] = useState(null);
 
-    const { userId, userName, userPhone, gotUserPhoneWhatsup, disabledCTA } =
-        data;
+    const { userId, userName, userPhone, isPhoneWhatsapp, disabledCTA } = data;
     const userPhoneDisplay = autoPhoneMask(userPhone);
 
     const isMobilePhoneReady =
         userPhoneDisplay && userPhoneDisplay.length >= 15;
 
-    const isEverybody = selectedUserType === "todos";
-    const isAuthority = selectedUserType === "autoridade";
+    const isEverybody = selectedRole === "todos";
+    const isAuthority = selectedRole === "autoridade";
     const isUpdate = Boolean(updateData);
 
     const [dataCheckbox, updateCheckbox] = useState([
@@ -90,12 +89,12 @@ export default function FormsContent({
 
         setData((prev) => ({
             ...prev,
-            gotUserPhoneWhatsup: isTrue,
+            isPhoneWhatsapp: isTrue,
         }));
     };
 
     const showEverybodyForm = () => {
-        const userTypeData = [
+        const roleData = [
             { val: "equipe", showVal: "Equipe" },
             { val: "admin", showVal: "Admin" },
             { val: "autoridade", showVal: "Autoridade" },
@@ -105,13 +104,13 @@ export default function FormsContent({
             <div className="flex justify-center items-center flex-col">
                 <SelectField
                     label="Selecione tipo usuário:"
-                    valuesArray={userTypeData}
-                    defaultValue={selectedUserType}
+                    valuesArray={roleData}
+                    defaultValue={selectedRole}
                     handleValue={(newVal) => {
                         if (typeof setDataForEverybodyForm === "function") {
                             setDataForEverybodyForm((prev) => ({
                                 ...prev,
-                                selectedUserType: newVal,
+                                selectedRole: newVal,
                             }));
                         }
                     }}
@@ -234,12 +233,12 @@ export default function FormsContent({
             userId: userId && userId.trim(),
             userName: userName && userName.trim(),
             roomId,
-            userType: selectedUserType,
+            role: selectedRole,
             numberAlertList: addNumberAlertList({
                 isAuthority,
                 allMarkedAlerts,
                 userPhone,
-                gotUserPhoneWhatsup,
+                isPhoneWhatsapp,
             }),
         };
     };
@@ -581,12 +580,12 @@ export default function FormsContent({
 
     const handleMainTitle = () => {
         if (isUpdate) {
-            return `Atualização Cadastro ${capitalize(updateData.userType)}`;
+            return `Atualização Cadastro ${capitalize(updateData.role)}`;
         }
 
         return isEverybody
             ? "Novo Cadastro"
-            : `Novo Cadastro ${capitalize(selectedUserType)}`;
+            : `Novo Cadastro ${capitalize(selectedRole)}`;
     };
 
     const removalData = {

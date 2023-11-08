@@ -65,7 +65,7 @@ export default function ItemModalBtn({
             socket,
             {
                 origin: "dashboard",
-                userType: "admin",
+                role: "admin",
                 alertId,
                 ...data,
             },

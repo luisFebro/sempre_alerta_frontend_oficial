@@ -15,6 +15,8 @@ Número máximo de dígitos: 11
 export default function autoPhoneMask(phone) {
     if (!phone) return "";
 
+    phone = String(phone);
+
     return (
         phone
             // \D prevent any character other than digits to be inserted

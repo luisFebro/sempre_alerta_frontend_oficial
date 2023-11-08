@@ -22,7 +22,7 @@ export default function Alerts() {
     const globalData = useReadUI("global");
     const { roomId = "central" } = globalData;
 
-    // TEST (on)
+    // TEST
     // dbList is loaded every time user loads the page (read only)
     // only update in backend.
     const dbList = [
@@ -30,7 +30,7 @@ export default function Alerts() {
         //     alertId: "1:031023:042652",
         //     userId: "johndow@gmail.com",
         //     userDisplayName: "Roberta Lira",
-        //     userType: "equipe",
+        //     role: "equipe",
         //     alertStatus: "finished",
         //     utcDate: "2023-10-13T20:15:52.315Z",
         //     sosRequested: false,

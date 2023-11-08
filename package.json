@@ -1,6 +1,6 @@
 {
-  "name": "test_sempre_alerta_front",
-  "version": "1.6.5",
+  "name": "sempre_alerta_frontend",
+  "version": "1.6.5-1",
   "private": true,
   "proxy": "http://localhost:5000",
   "scripts": {

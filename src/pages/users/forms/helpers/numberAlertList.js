@@ -5,7 +5,7 @@ export function addNumberAlertList({
     isAuthority,
     allMarkedAlerts,
     userPhone,
-    gotUserPhoneWhatsup,
+    isPhoneWhatsapp,
 }) {
     if (isAuthority) {
         return allMarkedAlerts.map((elem) => {
@@ -26,7 +26,7 @@ export function addNumberAlertList({
         return [
             {
                 contact: convertPhoneStrToInt(userPhone),
-                type: gotUserPhoneWhatsup ? "whatsapp" : "sms",
+                type: isPhoneWhatsapp ? "whatsapp" : "sms",
             },
         ];
     }
@@ -74,7 +74,7 @@ export function getNumberAlertListToData({
         const isWhatsup = type === "whatsapp";
 
         return {
-            gotUserPhoneWhatsup: isWhatsup,
+            isPhoneWhatsapp: isWhatsup,
             userPhone: autoPhoneMask(String(contact)),
         };
     }
