@@ -3,9 +3,27 @@ import { useState, useEffect, useRef } from "react";
 import TopNavbar from "./top_navbar/TopNavbar";
 import SidebarNavbar from "./side_navbar/SidebarNavbar";
 import CurvesDesign from "./top_navbar/curves_design/CurvesDesign";
+import checkValidSession from "auth/checkValidSession";
+import { readData, useUify } from "global-data/useData";
+import loadInit from "auth/api";
+import { useLoggedIn } from "auth/access/authenticate";
+import { useNavigate } from "react-router-dom";
+import getVar from "cache/indexedDB";
 
 export default function Navigation() {
     const [showSideBar, setShowSideBar] = useState("-left-64");
+
+    const uify = useUify();
+
+    useEffect(() => {
+        checkValidSession(uify);
+
+        getVar("userId").then((userId) => {
+            loadInit(uify, userId);
+        });
+    }, []);
+
+    useLoggedIn(useNavigate());
 
     const wrapperRef = useRef(null);
     useEffect(() => {

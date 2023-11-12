@@ -6,7 +6,7 @@ import useOfflineListData from "hooks/storage/useOfflineListData";
 import getFirstName from "utils/string/getFirstName";
 import useData from "init";
 import useToken, { chooseHeader } from "auth/useToken";
-import disconnect from "auth/disconnect";
+import disconnect from "auth/access/disconnect.js";
 import Skeleton from "components/multimedia/Skeleton";
 import { IS_DEV } from "config/clientUrl";
 import extractStrData from "utils/string/extractStrData";
@@ -30,8 +30,6 @@ const {
 {error && <ShowError />}
  */
 
-const isSmall = window.Helper.isSmallScreen();
-
 const ShowLoadingComp = ({ marginY = 100, size = "small" }) => (
     <Spinner marginY={marginY} size={size} />
 );
@@ -52,6 +50,8 @@ export default function useAPIList({
     disableDupFilter = false, // disable equal matching filter
     heightSkeleton,
 }) {
+    const isSmall = window.Helper.isSmallScreen();
+
     const [data, setData] = useState({
         list: [],
         listTotal: 0,

@@ -66,7 +66,7 @@ function handleDuration(dur, options = {}) {
 function getToastIcon(type) {
     const variantIcon = {
         success: "✨",
-        warning: "⚠️",
+        warning: "    ",
         error: "⛔",
     };
 

@@ -1,19 +1,18 @@
+// use indexDB for super important and authentication and frequent methods only. Prefarable useData (components) or readData (methods with uify)
 import { useEffect, useState } from "react";
 import localforage from "localforage";
 import isObj from "utils/isObj";
 
-const allowedStores = ["user", "profile", "filter", "global"];
+const allowedStores = ["global"];
 
-const variablesStore = (storeName = "global_vars") => {
-    if (storeName === "global") storeName = "global_vars";
-
+const variablesStore = (storeName = "global") => {
     return localforage.createInstance({
         name: `project-${storeName}`,
         storeName,
     });
 };
 
-export default function getVar(key, options = {}) {
+export default function getVar(key, options) {
     const storeName = handleStoreName(options);
 
     return variablesStore(storeName).getItem(key);
@@ -47,7 +46,7 @@ export const setVar = (obj, options) => {
         );
 };
 
-export const removeVar = async (key, options = {}) => {
+export const removeVar = async (key, options) => {
     const storeName = handleStoreName(options);
 
     return variablesStore(storeName)
@@ -58,6 +57,12 @@ export const removeVar = async (key, options = {}) => {
         );
 };
 
+/* example:
+const [role, userId, name, twoLastCpsfDigits] = await getVars(
+    ["role", "userId", "name", "twoLastCdpfDigits"],
+    "global"
+);
+*/
 export const getVars = async (arrayKeys, options) => {
     const storeName = handleStoreName(options);
 
@@ -69,7 +74,7 @@ export const getVars = async (arrayKeys, options) => {
 };
 
 // dataObj like { key1: value1, key2: value2 }
-export const setVars = async (dataObj, options = {}) => {
+export const setVars = async (dataObj, options) => {
     const storeName = handleStoreName(options);
 
     if (!isObj(dataObj, { noArrays: true }))
@@ -80,10 +85,10 @@ export const setVars = async (dataObj, options = {}) => {
     // https://stackoverflow.com/questions/43807515/eslint-doesnt-allow-for-in
     Object.keys(dataObj).forEach((key) => {
         const value = dataObj[key];
-        if (value === undefined || value === null) {
-            promises.push(null);
-            return;
-        }
+        // if (value === undefined || value === null) {
+        //     promises.push(null);
+        //     return;
+        // }
 
         promises.push(
             variablesStore(storeName)
@@ -100,7 +105,7 @@ export const setVars = async (dataObj, options = {}) => {
 };
 
 // e.g ["elem1", "elem2"]
-export const removeVars = async (strArray, options = {}) => {
+export const removeVars = async (strArray, options) => {
     const storeName = handleStoreName(options);
 
     if (strArray && !strArray.length) return null;
@@ -134,7 +139,7 @@ export const removeStore = async (store) => {
 
 // HELPERS
 // allow passing name of store as the second string argument directly.
-function handleStoreName(data) {
+function handleStoreName(data = "global") {
     let storeName = data; // allow passing name of store as the second argument directly.
     if (typeof data === "object") storeName = data.storeName;
     if (!allowedStores.includes(storeName) && storeName !== undefined)

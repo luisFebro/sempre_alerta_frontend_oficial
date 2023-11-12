@@ -8,16 +8,16 @@ const runners = {
 };
 
 const initState = {
-    profile: {}, // all user data
-    global: {}, // all system data
+    user: {}, // all user data
+    global: {}, // else data
     ...runners,
 };
 
 const reducer = (state, action) => {
     const [type, payload] = handleAction(action, initState);
 
-    if (type === "profile")
-        return { ...state, profile: { ...state.profile, ...payload } }; // inner ...state.profile so that variables can be inserted individually when updating data with updateUser.
+    if (type === "user")
+        return { ...state, user: { ...state.user, ...payload } }; // inner ...state.user so that variables can be inserted individually when updating data with updateUser.
     // al other types of data (use scarcely, only in the last case for transfering data from distant components)
     if (type === "global")
         return { ...state, global: { ...state.global, ...payload } };

@@ -12,9 +12,10 @@ import FabBtn from "components/btns/FabBtn";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import { updateUI, useUify, useReadUI } from "global-data/ui";
-import { setItems } from "init/lStorage";
 import { init, showGoogleOneTapPrompt } from "./helpers";
+import { doLogin } from "auth/api";
+import authenticate from "auth/access/authenticate";
+import { useUify } from "global-data/useData";
 
 /* IMPORTANT: in order to remove the current user, should delete g_state from cache. ref: https://stackoverflow.com/a/76141875/10010404
 
@@ -27,10 +28,7 @@ export default function IdentityGoogleLoginBtn() {
     const navigate = useNavigate();
     const uify = useUify();
 
-    const { isLogout } = useReadUI("profile");
-    console.log("isLogout: " + isLogout);
-
-    const handleSignInResponse = (response) => {
+    const handleSignInResponse = async (response) => {
         if (!response) return;
 
         // https://developers.google.com/identity/gsi/web/reference/js-reference#select_by
@@ -43,18 +41,26 @@ export default function IdentityGoogleLoginBtn() {
         const userData = jwtDecode(response.credential);
         const userId = userData && userData.email;
 
-        // TODO check if the userId is in the list db
+        const output = await doLogin(uify, {
+            userId,
+            origin: "dashboard",
+        });
 
-        updateUI(
-            "profile",
-            {
+        if (!output) return;
+
+        const {
+            user: { firstName },
+            token,
+        } = output;
+
+        if (didUserClickBtn || didUserClickOneTapPopup)
+            authenticate(uify, {
                 userId,
-                access_type: "google",
-            },
-            uify
-        );
-
-        if (didUserClickBtn || didUserClickOneTapPopup) navigate("/alertas");
+                token,
+                accessType: "google",
+                msg: `Olá, ${firstName}. Acesso liberado!`,
+                navigate,
+            });
     };
 
     const dataGoogle = {
@@ -77,12 +83,12 @@ export default function IdentityGoogleLoginBtn() {
 
             init(thisGoogle, handleSignInResponse);
 
-            if (isLogout) {
-                // not used updateUI since if we update the screen, gonna show the prompt again. We need only when the user reload the page
-                setItems("profile", { isLogout: false });
-            } else null; // showGoogleOneTapPrompt(dataGoogle);
+            // if (isLogdout) {
+            //     // not used updateData since if we update the screen, gonna show the prompt again. We need only when the user reload the page
+            //     // setItems("user", { isLogodut: false });
+            // } else null; // showGoogleOneTapPrompt(dataGoogle);
         };
-    }, [isLogout]);
+    }, []);
 
     return (
         <>

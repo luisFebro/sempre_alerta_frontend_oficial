@@ -482,7 +482,7 @@ export default class LinearProgress {
 function renderTemplate(type, mainColor) {
     if (type === "determinate")
         return (
-            `<div class="deter-bar" style="background: var(--themePDark--${mainColor}" role="mpbar1">` +
+            `<div class="deter-bar" style="background: ${mainColor}" role="mpbar1">` +
             '<div class="peg"></div>' +
             "</div>" +
             '<div class="bar-bg"></div>'
@@ -490,7 +490,7 @@ function renderTemplate(type, mainColor) {
 
     if (type === "buffer")
         return (
-            `<div class="deter-bar" style="background: var(--themePDark--${mainColor}" role="mpbar2">` +
+            `<div class="deter-bar" style="background: ${mainColor}" role="mpbar2">` +
             '<div class="peg"></div>' +
             "</div>" +
             '<div class="buffer-bg" role="bufferBar"></div>' +
@@ -499,14 +499,14 @@ function renderTemplate(type, mainColor) {
 
     if (type === "indeterminate")
         return (
-            `<div class="indeter-bar" style="background: var(--themePDark--${mainColor}" role="mpbar3">` +
+            `<div class="indeter-bar" style="background: ${mainColor}" role="mpbar3">` +
             "</div>" +
             '<div class="bar-bg"></div>'
         );
 
     if (type === "query")
         return (
-            `<div class="query-bar" style="background: var(--themePDark--${mainColor}"  role="mpbar4">` +
+            `<div class="query-bar" style="background: ${mainColor}"  role="mpbar4">` +
             '<div class="peg"></div>' +
             "</div>" +
             '<div class="bar-bg"></div>'

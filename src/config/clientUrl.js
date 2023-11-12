@@ -2,7 +2,7 @@
 // SOLVED THE ISSUE by adding _headers and netlify.toml alongside the index.hmtl
 exports.CLIENT_URL =
     process.env.NODE_ENV === "production"
-        ? "https://semprealerta.com.br"
+        ? "https://semprealertasos.com.br"
         : "http://localhost:3000";
 
 exports.IS_DEV = process.env.NODE_ENV === "development";

@@ -23,20 +23,6 @@ export default function isThisApp() {
     return checkBrowsers;
 }
 
-export const websitePages = [
-    "/acesso/verificacao",
-    "/baixe-app",
-    "/suporte",
-    "/termos-de-uso",
-    "/privacidade",
-    "/novo-clube",
-    "/app/preview", // app/preview is the preview for building app in website
-    "/qr",
-    "/menu",
-    "/nucleo-equipe/cadastro/pagseguro",
-    "/cadastro/senha",
-];
-
 // https://stackoverflow.com/questions/53378576/detect-web-app-running-as-homescreen-app-on-android-stock-browser
 function checkEnforceMobile() {
     if (!(window.sessionStorage || false)) return false; // Session storage not supported

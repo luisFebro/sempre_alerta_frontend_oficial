@@ -1,12 +1,12 @@
-import { useReadUI } from "global-data/ui";
 import LoadingThreeDots from "./LoadingThreeDots.js";
+import useData from "global-data/useData.js";
 
 export default function ChatTyping({
     userFirstName,
     show = true,
     isBot = false,
 }) {
-    const { chatDarkMode } = useReadUI("global");
+    const { chatDarkMode } = useData();
     const backColor = chatDarkMode ? "var(--themePLight)" : "var(--themePDark)";
     const txtColor = chatDarkMode ? "#868686" : "var(--themePDark)";
 

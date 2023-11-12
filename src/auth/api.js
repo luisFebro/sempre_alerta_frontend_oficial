@@ -1,42 +1,25 @@
 import showToast from "components/toasts";
 import getAPI, { login, register, loadDataInit } from "api";
-import setInitData from "init/setInitData";
-// import disconnect from "auth/disconnect";
+import setInitData from "global-data/setInitData";
 
-export default async function loadInit(uify) {
+export default async function loadInit(uify, userId) {
     const data = await getAPI({
         method: "post",
         url: loadDataInit(),
         fullCatch: true,
+        body: { userId },
         timeoutMsgOn: false,
     }).catch(async (err) => {
         if (!err) return;
-        // const errorMsg = err.data && err.data.error;
-
-        // to avoid infinite request loop
-        const isUnavailablePage =
-            window.location.href.indexOf("temporariamente-indisponivel-503") >=
-            0;
-        if (err.status === 503 && !isUnavailablePage) {
-            window.location.href = "/temporariamente-indisponivel-503";
-        }
 
         if (err.status === 401) {
-            setInitData(undefined, { uify }); // set init default values
-
-            // This is making website crazily disconnect even in the homepage
-            // thre is now the checkValidSession that can handle this disconnection
-            // const areLoginPages =
-            //     window.location.href.indexOf("app") >= 0 ||
-            //     window.location.href.pathname === "/";
-
-            // if (!areLoginPages) disconnect();
+            setInitData(uify, undefined); // set init default values
         }
     });
 
     if (!data) return;
 
-    await setInitData(data, { uify });
+    await setInitData(uify, data);
 }
 
 // objToSend: { name, email, password, registeredBy = email }
@@ -50,14 +33,18 @@ export const doRegister = async (objToSend) =>
         fullCatch: true,
     });
 
-export const doLogin = async (uify, objToSend) => {
+export const doLogin = async (
+    uify,
+    body = { userId: "", origin: "dashboard" }
+) => {
     const data = await getAPI({
         method: "post",
         url: login(),
-        body: objToSend,
+        body,
         timeout: 30000,
         loader: true,
         fullCatch: true,
+        waitInSec: 2000,
     }).catch((err) => {
         if (!err) return null;
         const errorMsg = err.data && err.data.error;
@@ -74,7 +61,7 @@ export const doLogin = async (uify, objToSend) => {
 
     if (!data) return null;
 
-    await setInitData(data, { uify });
+    await setInitData(uify, data);
 
     return data;
 };

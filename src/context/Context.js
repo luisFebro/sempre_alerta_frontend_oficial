@@ -24,7 +24,7 @@ export const Provider = ({ children, store }) => (
 // REDUCER
 /* data here is reducer and initialData like
 const initState = {
-    profile: {},
+    user: {},
 };
 */
 

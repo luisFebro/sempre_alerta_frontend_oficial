@@ -6,6 +6,9 @@ import Field from "components/fields/Field";
 import { useState } from "react";
 import wait from "utils/promises/wait";
 import showToast from "components/toasts/showToast";
+import { doLogin } from "auth/api";
+import authenticate from "auth/access/authenticate";
+import { useUify } from "global-data/useData";
 
 export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
     const [data, setData] = useState({
@@ -13,6 +16,7 @@ export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
     });
 
     const navigate = useNavigate();
+    const uify = useUify();
 
     const { userId } = data;
     const [error, setError] = useState(null);
@@ -20,7 +24,7 @@ export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
         // VALIDATION
         if (!userId) {
             setError("userId");
-            return showToast("Favor, informe email.", {
+            return showToast("ACE-3 | Favor, informe email.", {
                 type: "error",
                 dur: 10000,
             });
@@ -29,14 +33,25 @@ export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
 
         showToast("Verificando acesso...", { type: "warning", dur: 10000 });
 
-        // TODO loginUser()
-        await wait(3000);
-
-        showToast("Olá, John Doe. Acesso liberado!", {
-            type: "success",
-            dur: 10000,
+        const output = await doLogin(uify, {
+            userId,
+            origin: "dashboard",
         });
-        navigate("/alertas");
+
+        if (!output) return;
+
+        const {
+            user: { firstName },
+            token,
+        } = output;
+
+        authenticate(uify, {
+            userId,
+            token,
+            accessType: "email",
+            msg: `Olá, ${firstName}. Acesso liberado!`,
+            navigate,
+        });
     };
 
     const showAccessArea = () => (

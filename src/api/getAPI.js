@@ -1,9 +1,9 @@
 import axios from "axios";
-import disconnect from "auth/disconnect";
+import disconnect from "auth/access/disconnect";
 import { chooseHeaderAsync } from "auth/useToken";
-import getItems from "init/lStorage";
 import showProgress from "components/loadingIndicators/progress/showProgress";
 import showToast from "components/toasts";
+import wait from "utils/promises/wait";
 
 export * from "./requestsLib";
 
@@ -25,14 +25,16 @@ export default function getAPI({
     sucMsg = false,
     sucDur = 7000,
     timeoutMsgOn = true,
+    waitInSec = null,
 }) {
     if (!url) throw new Error("A URL is required!");
 
-    const [token] = getItems("profile", ["token"]);
     handleProgress("go", { loader });
 
     const axiosPromise = async (resolve, reject) => {
         let cancel;
+
+        if (waitInSec) await wait(waitInSec);
 
         const stopRequest = setTimeout(() => {
             if (typeof cancel === "function") cancel();
@@ -45,7 +47,7 @@ export default function getAPI({
             return reject(null);
         }, timeout);
 
-        const authHeaders = await chooseHeaderAsync({ token, needAuth });
+        const authHeaders = await chooseHeaderAsync({ needAuth });
 
         const config = {
             url,

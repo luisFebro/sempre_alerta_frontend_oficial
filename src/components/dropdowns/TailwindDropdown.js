@@ -1,5 +1,6 @@
+import disconnect from "auth/access/disconnect";
 import showToast from "components/toasts/showToast";
-import { updateUI, useUify } from "global-data/ui";
+import useData from "global-data/useData";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,10 +8,9 @@ export default function TailwindDropdown() {
     const [show, setShow] = useState(false);
 
     const navigate = useNavigate();
-    const uify = useUify();
 
-    const userName = "L. Febro";
-    const role = "admin";
+    const { userName, role } = useData("user");
+    const { accessType } = useData();
 
     const wrapperRef = useRef(null);
 
@@ -36,25 +36,16 @@ export default function TailwindDropdown() {
         if (!show) document.removeEventListener("mousedown", () => null);
     }, [show]);
 
-    const logoutUser = () => {
+    const logoutUser = async () => {
         // https://developers.google.com/identity/gsi/web/guides/automatic-sign-in-sign-out
         // https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.disableAutoSelect
-        google.accounts.id.disableAutoSelect();
-        showToast("Desconectado com sucesso!", {
-            type: "warning",
-            dur: 5000,
+        if (accessType === "google")
+            window.google && window.google.accounts.id.disableAutoSelect();
+
+        await disconnect({ navigate, msg: true }).catch((error) => {
+            console.log("error disconnect: " + error);
+            return showToast("Error ao desconectar...", { type: "error" });
         });
-
-        updateUI(
-            "profile",
-            {
-                userId: null,
-                isLogout: true,
-            },
-            uify
-        );
-
-        navigate("/");
     };
 
     const showUserAccessData = () => (

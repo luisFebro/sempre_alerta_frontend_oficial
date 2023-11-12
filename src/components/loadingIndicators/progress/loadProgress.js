@@ -1,8 +1,8 @@
-import getItems from "init/lStorage";
 import LinearProgress from "./linearProgress";
 import "./main.css";
 
-const [mainColor] = getItems("sysData", ["themePColor"]);
+//const [mainColor] = getgdfItems("global", ["themePColor"]);
+const mainColor = "#1372a7";
 
 export default function loadProgress(action, config = {}) {
     const allowedActions = ["go", "end"];
@@ -13,7 +13,7 @@ export default function loadProgress(action, config = {}) {
 
     const newProgress = new LinearProgress({
         template,
-        mainColor: !mainColor ? "default" : mainColor,
+        mainColor: mainColor || "var(--themePDark)",
     });
 
     if (action === "go") newProgress.start();

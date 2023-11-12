@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 import getAPI, { makeGoogleLogin } from "api";
 import ButtonFab from "../buttons/material-ui/ButtonFab";
-import getVar from "init/var";
+import getVar from "cache/indexedDB";
 import { showSnackbar } from "../../redux/actions/snackbarActions";
 import { useBizData } from "init";
 
@@ -28,7 +28,7 @@ function GoogleLogin({ history }) {
     const handleSuccess = async (response) => {
         showSnackbar(dispatch, "Conectando... Um momento.");
 
-        const userId = await getVar("userId", "user");
+        const userId = null;
 
         const { tokenId } = response;
         const body = { userId, tokenId };

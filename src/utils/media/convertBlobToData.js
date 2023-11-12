@@ -1,4 +1,4 @@
-import { setVar } from "init/var";
+import { setVar } from "cache/indexedDB";
 // preload, cache multimedia.
 export default async function convertBlobToData(blob, options = {}) {
     const { mediaName } = options;

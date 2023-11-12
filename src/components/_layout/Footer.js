@@ -1,7 +1,7 @@
-import { useReadUI } from "init/useData";
+import useData from "global-data/useData";
 
 export default function Footer() {
-    const { version } = useReadUI();
+    const { version } = useData();
 
     return (
         <footer className="mt-96 lg:relative lg:bottom-0 py-6 px-16 border-t border-gray-200 font-light flex flex-col lg:flex-row justify-center items-center max-h-1">

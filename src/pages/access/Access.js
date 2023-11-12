@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import IdentityGoogleLoginBtn from "./google/IdentityGoogleLoginBtn";
 import EmailLoginBtn from "./EmailLoginBtn";
-import { updateUI, useUify } from "global-data/ui";
+import { updateData, useUify } from "global-data/useData";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.6.5";
+const DASHBOARD_OFFICIAL_VERSION = "v1.8.7-2";
 
 export default function Access() {
+    const isSmall = window.Helper.isSmallScreen();
+
     const [data, setData] = useState({
         area: "main", // main or email. default: main
     });
@@ -15,13 +17,9 @@ export default function Access() {
     const uify = useUify();
 
     useEffect(() => {
-        updateUI(
-            "global",
-            {
-                version: DASHBOARD_OFFICIAL_VERSION,
-            },
-            uify
-        );
+        updateData(uify, {
+            version: DASHBOARD_OFFICIAL_VERSION,
+        });
     }, []);
 
     const toggleEmailArea = (status = false) => {
@@ -82,14 +80,14 @@ export default function Access() {
             <img
                 className="fixed -bottom-10 -left-10 -rotate-45 opacity-40"
                 src="./img/illustra/access/illustra_megaphone.svg"
-                width={200}
-                height={200}
+                width={isSmall ? 140 : 200}
+                height={isSmall ? 140 : 200}
             />
             <img
                 className="fixed -bottom-10 -right-10 -rotate-45 opacity-40"
                 src="./img/illustra/access/illustra_sirene.svg"
-                width={240}
-                height={240}
+                width={isSmall ? 170 : 240}
+                height={isSmall ? 170 : 240}
             />
             <p className="text-lg txt-p-light text-center absolute bottom-5 left-1/2 -translate-x-1/2">
                 {DASHBOARD_OFFICIAL_VERSION}

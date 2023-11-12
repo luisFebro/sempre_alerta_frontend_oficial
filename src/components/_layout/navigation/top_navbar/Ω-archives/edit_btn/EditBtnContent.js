@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import DateField from "components/fields/DateField";
 import { diffInDays, hasPassedDate, isSameDay } from "utils/dates/dateFns";
 import showToast from "components/toasts/showToast";
-import { useReadUI } from "init/useData";
 
 export default function EditBtnContent({
     handleFullClose,
@@ -25,7 +24,7 @@ export default function EditBtnContent({
         diffInDays: diffDaysCount,
     } = filterData;
 
-    const { isHighAuth } = useReadUI("global");
+    const isHighAuth = false;
 
     const [needCustomDate, setNeedCustomDate] = useState(false);
     const [update, setUpdate] = useState({

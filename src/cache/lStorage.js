@@ -2,7 +2,7 @@ import isObj from "utils/isObj";
 // only for crucial and essencial variables which requires a bootup value right away like background color and important user's data and which an async approach could result in a delay. The performance can be an issue if localstorage is huge in size since is syncronous.
 // all secondary data should use indexedDB.
 
-const allowedCollections = ["user", "profile", "filter", "global"];
+const allowedCollections = ["user", "global"];
 
 export default function getItems(collectionName, namesArray = null) {
     if (!allowedCollections.includes(collectionName))

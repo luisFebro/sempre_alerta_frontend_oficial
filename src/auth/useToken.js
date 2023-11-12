@@ -1,20 +1,24 @@
-import useData from "init";
-import getVar from "init/var";
+import useData from "global-data/useData";
+import getVar from "cache/indexedDB";
 
 export default function useToken() {
     const { token } = useData();
     return token;
 }
 
-export const chooseHeaderAsync = async ({ token, needAuth = true }) => {
+export const chooseHeaderAsync = async ({ needAuth = true }) => {
     if (needAuth) {
-        if (!token) {
-            const forageToken = await getVar("token", "user");
-            return {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${forageToken}`,
-            };
-        }
+        // const [token] = getItems("global", ["token"]);
+        // console.log("token: " + token);
+        // if(token) {
+
+        // }
+
+        const forageToken = await getVar("token");
+        return {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${forageToken}`,
+        };
 
         return {
             "Content-Type": "application/json",

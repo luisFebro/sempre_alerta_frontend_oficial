@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import isObjEmpty from "utils/objects/isObjEmpty";
 import useToken, { chooseHeader } from "auth/useToken";
-import disconnect from "auth/disconnect";
+import disconnect from "auth/access/disconnect.js";
 import showToast from "components/toasts";
-import { setRun, useUify } from "global-data/ui";
 import { useOfflineData } from "hooks/storage/useOfflineListData";
-import { arePublicPages } from "auth/checkValidSession";
+import { isThisPublicPage } from "auth/checkValidSession";
+import { setRun, useUify } from "global-data/useData.js";
 
 export * from "./requestsLib.js";
 export * from "./trigger.js";
@@ -116,7 +116,7 @@ export default function useAPI({
 
         const gotExpiredToken = status === 401 || status === 403;
 
-        if (gotExpiredToken && !arePublicPages()) {
+        if (gotExpiredToken && !isThisPublicPage()) {
             (async () => {
                 await disconnect();
                 showToast("Sua sessão terminou.");

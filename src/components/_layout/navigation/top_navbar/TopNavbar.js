@@ -150,7 +150,7 @@ function getPeriodBr(period) {
                                 buttonText={
                                     <div class="w-12">
                                         <img
-                                            src="assets/img/profile/avatar.svg"
+                                            src="assets/img/user/avatar.svg"
                                             className="rounded-full  max-w-full h-auto align-middle border-none undefined"
                                         />
                                     </div>
@@ -165,7 +165,7 @@ function getPeriodBr(period) {
                                     color="purple"
                                     className="font-normal"
                                 >
-                                    SAIR
+                                    S
                                 </DropdownItem>
                             </Dropdown>
 

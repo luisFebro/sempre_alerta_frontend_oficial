@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 // Pages
 import Alerts from "pages/alerts/Alerts";
@@ -22,6 +22,7 @@ import "styles/tailwind/output.css";
 import "styles/libs/animate.selected.min.css";
 import { useEffect } from "react";
 import switchConsoleLogs from "utils/security/switchConsoleLogs";
+import { useLoggedIn } from "auth/access/authenticate";
 
 function App() {
     const store = useGlobalApp();
@@ -30,6 +31,10 @@ function App() {
         // remove console.log in production's env
         switchConsoleLogs();
     }, []);
+
+    useLoggedIn();
+
+    // all main checking methods (loadInit, checkValidSession) is inside Navigation component
 
     return (
         <BrowserRouter>

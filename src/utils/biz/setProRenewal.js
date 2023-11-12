@@ -1,4 +1,4 @@
-import { setVars, removeVars } from "init/var";
+import { setVars, removeVars } from "cache/indexedDB";
 
 export default async function setProRenewal({
     itemList,

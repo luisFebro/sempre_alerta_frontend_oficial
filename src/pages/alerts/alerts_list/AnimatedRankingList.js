@@ -1,4 +1,3 @@
-import { useUify } from "global-data/ui";
 import { useEffect, useState } from "react";
 import { calendar } from "utils/dates/dateFns";
 import sortDatesFront from "utils/dates/sortDatesFront";
@@ -14,15 +13,12 @@ import ItemModalBtn from "./items/ItemModalBtns";
 export default function AnimatedRankingList({ dataList, focusScreenId }) {
     const { dbList, userId, roomId, userDisplayName, socket } = dataList;
 
-    // const { runObj = {} } = useRun();
-
     const [data, setData] = useState({
         list: [],
         updateListId: null,
         alertMsg: null,
     });
     const { list, updateListId, alertMsg } = data;
-    const uify = useUify();
 
     const listCount = (list && list.length) || 0;
     const isPlural = listCount > 1;

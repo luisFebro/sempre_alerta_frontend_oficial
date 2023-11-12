@@ -10,11 +10,11 @@ import FilterIcon from "@mui/icons-material/FilterAlt";
 import axios from "axios";
 import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import getVar, { setVar } from "init/var";
+import getVar, { setVar } from "cache/indexedDB";
 import isKeyPressed from "utils/event/isKeyPressed";
 import useData from "init";
 import useToken, { chooseHeader } from "auth/useToken";
-import disconnect from "auth/disconnect";
+import disconnect from "auth/access/disconnect";
 // 1. Allow enter key to select the first result and filter it after that.
 // Ideally, this first result needs to be highlighted.
 const truncate = (name, leng) => window.Helper.truncate(name, leng);

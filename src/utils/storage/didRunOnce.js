@@ -1,6 +1,6 @@
 // useful to handle run once an action
 // uniqueKey naming should be: componentName_uniqueDescription_id.
-import getVar, { setVar } from "init/var";
+import getVar, { setVar } from "cache/indexedDB";
 
 const insertNewValue = (uniqueKey, uniqueValue) => {
     setVar({ [uniqueKey]: uniqueValue }, "once_checked");
@@ -18,7 +18,7 @@ export default function didRunOnce(
     const { trigger = true } = options;
     if (!uniqueKey) return console.log("didRunOnce requires an uniqueKey");
 
-    return getVar(uniqueKey, "once_checked").then((valueKey) => {
+    return getVar(uniqueKey).then((valueKey) => {
         if (!trigger) return "nothing"; // need to be a truthy value to not trigger incorrectly
 
         if (!valueKey) {

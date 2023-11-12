@@ -4,10 +4,12 @@ import { ROOT } from "api/root";
 */
 
 // INIT, AUTH AND PASSWORD
-export const register = () => `${ROOT}/auth/register`; // POST
 export const login = () => `${ROOT}/auth/login`; // POST
-export const loadDataInit = () => `${ROOT}/auth/load-user/init`; // POST
-// export const checkValidSession = () => `${ROOT}/auth/session-check`;
+export const register = () => `${ROOT}/auth/signup`; // POST
+export const checkValidSession = () => `${ROOT}/auth/session-check`;
+
+// USERS
+export const loadDataInit = () => `${ROOT}/user/session/init`; // POST
 
 // export const uploadImages = (fileName) =>
 //     `${ROOT}/media/image/upload?fileName=${fileName}`; // POST

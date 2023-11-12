@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-// import useRun from "global-data/ui";
 import { Dialog } from "@mui/material";
 import CloseButton from "components/btns/CloseButton";
 // import RadiusBtn from "../buttons/RadiusBtn";
@@ -36,8 +35,6 @@ export default function ModalFullContent({
     closeButtonZIndex = 1500,
     // style,
 }) {
-    // const { runName } = useRun();
-
     const styles = getStyles({ needIndex });
 
     const handleOpen = () => {

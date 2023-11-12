@@ -1,6 +1,6 @@
 import getAPI, { createTk } from "api";
-import { setVar } from "init/var";
-import { setItems } from "init/lStorage";
+import { setVar } from "cache/indexedDB";
+import { setItems } from "cache/lStorage";
 
 export default async function renewToken(options = {}) {
     const { role, userId, bizId, clickedAppUserId } = options;
@@ -24,8 +24,8 @@ export default async function renewToken(options = {}) {
     if (!newToken) return null;
 
     // this will be handled by localforage for other projects.
-    await setVar({ token: newToken }, "user");
-    setItems("profile", {
+    await setVar({ token: newToken }, "global");
+    setItems("user", {
         token: newToken,
     });
 
