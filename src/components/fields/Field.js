@@ -2,8 +2,7 @@ import { useCallback } from "react";
 import TextField from "@mui/material/TextField";
 import debounce from "utils/performance/debounce";
 import { handleEnterPress, handleOnChange } from "./helpers/index";
-import { Box, InputAdornment, imageListClasses } from "@mui/material";
-import { Email } from "@mui/icons-material";
+import { Box, InputAdornment } from "@mui/material";
 
 // Warning: use a <form></form> wrapper to a group or even an individual field.
 // TextField is simply rendered as a raw <input /> tag
@@ -36,6 +35,7 @@ export default function Field({
     callbackEventOnly = false,
     disabled = false,
     txtColor = "var(--themeS)",
+    fancyMode = false,
 }) {
     //
     if (!name) throw new Error("it requires to pass name and value params");
@@ -98,6 +98,19 @@ export default function Field({
                     disabled={disabled}
                 />
             </Box>
+            {fancyMode && (
+                <style jsx>{`
+                    .single-field--root .MuiOutlinedInput-root,
+                    .single-field--root .MuiInputBase-root {
+                        border-radius: 25px;
+                        border-width: 4px;
+                        border-color: var(--grayDark);
+                    }
+                    .single-field--root .MuiOutlinedInput-root:hover {
+                        border-color: var(--themeP);
+                    }
+                `}</style>
+            )}
             <style jsx>
                 {`
                     .single-field--root.field.width${width}
@@ -155,12 +168,6 @@ export default function Field({
                         div
                         .MuiInputBase-input {
                         text-align: center !important;
-                    }
-
-                    .single-field--root .MuiOutlinedInput-root {
-                        border-radius: 25px;
-                        border-width: 4px;
-                        border-color: var(--grayDark);
                     }
                 `}
             </style>

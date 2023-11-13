@@ -59,12 +59,9 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                         </div>
                     </div>
 
-                    <div className="flex">
+                    <section className="flex">
                         <div className="hidden">
                             <NavbarInput placeholder="Search" />
-                        </div>
-                        <div className="xl:-mr-4 xl:ml-6">
-                            <Dropdown />
                         </div>
                         <div className="md:hidden">
                             <Button
@@ -82,7 +79,7 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                                     )
                                 }
                                 style={{
-                                    margin: "0 25px 0 0",
+                                    margin: "0 10px 0 0",
                                 }}
                             >
                                 <Icon
@@ -119,7 +116,10 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                                 </Button>
                             </div>
                         </div>
-                    </div>
+                        <div className="xl:-mr-4 xl:ml-6">
+                            <Dropdown />
+                        </div>
+                    </section>
                 </div>
             </div>
         </nav>

@@ -4,7 +4,7 @@ import TopNavbar from "./top_navbar/TopNavbar";
 import SidebarNavbar from "./side_navbar/SidebarNavbar";
 import CurvesDesign from "./top_navbar/curves_design/CurvesDesign";
 import checkValidSession from "auth/checkValidSession";
-import { readData, useUify } from "global-data/useData";
+import { useUify } from "global-data/useData";
 import loadInit from "auth/api";
 import { useLoggedIn } from "auth/access/authenticate";
 import { useNavigate } from "react-router-dom";

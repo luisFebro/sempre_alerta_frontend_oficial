@@ -4,7 +4,6 @@ import FabBtn from "components/btns/FabBtn";
 import TxtBtn from "components/btns/TxtBtn";
 import Field from "components/fields/Field";
 import { useState } from "react";
-import wait from "utils/promises/wait";
 import showToast from "components/toasts/showToast";
 import { doLogin } from "auth/api";
 import authenticate from "auth/access/authenticate";
@@ -72,6 +71,7 @@ export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
                     FieldIcon={
                         <Email style={{ color: "var(--themePLight)" }} />
                     }
+                    fancyMode
                 />
             </section>
             <FabBtn

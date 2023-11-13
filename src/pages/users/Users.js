@@ -1,6 +1,6 @@
 import MainTitle from "components/MainTitle";
 import SelectField from "components/fields/SelectField";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RegisteredUsersList from "./users_list/RegisteredUsersList";
 
 export default function Users() {
