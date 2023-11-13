@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ROOT } from "api/root";
+import { API_URL } from "config/root";
 // generic rest APIs which are called more than 5 times and reusable in any component go here.
 
 import getAPI, { pushElemToField as thisPushElemToField } from "api";
@@ -13,7 +13,7 @@ export const readUser = async (userId, role, select) => {
     };
 
     return await getAPI({
-        url: `${ROOT}/user/read`,
+        url: `${API_URL}/user/read`,
         params,
     });
 };
@@ -35,7 +35,7 @@ export const useReadUser = (userId, role, select, options = {}) => {
         };
 
         getAPI({
-            url: `${ROOT}/user/read`,
+            url: `${API_URL}/user/read`,
             params,
         })
             .then((data) => {
@@ -62,7 +62,7 @@ export const updateUser = async (userId, role, body, options = {}) => {
 
     await getAPI({
         method: "put",
-        url: `${ROOT}/user/update`,
+        url: `${API_URL}/user/update`,
         body,
         params,
         ...options,
@@ -96,7 +96,7 @@ export const sendNotification = async (userId, cardType, options = {}) => {
     if (needPushNotif) {
         return await getAPI({
             method: "put",
-            url: `${ROOT}/notification/send`,
+            url: `${API_URL}/notification/send`,
             body: pushNotifData,
             fullCatch: true,
         });
@@ -113,7 +113,7 @@ export const sendNotification = async (userId, cardType, options = {}) => {
 
     return await getAPI({
         method: "put",
-        url: `${ROOT}/notification/send`,
+        url: `${API_URL}/notification/send`,
         fullCatch: true,
         params: {
             nT: nT ? 1 : undefined,

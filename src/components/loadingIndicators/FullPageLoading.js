@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { CLIENT_URL } from "../../config/clientUrl";
+import { HOST_URL } from "../../config/root";
 
 export default function FullPageLoading({ color, backgroundColor }) {
     return (
@@ -7,7 +7,7 @@ export default function FullPageLoading({ color, backgroundColor }) {
             <img
                 className="svg-elevation pulse-it"
                 id="logo"
-                src={`${CLIENT_URL}/img/official-logo-white.png`}
+                src={`${HOST_URL}/img/official-logo-white.png`}
                 alt="logo carregando..."
                 height="150px"
             />

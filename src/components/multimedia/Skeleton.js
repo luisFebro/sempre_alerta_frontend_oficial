@@ -1,6 +1,6 @@
 import { Skeleton as MuSkeleton } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { IS_DEV } from "../../config/clientUrl";
+import { IS_DEV } from "../../config/root";
 
 const useStyles = makeStyles((theme) => ({
     avatarSkeletonContainer: {

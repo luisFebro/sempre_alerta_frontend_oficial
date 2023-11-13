@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AutoCompleteSearch from "./AutoCompleteSearch";
 
-export { ROOT } from "api/root";
+export { API_URL } from "config/root";
 
 export default function SearchField({
     id, // main search field id

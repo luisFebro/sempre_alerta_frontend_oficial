@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Toastify from "./toastify.js";
 import "./toastify.css";
-import { CLIENT_URL } from "../../../config/clientUrl";
+import { HOST_URL } from "../../../config/root";
 
 ReactToastify.propTypes = {
     text: PropTypes.string,
@@ -23,7 +23,7 @@ export default function ReactToastify({
     //       duration: duration || 4000,
     //       className: "toastify",
     //       fontWeight: 'bold',
-    //       avatar: `${CLIENT_URL}/icons/android-chrome-256x256.png`,
+    //       avatar: `${HOST_URL}/icons/android-chrome-256x256.png`,
     //       close: true,
     //       gravity: "bottom",
     //       position: 'left',
@@ -40,7 +40,7 @@ export default function ReactToastify({
                 duration: duration || 4000,
                 className: "toastify",
                 fontWeight: "bold",
-                avatar: `${CLIENT_URL}/icons/android-chrome-256x256.png`,
+                avatar: `${HOST_URL}/icons/android-chrome-256x256.png`,
                 close: true,
                 gravity: "bottom",
                 position: "left",

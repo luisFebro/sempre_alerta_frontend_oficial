@@ -37,7 +37,7 @@ export default function generateAppDownloadLink({
     }
 
     if (role === "cliente-admin") {
-        // link = `${CLIENT_URL}/baixe-app/${getFirstName(cliAdminName)}?negocio=${bizName && addSpace(bizName.cap())}&id=${bizId}&admin=1&painel=1`;
+        // link = `${HOST_URL}/baixe-app/${getFirstName(cliAdminName)}?negocio=${bizName && addSpace(bizName.cap())}&id=${bizId}&admin=1&painel=1`;
     }
 
     return link;

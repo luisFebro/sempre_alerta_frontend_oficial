@@ -8,7 +8,7 @@ import useData from "init";
 import useToken, { chooseHeader } from "auth/useToken";
 import disconnect from "auth/access/disconnect.js";
 import Skeleton from "components/multimedia/Skeleton";
-import { IS_DEV } from "config/clientUrl";
+import { IS_DEV } from "config/root";
 import extractStrData from "utils/string/extractStrData";
 // import isThisApp from "utils/window/isThisApp";
 import Spinner from "components/loadingIndicators/Spinner";

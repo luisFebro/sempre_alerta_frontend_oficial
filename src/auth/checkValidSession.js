@@ -1,6 +1,6 @@
 import getAPI, { checkValidSession as check } from "api";
 import disconnect from "auth/access/disconnect";
-import { CLIENT_URL } from "config/clientUrl";
+import { HOST_URL } from "config/root";
 import { readData, updateData } from "global-data/useData";
 import getId from "utils/getId";
 import watchWindowFocus from "utils/window/watchWindowFocus";
@@ -40,7 +40,7 @@ export function isThisPublicPage() {
     if (isException) return false;
 
     const result =
-        window.location.href === CLIENT_URL + "/" ||
+        window.location.href === HOST_URL + "/" ||
         window.location.href.indexOf("acesso") >= 0;
 
     return result;

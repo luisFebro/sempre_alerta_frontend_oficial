@@ -109,6 +109,10 @@ export default function Field({
                     .single-field--root .MuiOutlinedInput-root:hover {
                         border-color: var(--themeP);
                     }
+
+                    .single-field--root .MuiOutlinedInput-notchedOutline {
+                        border-color: transparent !important;
+                    }
                 `}</style>
             )}
             <style jsx>

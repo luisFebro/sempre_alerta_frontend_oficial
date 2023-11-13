@@ -455,7 +455,7 @@ const ShowTableBody = ({
                     };
 
                     return list.map((itemNumber, ind) => (
-                        <div className="inline-block mr-5">
+                        <div className="inline-block mr-5 whitespace-nowrap">
                             <img
                                 src={handleIconType(itemNumber.type)}
                                 width={30}

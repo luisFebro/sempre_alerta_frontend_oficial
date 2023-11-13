@@ -1,4 +1,4 @@
-import { CLIENT_URL } from "config/clientUrl";
+import { HOST_URL } from "config/root";
 // use fiddelize.com.br/app to test mobile version in the dev desktop
 // to switch back to website version go to home.
 
@@ -36,8 +36,8 @@ function checkEnforceMobile() {
 
     // home now redirect to fiddelize.com but properly removes the isPWA mode
     const isHomeUrl =
-        window.location.href === CLIENT_URL ||
-        window.location.href === `${CLIENT_URL}/`;
+        window.location.href === HOST_URL ||
+        window.location.href === `${HOST_URL}/`;
 
     const isWebsitePage = websitePages.some((pg) =>
         window.location.href.includes(pg)

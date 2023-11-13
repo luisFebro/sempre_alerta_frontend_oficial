@@ -1,12 +1,12 @@
 import { readImage, setImage } from "./lForage";
-import { CLIENT_URL } from "../../config/clientUrl";
+import { HOST_URL } from "../../config/root";
 
 // requires declare className to the img.
 // The same name as the key. Priorly it was an ID, but there were issues when more then one src is need
 function handleStorage(url, options = {}) {
     const { coll, key, isFromInternet = false, needSelector = true } = options;
 
-    const localUrl = `${CLIENT_URL}${url}`;
+    const localUrl = `${HOST_URL}${url}`;
     const urlPath = isFromInternet ? url : localUrl;
 
     return readImage(coll, key).then((generatedUrl) => {

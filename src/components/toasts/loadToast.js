@@ -22,7 +22,7 @@ export default function loadToast(title, options = {}) {
         throw new Error(`Invalid toastTypes. Only ${toastTypes}`);
 
     const imgHandlingCond =
-        options.avatar && options.avatar.includes(".") ? options.avatar : ""; // ${CLIENT_URL}/icons/android-chrome-256x256.png
+        options.avatar && options.avatar.includes(".") ? options.avatar : ""; // ${HOST_URL}/icons/android-chrome-256x256.png
 
     StartToastifyInstance({
         text: buttonRequirement ? title : `${title} ${getToastIcon(type)}`,
