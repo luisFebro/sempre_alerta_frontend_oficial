@@ -20,3 +20,5 @@ exports.HOST_URL =
     process.env.NODE_ENV === "production"
         ? "https://semprealertasos.com.br"
         : "http://localhost:3000";
+
+exports.HOST_INTERNAL_URL = "https://semprealerta.netlify.app";

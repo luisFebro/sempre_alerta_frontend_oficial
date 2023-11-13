@@ -29,11 +29,10 @@ function App() {
 
     useEffect(() => {
         // remove console.log in production's env
-        // switchConsoleLogs();
+        switchConsoleLogs();
     }, []);
 
-    console.log("window.location.href: " + window.location.href);
-    // useLoggedIn();
+    useLoggedIn();
 
     // all main checking methods (loadInit, checkValidSession) is inside Navigation component
 
