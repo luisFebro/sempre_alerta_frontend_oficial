@@ -7,7 +7,6 @@ import isObjEmpty from "utils/objects/isObjEmpty";
 import useToken, { chooseHeader } from "auth/useToken";
 import disconnect from "auth/access/disconnect.js";
 import showToast from "components/toasts";
-import { useOfflineData } from "hooks/storage/useOfflineListData";
 import { isThisPublicPage } from "auth/checkValidSession";
 import { setRun, useUify } from "global-data/useData.js";
 
@@ -31,7 +30,7 @@ export default function useAPI({
     trigger = true,
     runName = null,
     snackbar = {},
-    needAuth = false,
+    needAuth = true,
     loadingStart, // change default initial loading status
     needOnlyOnce = false,
     dataName, // offline usage
@@ -47,13 +46,13 @@ export default function useAPI({
     const uify = useUify();
 
     const thisData = data;
-    const { offlineData } = useOfflineData({ dataName, data: thisData });
-    useEffect(() => {
-        if (offlineData) {
-            setData(offlineData);
-            setLoading(false);
-        }
-    }, [offlineData]);
+    // const { offlineData } = useOfflineData({ dataName, data: thisData });
+    // useEffect(() => {
+    //     if (offlineData) {
+    //         setData(offlineData);
+    //         setLoading(false);
+    //     }
+    // }, [offlineData]);
 
     useEffect(() => {
         if (needOnlyOnce && data) setOnlyOnce(true);

@@ -10,6 +10,9 @@ export const checkValidSession = () => `${API_URL}/auth/session-check`;
 
 // USERS
 export const loadDataInit = () => `${API_URL}/user/session/init`; // POST
+export const updateUser = () => `${API_URL}/user/update`; // PUT
+export const removeUser = () => `${API_URL}/user/remove`; // DELETE
+export const readUserListAll = () => `${API_URL}/user/list/all`; // GET
 
 // export const uploadImages = (fileName) =>
 //     `${API_URL}/media/image/upload?fileName=${fileName}`; // POST
@@ -19,7 +22,6 @@ export const loadDataInit = () => `${API_URL}/user/session/init`; // POST
 
 // REFERENCE
 // GENERAL DATA
-// export const removeUser = () => `${API_URL}/user/remove`; // DELETE
 // export const pushElemToField = () => `${API_URL}/user/field/array/push`; // PUT
 // export const getUserIdByName = () => `${API_URL}/user/id-by-name`; // GET
 // export const checkFieldGotValue = () =>

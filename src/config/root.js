@@ -13,7 +13,7 @@ const prodLink = IS_STAGING
 exports.IS_STAGING = IS_STAGING;
 exports.IS_DEV = process.env.NODE_ENV === "development";
 exports.IS_PROD = process.env.NODE_ENV === "production";
-exports.API_URL = IS_PROD ? prodLink : "http://localhost:1001/api";
+exports.API_URL = IS_PROD ? prodLink : "http://localhost:5001/api";
 
 // source images are not loadin with official website. => SOLVED THE ISSUE by adding _headers and netlify.toml alongside the index.hmtl
 exports.HOST_URL =

@@ -7,15 +7,15 @@ export default function RegisteredUsersList({
     selectedRole = " ",
     setDataForEverybodyForm,
     dbList,
+    loading,
 }) {
     const [list, setList] = useState([]); // n1
     const isEverybody = selectedRole === "todos";
     const isAuthority = selectedRole === "autoridade";
-    const loading = false;
 
     const filteredList = isEverybody
         ? list
-        : list.filter((elem) => elem.role === selectedRole);
+        : list && list.filter((elem) => elem.role === selectedRole);
     const isEmptyList = Boolean(filteredList && filteredList.length === 0);
 
     const dataSignup = {
@@ -25,8 +25,8 @@ export default function RegisteredUsersList({
     };
 
     useEffect(() => {
-        setList(dbList);
-    }, []);
+        if (!loading) setList(dbList);
+    }, [loading]);
 
     const showEmptyIllustration = () => (
         <section>
@@ -78,7 +78,7 @@ export default function RegisteredUsersList({
     };
 
     return (
-        <section className="mx-3 my-[100px]">
+        <section className="my-[100px]">
             {isEmptyList ? showEmptyIllustration() : showList()}
         </section>
     );

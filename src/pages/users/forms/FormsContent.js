@@ -1,7 +1,7 @@
 import MainTitle from "components/MainTitle";
 import FabBtn from "components/btns/FabBtn";
 import Field from "components/fields/Field";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import capitalize from "utils/string/capitalize";
 import {
     Save,
@@ -27,9 +27,9 @@ import {
     removeUserToDb,
 } from "./crud/registerCRUD.js";
 import isValidNameWithSurname from "utils/validation/isValidNameWithSurname";
-import TxtBtn from "components/btns/TxtBtn";
 import useUpdateData from "./hooks/useUpdateData";
 import RemoveUserBtn from "./crud/RemoveUserBtn";
+import useData from "global-data/useData";
 
 export default function FormsContent({
     roomId = "central",
@@ -47,6 +47,8 @@ export default function FormsContent({
         disabledCTA: false,
     });
     const [error, setError] = useState(null);
+
+    const { instituteId } = useData("user");
 
     const { userId, userName, userPhone, isPhoneWhatsapp, disabledCTA } = data;
     const userPhoneDisplay = autoPhoneMask(userPhone);
@@ -217,7 +219,7 @@ export default function FormsContent({
         </>
     );
 
-    const allowCTAClick = (status = true) => {
+    const disableCTAClick = (status) => {
         setData((prev) => ({
             ...prev,
             disabledCTA: status,
@@ -231,6 +233,7 @@ export default function FormsContent({
         return {
             ...data, // userId, userName, userPhone
             userId: userId && userId.trim(),
+            instituteId,
             userName: userName && userName.trim(),
             roomId,
             role: selectedRole,
@@ -397,7 +400,7 @@ export default function FormsContent({
             data: dataCRUD,
             handleFullClose,
             setList,
-            allowCTAClick,
+            disableCTAClick,
         });
     };
 
@@ -555,16 +558,17 @@ export default function FormsContent({
             data: dataCRUD,
             handleFullClose,
             setList,
-            allowCTAClick,
+            disableCTAClick,
         });
     };
 
     const removeCurrentUser = async () => {
         await removeUserToDb({
             userId,
+            role: selectedRole,
             handleFullClose,
             setList,
-            allowCTAClick,
+            disableCTAClick,
         });
     };
 

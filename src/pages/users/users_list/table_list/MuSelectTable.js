@@ -133,7 +133,8 @@ export default function MuSelectTable({
     }, [emptySelection]);
 
     useEffect(() => {
-        if (!loading) setSelected(rowsData.map((contact) => contact.name));
+        if (!loading && rowsData)
+            setSelected(rowsData.map((contact) => contact.name));
     }, [loading]);
 
     const handleColor = () => {
@@ -261,7 +262,7 @@ export default function MuSelectTable({
                                     totalPages === 1 ? "Página" : "Páginas"
                                 })`;
                             }}
-                            count={rowsData.length}
+                            count={rowsData ? rowsData.length : 0}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onChangePage={handleChangePage}
@@ -365,20 +366,25 @@ function ShowTableHead(props) {
                         />
                     </MyTableCell>
                 )}
-                {headCells.map((headCell) => (
-                    <MyTableCell
-                        key={headCell.id}
-                        align={headCell.headAlign || "left"}
-                        padding={headCell.disablePadding ? "none" : "default"}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                        style={{
-                            borderRight: "1px dotted #ffffff",
-                            borderLeft: "1px dotted #ffffff",
-                        }}
-                    >
-                        {headCell.label}
-                    </MyTableCell>
-                ))}
+                {headCells &&
+                    headCells.map((headCell) => (
+                        <MyTableCell
+                            key={headCell.id}
+                            align={headCell.headAlign || "left"}
+                            padding={
+                                headCell.disablePadding ? "none" : "default"
+                            }
+                            sortDirection={
+                                orderBy === headCell.id ? order : false
+                            }
+                            style={{
+                                borderRight: "1px dotted #ffffff",
+                                borderLeft: "1px dotted #ffffff",
+                            }}
+                        >
+                            {headCell.label}
+                        </MyTableCell>
+                    ))}
                 {editBtn && (
                     <MyTableCell
                         padding="none"
@@ -437,6 +443,7 @@ const ShowTableBody = ({
     };
 
     const MapRows = (rowData) =>
+        headCells &&
         headCells.map((item, ind) => {
             const handleCellContent = () => {
                 if (item.id === "status")

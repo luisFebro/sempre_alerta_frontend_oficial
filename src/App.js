@@ -44,21 +44,21 @@ function App() {
                     <Route
                         path="/alertas"
                         element={
-                            <>
+                            <div className="md:ml-64">
                                 <Navigation />
                                 <Alerts />
                                 <Footer />
-                            </>
+                            </div>
                         }
                     />
                     <Route
                         path="/cadastros"
                         element={
-                            <>
+                            <div className="md:ml-64">
                                 <Navigation />
                                 <Users />
                                 <Footer />
-                            </>
+                            </div>
                         }
                     />
                     <Route path="*" element={<Access />} />

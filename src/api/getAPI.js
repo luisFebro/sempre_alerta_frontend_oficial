@@ -8,6 +8,7 @@ import wait from "utils/promises/wait";
 export * from "./requestsLib";
 
 // complete promise for inline and programatically requests
+// IMPORTANT: always declare .catch() even for errMsg = true
 export default function getAPI({
     url,
     method = "get",

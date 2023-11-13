@@ -1,25 +1,43 @@
+import getAPI, { updateUser, removeUser } from "api/getAPI";
 import showToast from "components/toasts/showToast";
 import {
     addItem,
     updateItem,
     removeItem,
 } from "pages/users/users_list/itemMethods";
-import wait from "utils/promises/wait";
+import capitalizeTxt from "utils/capitalizeTxt";
 
 export async function saveUserToDb({
     data,
     handleFullClose,
     setList,
-    allowCTAClick,
+    disableCTAClick,
 }) {
     showToast("Salvando usuário...");
 
-    allowCTAClick(false);
+    disableCTAClick(true);
 
-    // db call
-    await wait(2000);
+    const finalData = {
+        ...data,
+        isSignup: true,
+        userName: capitalizeTxt(data.userName),
+    };
 
-    allowCTAClick(true);
+    // DB
+    const output = await getAPI({
+        method: "put",
+        url: updateUser(),
+        body: finalData,
+        timeoutMsgOn: false,
+        errMsg: true,
+    }).catch(console.log);
+
+    if (!output) {
+        disableCTAClick(false);
+        return;
+    }
+
+    disableCTAClick(false);
 
     // NOTE: all data is wiped out when the modal is closed, no need clearForm
     /* dataToSend example
@@ -30,9 +48,7 @@ export async function saveUserToDb({
         type: "success",
     });
 
-    console.log("data_saveUserToDb: " + JSON.stringify(data));
-
-    addItem(data, setList);
+    addItem(finalData, setList);
     handleFullClose();
     return true;
 }
@@ -41,40 +57,69 @@ export async function updateUserToDb({
     data,
     handleFullClose,
     setList,
-    allowCTAClick,
+    disableCTAClick,
 }) {
     showToast("Atualizando usuário...");
 
-    allowCTAClick(false);
+    disableCTAClick(false);
 
-    // db call
-    await wait(2000);
+    const finalData = {
+        ...data,
+        userName: capitalizeTxt(data.userName),
+    };
 
-    allowCTAClick(true);
+    const output = await getAPI({
+        method: "put",
+        url: updateUser(),
+        body: finalData,
+        timeoutMsgOn: false,
+        errMsg: true,
+    }).catch(console.log);
 
-    showToast("Atualização de cadastro realizada com sucesso!", {
+    if (!output) {
+        disableCTAClick(false);
+        return;
+    }
+
+    disableCTAClick(false);
+
+    showToast("Atualização realizada com sucesso!", {
         type: "success",
     });
 
-    updateItem(data, setList);
+    updateItem(finalData, setList);
     handleFullClose();
     return true;
 }
 
 export async function removeUserToDb({
     userId,
+    role,
     handleFullClose,
     setList,
-    allowCTAClick,
+    disableCTAClick,
 }) {
     showToast("Excluindo usuário...");
 
-    allowCTAClick(false);
+    disableCTAClick(false);
 
-    // db call
-    await wait(2000);
+    const output = await getAPI({
+        method: "delete",
+        url: removeUser(),
+        params: {
+            userId,
+            role,
+        },
+        timeoutMsgOn: false,
+        errMsg: true,
+    }).catch(console.log);
 
-    allowCTAClick(true);
+    if (!output) {
+        disableCTAClick(false);
+        return;
+    }
+
+    disableCTAClick(false);
 
     showToast("Usuário excluído com sucesso!", {
         type: "success",

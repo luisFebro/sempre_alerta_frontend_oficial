@@ -2,6 +2,8 @@ import MainTitle from "components/MainTitle";
 import SelectField from "components/fields/SelectField";
 import { useState } from "react";
 import RegisteredUsersList from "./users_list/RegisteredUsersList";
+import useAPI, { readUserListAll } from "api/useAPI";
+import useData from "global-data/useData";
 
 export default function Users() {
     const [data, setData] = useState({
@@ -16,17 +18,12 @@ export default function Users() {
         { val: "todos", showVal: "Todos" },
     ];
 
-    // TODO get the dbList here with useAPI
-    /*
-                        let { data: list, loading = false } = useAPI({
-        url: readUserSubIds(),
-        params,
-        needAuth: true,
-        trigger: needRunApi && selectedApp,
-        dataName: "allPushSubList",
-    }); */
+    const { userId, instituteId } = useData("user");
 
-    const dbList = []; // n1
+    const { data: dbList, loading = false } = useAPI({
+        url: readUserListAll(),
+        params: { userId, instituteId },
+    });
 
     return (
         <>
@@ -53,6 +50,7 @@ export default function Users() {
                     selectedRole={selectedRole}
                     setDataForEverybodyForm={setData}
                     dbList={dbList}
+                    loading={loading}
                 />
             </section>
         </>

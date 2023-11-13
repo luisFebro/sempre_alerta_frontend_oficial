@@ -35,12 +35,9 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
         location === "/" ? "ALERTAS" : location.toUpperCase().replace("/", "");
 
     return (
-        <nav
-            className="ml-0 md:ml-64 xl:ml-64 py-6 px-0"
-            style={{ background: "#103F5C" }}
-        >
+        <nav className="ml-0 py-6 px-0" style={{ background: "#103F5C" }}>
             <h4
-                className={`block [@media(min-width:870px)]:hidden absolute theme-surface-pill top-0 -left-11 z-10 text-pill mx-16 uppercase text-white drop-shadow-2xl font-bold text-lg tracking-wider`}
+                className={`block pt-1 [@media(min-width:870px)]:hidden absolute theme-surface-pill top-0 -left-11 z-10 text-pill mx-16 uppercase text-white drop-shadow-2xl font-bold text-lg tracking-wider`}
             >
                 &gt; {currTabName}
             </h4>
