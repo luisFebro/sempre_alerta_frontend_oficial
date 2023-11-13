@@ -3,7 +3,7 @@ import IdentityGoogleLoginBtn from "./google/IdentityGoogleLoginBtn";
 import EmailLoginBtn from "./EmailLoginBtn";
 import { updateData, useUify } from "global-data/useData";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.8.7-2";
+const DASHBOARD_OFFICIAL_VERSION = "v1.8.8-2";
 
 export default function Access() {
     const isSmall = window.Helper.isSmallScreen();
