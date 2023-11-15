@@ -119,7 +119,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                 number: cache.number,
                 neighborhood: cache.neighborhood,
                 city: cache.city,
-                state: cache.state,
+                state: getBrazilUF(cache.state, { toUF: true }),
                 zipCode: String(cache.zipCode),
                 alertOnAt: cache.alertOnAt,
                 alertOffAt: cache.alertOffAt,
