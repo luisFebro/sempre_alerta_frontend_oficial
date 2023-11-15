@@ -7,11 +7,11 @@ import { Load } from "components/code-splitting/LoadableComp";
 const AsyncContent = Load({
     loader: () =>
         import(
-            "./EditBtnContent" /* webpackChunkName: "edit-filter-comp-lazy" */
+            "./TopNavbarEditBtnContent" /* webpackChunkName: "edit-filter-comp-lazy" */
         ),
 });
 
-export default function EditBtn(props) {
+export default function TopNavbarEditBtn(props) {
     const [fullOpen, setFullOpen] = useState(false);
 
     const isSmall = window.Helper.isSmallScreen();
@@ -32,10 +32,10 @@ export default function EditBtn(props) {
                 size="small"
                 aria-label="add"
                 variant="extended"
-                className="!p0 !z-0"
+                className="fab-btn"
                 onClick={handleFullOpen}
                 style={{
-                    backgroundColor: "var(--themeSLight)",
+                    backgroundColor: "var(--themeSDark)",
                     color: "white",
                     padding: isSmall ? 0 : 10,
                 }}
@@ -47,6 +47,15 @@ export default function EditBtn(props) {
                 </span>
                 <EditIcon className="pl-1" />
             </Fab>
+            <style jsx global>
+                {`
+                    .fab-btn.MuiFab-root,
+                    .fab-btn.MuiButtonBase-root {
+                        padding: 0 16px;
+                        border-radius: 50px;
+                    }
+                `}
+            </style>
             <ModalFullContent
                 contentComp={Comp}
                 fullOpen={fullOpen}

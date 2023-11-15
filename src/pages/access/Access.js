@@ -30,7 +30,7 @@ export default function Access() {
     };
 
     const showEmailArea = () => (
-        <section className="mt-52 flex justify-center items-center flex-col">
+        <section className="mt-28 flex justify-center items-center flex-col">
             <EmailLoginBtn
                 isMainArea={false}
                 toggleEmailArea={toggleEmailArea}
@@ -39,7 +39,7 @@ export default function Access() {
     );
 
     const showMainCTAsArea = () => (
-        <section className="mt-52 flex justify-center items-center flex-col">
+        <section className="mt-28 flex justify-center items-center flex-col">
             <IdentityGoogleLoginBtn />
             <span
                 className="relative top-2 block text-subtitle text-center my-5 font-bold"

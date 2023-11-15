@@ -7,7 +7,9 @@ const allowedCollections = ["user", "global"];
 export default function getItems(collectionName, namesArray = null) {
     if (!allowedCollections.includes(collectionName))
         throw new Error(
-            `the collection ${collectionName.toUpperCase()} is not allowed. Only: ${allowedCollections}`
+            `the collection ${
+                collectionName && collectionName.toUpperCase()
+            } is not allowed. Only: ${allowedCollections}`
         );
     if (!collectionName)
         throw new Error("missing collection name as the first argument");

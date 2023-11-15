@@ -10,13 +10,8 @@ export default function Alerts() {
     });
     const { alertMsg } = data;
 
-    const {
-        userId,
-        role,
-        userName: userDisplayName = "L. Febro",
-    } = useData("user");
+    const { userId, userName: userDisplayName = "L. Febro" } = useData("user");
 
-    console.log("userId ALERTS" + userId);
     const globalData = useData();
     const { roomId = "central" } = globalData;
 

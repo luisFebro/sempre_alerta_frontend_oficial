@@ -14,6 +14,12 @@ export const updateUser = () => `${API_URL}/user/update`; // PUT
 export const removeUser = () => `${API_URL}/user/remove`; // DELETE
 export const readUserListAll = () => `${API_URL}/user/list/all`; // GET
 
+// INSTITUTES
+export const updateInstitute = () => `${API_URL}/institute/update`; // PUT
+
+// GLOBAL
+export const searchCEP = (cep) => `${API_URL}/global/cep/search?cep=${cep}`; // GET
+
 // export const uploadImages = (fileName) =>
 //     `${API_URL}/media/image/upload?fileName=${fileName}`; // POST
 // export const updateImages = (userId) =>

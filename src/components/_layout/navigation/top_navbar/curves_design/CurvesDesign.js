@@ -4,12 +4,7 @@ import "./style_curves_top_navbar.css";
 export default function CurvesDesign() {
     return (
         <>
-            <div
-                className="px-3 md:px-8 h-0"
-                style={{
-                    background: "#1372a7",
-                }}
-            />
+            <div className="px-3 md:px-8 h-0" />
             <div
                 className="custom-shape-divider-top-1665201393"
                 style={{ top: 120 }}

@@ -56,9 +56,9 @@ export default function FormsContent({
     const isMobilePhoneReady =
         userPhoneDisplay && userPhoneDisplay.length >= 15;
 
-    const isEverybody = selectedRole === "todos";
-    const isAuthority = selectedRole === "autoridade";
     const isUpdate = Boolean(updateData);
+    const isEverybody = selectedRole === "todos" && !isUpdate;
+    const isAuthority = selectedRole === "autoridade";
 
     const [dataCheckbox, updateCheckbox] = useState([
         {

@@ -17,7 +17,7 @@ export const handleOnChange = (e, changeCallback) => {
 
         return {
             ...prev,
-            [name]: value,
+            [name]: value && value.trim(),
         };
     });
 };

@@ -18,6 +18,7 @@ import { getPureParsedDate } from "./helpers/dateFnsHelpers";
 import getDayMonthBr from "./getDayMonthBr"; // 20 de Junho de 2020 is better than 20º de junho, 2020...
 import diffInDays from "date-fns/differenceInDays";
 import isSameDay from "date-fns/isSameDay";
+import isSameHour from "date-fns/isSameHour";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 
 const localeObj = {
@@ -113,8 +114,27 @@ const calendar = (date, locale) => {
     });
 };
 
-const getLocalHour = (date) =>
-    `${getHours(new Date(date))}:${treatZero(getMinutes(new Date(date)))}`;
+const getLocalHour = (date, options = {}) => {
+    const { sumup = false } = options;
+
+    if (sumup) {
+        const hour = getHours(new Date(date));
+
+        const min = getMinutes(new Date(date));
+        const isSingleMinDigit = min <= 9;
+
+        const minOutput = isSingleMinDigit ? `0${min}` : min;
+        // every number should have 3 (up to 9 hours) and 4 digits for others.
+        // minutes always have 2 digits.
+        // If not, 20:00 (20) would be less than 19:30 (1930)
+
+        return Number(String(hour) + String(minOutput));
+    }
+
+    return `${getHours(new Date(date))}:${treatZero(
+        getMinutes(new Date(date))
+    )}`;
+};
 
 // targetDate is inclusive. it will only be expired after the targetDate has passed.
 // in other words, check if a future date is still pending
@@ -197,6 +217,7 @@ export {
     addMinutes,
     diffInDays,
     isSameDay,
+    isSameHour,
 };
 
 // reference: https://stackoverflow.com/questions/6525538/convert-utc-date-time-to-local-date-time

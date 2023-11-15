@@ -9,6 +9,7 @@ import { Box, InputAdornment } from "@mui/material";
 
 export default function Field({
     id,
+    type,
     label,
     size = "medium",
     textAlign = "text-left",
@@ -21,6 +22,7 @@ export default function Field({
     autoComplete = "off",
     variant = "outlined",
     enterCallback = () => null,
+    onClick,
     onChangeCallback = () => null,
     multiline = false,
     width,
@@ -32,6 +34,7 @@ export default function Field({
     maxWitdth = 500,
     classNameRoot = "", // px-2 md:px-5
     FieldIcon,
+    fieldIconPos = "start",
     callbackEventOnly = false,
     disabled = false,
     txtColor = "var(--themeS)",
@@ -51,8 +54,10 @@ export default function Field({
 
     const getInputProps = FieldIcon
         ? {
-              startAdornment: (
-                  <InputAdornment position="start">{FieldIcon}</InputAdornment>
+              [fieldIconPos === "end" ? "endAdornment" : "startAdornment"]: (
+                  <InputAdornment position={fieldIconPos}>
+                      {FieldIcon}
+                  </InputAdornment>
               ),
           }
         : undefined;
@@ -71,6 +76,7 @@ export default function Field({
                 autoComplete="off"
             >
                 <TextField
+                    type={type}
                     label={label}
                     id={id}
                     className={`${size} ${textAlign}`}
@@ -78,6 +84,7 @@ export default function Field({
                     name={name}
                     value={value}
                     variant={variant}
+                    onClick={onClick}
                     onChange={(e) => {
                         if (callbackEventOnly) return onChangeCallback(e);
                         handleOnChange(e, onChangeCallback);
@@ -130,7 +137,7 @@ export default function Field({
                         z-index: 2000;
                         color: ${txtColor} !important;
                         font: var(--mainFont);
-                        //padding: 10px;
+                        padding: 15px;
                     }
                 `}
             </style>

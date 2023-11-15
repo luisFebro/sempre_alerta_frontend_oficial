@@ -26,7 +26,7 @@ export async function runSessionCheck(uify) {
 
     const isValidSession = await getAPI({
         url: check(),
-    });
+    }).catch(console.log);
 
     if (!isValidSession) await disconnect();
 }

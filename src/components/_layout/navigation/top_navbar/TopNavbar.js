@@ -1,53 +1,77 @@
 import { useLocation } from "react-router-dom";
-import { Button, Icon, NavbarInput } from "@material-tailwind/react";
+import { Button, Icon } from "@material-tailwind/react";
 import Dropdown from "components/dropdowns/TailwindDropdown";
+import useData from "global-data/useData";
+import truncateWords from "utils/string/truncateWords";
+import TopNavbarEditBtn from "./edit_btn/TopNavbarEditBtn";
+import { AccessTime } from "@mui/icons-material";
 
 export default function TopNavbar({ showSideBar, setShowSideBar }) {
     const location = useLocation().pathname;
 
+    const isSmall = window.Helper.isSmallScreen();
+
+    const { instituteName, alertWorkingHours } = useData();
+    const alertOnAtDisplay = alertWorkingHours && alertWorkingHours[0];
+    const alertOffAtDisplay = alertWorkingHours && alertWorkingHours[1];
+
     const showInstituteBoard = () => (
-        <section className="relative top-5 md:top-0">
+        <section className="relative top-2 md:top-0">
             <section
-                className="flex bg-purple-700 rounded-lg px-2 py-2 [@media(min-width:870px)]:pb-6"
+                className="flex bg-purple-700 rounded-lg py-2 pb-3 [@media(min-width:870px)]:pb-6"
                 style={{ backgroundColor: "var(--themeSurface)" }}
             >
-                <div className="mx-5 text-center">
+                <div className="mx-2">
                     <p
-                        className={`max-w-max px-2 block rounded-full text-gray-400`}
+                        className={`max-w-max px-2 block txt-xs rounded-full text-gray-400`}
                         style={{ backgroundColor: "#204255" }}
                     >
                         INSTITUIÇÃO:
                     </p>
-                    <p className=" text-center mt-3 font-bold text-white sm:whitespace-nowrap">
-                        <span
-                            className={`inline-block pr-1 [@media(min-width:870px)]:hidden [@media(min-width:870px)]:pr-0`}
-                        >
-                            &#8226;
-                        </span>
-                        {"CENTRAL"}
+                    <p
+                        title={instituteName}
+                        className="font-light text-white sm:whitespace-nowrap"
+                    >
+                        <span className={`inline-block pr-1`}>&#8226;</span>
+                        {isSmall
+                            ? truncateWords(instituteName, 18)
+                            : instituteName}
                     </p>
+                    <p
+                        className={`max-w-max pr-2 mt-2 block text-sm text-gray-300`}
+                    >
+                        <AccessTime style={{ fontSize: 20 }} /> HORÁRIO ALERTAS:
+                    </p>
+                    <p className="font-light text-white sm:whitespace-nowrap">
+                        <span className={`inline-block pr-1`}>&#8226;</span>
+                        {alertOnAtDisplay} até {alertOffAtDisplay}
+                    </p>
+                </div>
+                <div
+                    className={`absolute -bottom-5 -right-3 [@media(min-width:870px)]:-right-2.5`}
+                >
+                    <TopNavbarEditBtn />
                 </div>
             </section>
         </section>
     );
 
-    const currTabName =
-        location === "/" ? "ALERTAS" : location.toUpperCase().replace("/", "");
+    const currTabName = location.toUpperCase().replace("/", "");
 
     return (
-        <nav className="ml-0 py-6 px-0" style={{ background: "#103F5C" }}>
+        <nav className="ml-0 px-0" style={{ background: "#103F5C" }}>
             <h4
-                className={`block pt-1 [@media(min-width:870px)]:hidden absolute theme-surface-pill top-0 -left-11 z-10 text-pill mx-16 uppercase text-white drop-shadow-2xl font-bold text-lg tracking-wider`}
+                className={`block top-1 [@media(min-width:870px)]:hidden absolute theme-surface-pill -left-11 z-10 text-pill mx-16 uppercase text-white drop-shadow-2xl font-bold text-lg tracking-wider`}
             >
                 &gt; {currTabName}
             </h4>
-            <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8">
+            <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 relative top-9">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex">
                         <h4
                             className={`hidden [@media(min-width:870px)]:block relative top-5 ml-16 uppercase text-white drop-shadow-2xl font-bold text-lg tracking-wider`}
                         >
-                            {currTabName}
+                            &gt; {currTabName}
                         </h4>
                         <div
                             className={`ml-6 md:ml-16 relative [@media(min-width:870px)]:block`}
@@ -57,9 +81,6 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     </div>
 
                     <section className="flex">
-                        <div className="hidden">
-                            <NavbarInput placeholder="Search" />
-                        </div>
                         <div className="md:hidden">
                             <Button
                                 color="transparent"
