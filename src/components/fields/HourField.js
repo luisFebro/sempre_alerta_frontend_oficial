@@ -123,7 +123,7 @@ export default function HourField({
         <section>
             {picker()}
             <Field
-                readOnly={true}
+                disabled
                 name={name}
                 value={getLocalHour(hourDate)}
                 width={width}
@@ -133,6 +133,10 @@ export default function HourField({
                 onChangeCallback={openPicker}
                 error={error}
                 onKeyPress={(e) => {
+                    e.preventDefault();
+                    return false;
+                }}
+                onKeyDown={(e) => {
                     e.preventDefault();
                     return false;
                 }}
