@@ -4,7 +4,7 @@ import EmailLoginBtn from "./EmailLoginBtn";
 import { updateData, useUify } from "global-data/useData";
 import { HOST_URL } from "config/root";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.8.8-2";
+const DASHBOARD_OFFICIAL_VERSION = "v1.12.13-1";
 
 export default function Access() {
     const isSmall = window.Helper.isSmallScreen();
@@ -90,7 +90,7 @@ export default function Access() {
                 width={isSmall ? 170 : 240}
                 height={isSmall ? 170 : 240}
             />
-            <p className="text-lg txt-p-light text-center absolute bottom-5 left-1/2 -translate-x-1/2">
+            <p className="text-lg txt-p-light text-center absolute bottom-12 left-1/2 -translate-x-1/2">
                 {DASHBOARD_OFFICIAL_VERSION}
             </p>
             <style>
