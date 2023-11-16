@@ -38,6 +38,7 @@ export default function TopNavbarEditBtn(props) {
                     backgroundColor: "var(--themeSDark)",
                     color: "white",
                     padding: isSmall ? 0 : 10,
+                    zIndex: 0,
                 }}
             >
                 <span

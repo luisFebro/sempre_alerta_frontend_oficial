@@ -123,7 +123,6 @@ export default function HourField({
         <section>
             {picker()}
             <Field
-                disabled
                 name={name}
                 value={getLocalHour(hourDate)}
                 width={width}
