@@ -33,7 +33,7 @@ export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
         showToast("Verificando acesso...", { type: "warning", dur: 10000 });
 
         const output = await doLogin(uify, {
-            userId,
+            userId: userId && userId.toLowerCase().trim(),
             origin: "dashboard",
         });
 

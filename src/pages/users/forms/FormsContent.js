@@ -235,7 +235,7 @@ export default function FormsContent({
 
         return {
             ...data, // userId, userName, userPhone
-            userId: userId && userId.trim(),
+            userId: userId && userId.toLowerCase().trim(),
             instituteId,
             userName: userName && userName.trim(),
             roomId,

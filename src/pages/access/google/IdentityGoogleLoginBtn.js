@@ -42,7 +42,7 @@ export default function IdentityGoogleLoginBtn() {
         const userId = userData && userData.email;
 
         const output = await doLogin(uify, {
-            userId,
+            userId: userId && userId.toLowerCase().trim(),
             origin: "dashboard",
         });
 
