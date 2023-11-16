@@ -65,9 +65,9 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
             >
                 &gt; {currTabName}
             </h4>
-            <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 relative top-9">
+            <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 relative">
                 <div className="flex justify-between items-center w-full">
-                    <div className="flex">
+                    <div className="flex relative top-9">
                         <h4
                             className={`hidden [@media(min-width:870px)]:block relative top-5 ml-16 uppercase text-white drop-shadow-2xl font-bold text-lg tracking-wider`}
                         >
@@ -80,7 +80,7 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                         </div>
                     </div>
 
-                    <section className="flex">
+                    <section className="flex relative top-4">
                         <div className="md:hidden">
                             <Button
                                 color="transparent"
@@ -110,29 +110,6 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                                     style={{ fontSize: 50 }}
                                 />
                             </Button>
-                            <div
-                                className={`absolute top-2 md:hidden ${
-                                    showSideBar === "left-0"
-                                        ? "left-64"
-                                        : "-left-64"
-                                } z-50 transition-all duration-300`}
-                            >
-                                <Button
-                                    color="transparent"
-                                    buttonType="link"
-                                    size="lg"
-                                    iconOnly
-                                    rounded
-                                    ripple="light"
-                                    onClick={() => setShowSideBar("-left-64")}
-                                >
-                                    <Icon
-                                        name="close"
-                                        size="2xl"
-                                        color="white"
-                                    />
-                                </Button>
-                            </div>
                         </div>
                         <div className="xl:-mr-4 xl:ml-6">
                             <Dropdown />
@@ -161,7 +138,31 @@ function getPeriodBr(period) {
 
 // End Helpers
 
-/*
+/* ARCHIVES
+
+ <div
+                                className={`absolute top-2 md:hidden ${
+                                    showSideBar === "left-0"
+                                        ? "left-64"
+                                        : "-left-64"
+                                } z-50 transition-all duration-300`}
+                            >
+                                <Button
+                                    color="transparent"
+                                    buttonType="link"
+                                    size="lg"
+                                    iconOnly
+                                    rounded
+                                    ripple="light"
+                                    onClick={() => setShowSideBar("-left-64")}
+                                >
+                                    <Icon
+                                        name="close"
+                                        size="2xl"
+                                        color="white"
+                                    />
+                                </Button>
+                            </div>
 
 <Dropdown
                                 color="transparent"
