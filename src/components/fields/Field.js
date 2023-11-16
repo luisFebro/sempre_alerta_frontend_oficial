@@ -23,6 +23,8 @@ export default function Field({
     variant = "outlined",
     enterCallback = () => null,
     onClick,
+    onKeyDown,
+    onFocus,
     onChangeCallback = () => null,
     multiline = false,
     width,
@@ -94,6 +96,8 @@ export default function Field({
                     onKeyPress={(e) => {
                         handleEnterPress(e, enterCallback);
                     }}
+                    onKeyDown={onKeyDown}
+                    onFocus={onFocus}
                     error={error}
                     autoComplete={autoComplete}
                     multiline={multiline}

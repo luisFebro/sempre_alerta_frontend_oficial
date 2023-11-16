@@ -64,6 +64,9 @@ export default function HourField({
     onChangeHour = () => null,
 }) {
     const [hourDateChange, setHourDateChange] = useState();
+
+    // this allow not popup keyboard, especially on mobiles, when user selected a new time from the panel
+    const [disabled, setDisabled] = useState(false);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -107,6 +110,12 @@ export default function HourField({
                             fieldIconPos="end"
                             onOpen={openPicker}
                             cancelLabel={cancelLabel}
+                            onAccept={() => {
+                                setDisabled(true);
+                                setTimeout(() => {
+                                    setDisabled(false);
+                                }, 200);
+                            }}
                             okLabel={okLabel}
                             disablePast
                             ampm={false}
@@ -123,13 +132,21 @@ export default function HourField({
         <section>
             {picker()}
             <Field
+                disabled={disabled}
                 name={name}
                 value={getLocalHour(hourDate)}
                 width={width}
                 type="text"
                 textAlign="text-center"
                 onClick={openPicker}
-                FieldIcon={<AccessTime style={{ color: "var(--themeP)" }} />}
+                FieldIcon={
+                    <AccessTime
+                        style={{
+                            color: "var(--themeP)",
+                            cursor: "pointer",
+                        }}
+                    />
+                }
                 onChangeCallback={openPicker}
                 error={error}
                 inputProps={{
