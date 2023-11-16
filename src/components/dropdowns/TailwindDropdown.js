@@ -3,6 +3,7 @@ import showToast from "components/toasts/showToast";
 import useData from "global-data/useData";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import capitalize from "utils/string/capitalize";
 
 export default function TailwindDropdown() {
     const [show, setShow] = useState(false);
@@ -55,7 +56,7 @@ export default function TailwindDropdown() {
             </h3>
             <div className="mb-2">
                 <p className="pl-3 m-0 text-base text-gray-500">
-                    &#8226; Usuário Admin:
+                    &#8226; Usuário {capitalize(role)}:
                 </p>
                 <p className="pl-3 m-0 text-base font-bold text-yellow-600 text-left">
                     {userName}
