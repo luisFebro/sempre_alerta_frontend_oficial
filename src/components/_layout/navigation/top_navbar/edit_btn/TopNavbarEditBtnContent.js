@@ -362,6 +362,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                         </div>
                         <Field
                             name="zipCode"
+                            type="tel"
                             error={error === "zipCode"}
                             placeholder={undefined}
                             value={zipCodeDisplay}
