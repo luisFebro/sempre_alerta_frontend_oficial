@@ -1406,6 +1406,11 @@ video {
   line-height: 2rem;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1750,5 +1755,10 @@ Your CSS bundle will be bigger — oof.
 
   .\[\@media\(min-width\:870px\)\]\:pb-6 {
     padding-bottom: 1.5rem;
+  }
+
+  .\[\@media\(min-width\:870px\)\]\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 }

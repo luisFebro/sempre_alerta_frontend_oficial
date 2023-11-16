@@ -8,7 +8,10 @@ export default function Sidebar({ showSideBar, closeSideBar }) {
 
     return (
         <div
-            className={`z-[100000] h-screen fixed top-0 md:left-0 ${showSideBar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
+            className={`h-screen fixed top-0 md:left-0 ${showSideBar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
+            style={{
+                zIndex: 1000,
+            }}
         >
             <div className="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
                 <NavLink

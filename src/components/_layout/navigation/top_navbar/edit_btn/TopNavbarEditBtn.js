@@ -29,7 +29,7 @@ export default function TopNavbarEditBtn(props) {
     return (
         <>
             <Fab
-                size="small"
+                size={isSmall ? "large" : "small"}
                 aria-label="add"
                 variant="extended"
                 className="fab-btn"
@@ -38,11 +38,11 @@ export default function TopNavbarEditBtn(props) {
                     backgroundColor: "var(--themeSDark)",
                     color: "white",
                     padding: isSmall ? 0 : 10,
-                    zIndex: 0,
+                    zIndex: 10,
                 }}
             >
                 <span
-                    className={`hidden [@media(min-width:870px)]:inline-block text-shadow text-sm`}
+                    className={`hidden text-xs [@media(min-width:870px)]:inline-block text-shadow [@media(min-width:870px)]:text-sm`}
                 >
                     editar
                 </span>
