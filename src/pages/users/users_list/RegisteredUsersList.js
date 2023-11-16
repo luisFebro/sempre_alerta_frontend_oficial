@@ -33,7 +33,7 @@ export default function RegisteredUsersList({
             <div className="relative flex flex-col justify-center items-center">
                 <span>
                     <img
-                        src="/img/illustra/illustration_no_data_contacts.svg"
+                        src="/img/illustra/illustration_no_data_contacts_oficial.svg"
                         width="300"
                         height="300"
                     />

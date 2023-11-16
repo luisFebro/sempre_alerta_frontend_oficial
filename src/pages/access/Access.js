@@ -80,13 +80,13 @@ export default function Access() {
             {isMainArea ? showMainCTAsArea() : showEmailArea()}
             <img
                 className="fixed -bottom-10 -left-10 -rotate-45 opacity-40"
-                src={`${HOST_URL}/img/illustra/access/illustra_megaphone.svg`}
+                src={`${HOST_URL}/img/illustra/access/illustra_megaphone_oficial.svg`}
                 width={isSmall ? 140 : 200}
                 height={isSmall ? 140 : 200}
             />
             <img
                 className="fixed -bottom-10 -right-10 -rotate-45 opacity-40"
-                src="/img/illustra/access/illustra_sirene.svg"
+                src="/img/illustra/access/illustra_sirene_oficial.svg"
                 width={isSmall ? 170 : 240}
                 height={isSmall ? 170 : 240}
             />

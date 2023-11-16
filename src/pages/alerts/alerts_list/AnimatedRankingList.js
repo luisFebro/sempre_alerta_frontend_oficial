@@ -80,7 +80,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
             <div className="relative -top-14 flex list-center flex-col justify-center items-center">
                 <span>
                     <img
-                        src="/img/illustra/illustration_no_data_history.svg"
+                        src="/img/illustra/illustration_no_data_history_oficial.svg"
                         width="300"
                         height="300"
                     />
