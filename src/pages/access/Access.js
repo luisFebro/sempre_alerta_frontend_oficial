@@ -59,7 +59,7 @@ export default function Access() {
             <section className="flex flex-col items-center">
                 <img
                     className="my-5"
-                    src="./img/logo/logo_sempre_alerta_s.png"
+                    src="/img/logo/logo_sempre_alerta_s.png"
                     width={80}
                     height={80}
                 />
@@ -79,7 +79,7 @@ export default function Access() {
             {isMainArea ? showMainCTAsArea() : showEmailArea()}
             <img
                 className="fixed -bottom-10 -left-10 -rotate-45 opacity-40"
-                src="./img/illustra/access/illustra_megaphone.svg"
+                src="/img/illustra/access/illustra_megaphone.svg"
                 width={isSmall ? 140 : 200}
                 height={isSmall ? 140 : 200}
             />

@@ -18,7 +18,7 @@ exports.API_URL = IS_PROD ? prodLink : "http://localhost:5001/api";
 // source images are not loadin with official website. => SOLVED THE ISSUE by adding _headers and netlify.toml alongside the index.hmtl
 exports.HOST_URL =
     process.env.NODE_ENV === "production"
-        ? "https://semprealertasos.com.br"
+        ? "https://semprealertasos.com"
         : "http://localhost:3000";
 
 exports.HOST_INTERNAL_URL = "https://semprealerta.netlify.app";
