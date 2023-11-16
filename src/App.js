@@ -23,7 +23,6 @@ import "styles/libs/animate.selected.min.css";
 import { useEffect } from "react";
 import switchConsoleLogs from "utils/security/switchConsoleLogs";
 import { useLoggedIn } from "auth/access/authenticate";
-import { HOST_URL } from "config/root";
 
 function App() {
     const store = useGlobalApp();
