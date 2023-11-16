@@ -85,7 +85,7 @@ export default function Access() {
             />
             <img
                 className="fixed -bottom-10 -right-10 -rotate-45 opacity-40"
-                src="./img/illustra/access/illustra_sirene.svg"
+                src="/img/illustra/access/illustra_sirene.svg"
                 width={isSmall ? 170 : 240}
                 height={isSmall ? 170 : 240}
             />

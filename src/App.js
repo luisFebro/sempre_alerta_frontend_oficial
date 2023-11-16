@@ -33,7 +33,9 @@ function App() {
         switchConsoleLogs();
     }, []);
 
-    useLoggedIn();
+    console.log("window.location.href: " + window.location.href);
+    console.log("host_url " + HOST_URL);
+    // useLoggedIn();
 
     // all main checking methods (loadInit, checkValidSession) is inside Navigation component
 
