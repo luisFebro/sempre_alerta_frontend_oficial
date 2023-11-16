@@ -302,6 +302,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                 <p className="text-lg mt-5 font-thin">Telefone</p>
                 <Field
                     name="contact"
+                    type="tel"
                     error={error === "contact"}
                     placeholder={undefined}
                     value={contactDisplay}
