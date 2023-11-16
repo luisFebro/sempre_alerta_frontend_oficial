@@ -90,7 +90,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                     ? newZipData.hasOwnProperty("thoroughfare")
                     : false;
                 if (!gotZipData) {
-                    showToast("CEP informado não existe.", {
+                    showToast("INST-14 | CEP informado não existe.", {
                         type: "error",
                         callback: () => setError("zipCode"),
                     });
@@ -133,7 +133,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         // VALIDATION
         if (!instituteName) {
             return showToast(
-                "Favor, informe o nome da instituição de emergência",
+                "INST-1 | Favor, informe o nome da sua instituição",
                 {
                     type: "error",
                     callback: () => setError("instituteName"),
@@ -143,7 +143,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
 
         if (!contactDisplay) {
             return showToast(
-                "Favor, informe um telefone para contato da Instituição.",
+                "INST-2 | Favor, informe um telefone para contato da Instituição.",
                 {
                     type: "error",
                     callback: () => setError("contact"),
@@ -153,7 +153,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
 
         if (!validateLandlineAndMobilePhone(contactDisplay)) {
             return showToast(
-                "Número telefone inválido. Informe um contato fixo ou móvel.",
+                "INST-3 | Número telefone inválido. Informe um contato fixo ou móvel.",
                 {
                     type: "error",
                     callback: () => setError("contact"),
@@ -163,42 +163,42 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
 
         // address validation
         if (!thoroughfare) {
-            return showToast("Favor, informe o logradouro.", {
+            return showToast("INST-4 | Favor, informe o logradouro.", {
                 type: "error",
                 callback: () => setError("thoroughfare"),
             });
         }
 
         if (!number) {
-            return showToast("Favor, informe o número do endereço.", {
+            return showToast("INST-5 | Favor, informe o número do endereço.", {
                 type: "error",
                 callback: () => setError("number"),
             });
         }
 
         if (!zipCodeDisplay) {
-            return showToast("Favor, informe o CEP do endereço.", {
+            return showToast("INST-6 | Favor, informe o CEP do endereço.", {
                 type: "error",
                 callback: () => setError("zipCode"),
             });
         }
 
         if (zipCodeDisplay.length < 9) {
-            return showToast("CEP do endereço é inválido.", {
+            return showToast("INST-7 | CEP do endereço é inválido.", {
                 type: "error",
                 callback: () => setError("zipCode"),
             });
         }
 
         if (!neighborhood) {
-            return showToast("Favor, informe o bairro.", {
+            return showToast("INST-8 | Favor, informe o bairro.", {
                 type: "error",
                 callback: () => setError("neighborhood"),
             });
         }
 
         if (!city) {
-            return showToast("Favor, informe a cidade.", {
+            return showToast("INST-9 | Favor, informe a cidade.", {
                 type: "error",
                 callback: () => setError("city"),
             });
@@ -206,7 +206,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
 
         if (!state) {
             return showToast(
-                "Favor, informe o UF do estado. Exemplo: RJ para Rio de Janeiro.",
+                "INST-10 | Favor, informe o UF do estado. Exemplo: RJ para Rio de Janeiro.",
                 {
                     type: "error",
                     callback: () => setError("state"),
@@ -217,7 +217,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         const ufState = getBrazilUF(state);
 
         if (!ufState) {
-            return showToast("UF do estado não é válido.", {
+            return showToast("INST-11 | UF do estado não é válido.", {
                 type: "error",
                 callback: () => setError("state"),
             });
@@ -230,7 +230,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         const isEndDateEarlyThanInit = alertOnAtSumup > alertOffAtSumup;
         if (isEndDateEarlyThanInit) {
             return showToast(
-                "A hora FINAL precisa ser mais tarde/maior que a hora inicial. Favor, corrija hora final.",
+                "INST-12 | A hora FINAL precisa ser mais tarde/maior que a hora inicial. Favor, corrija hora final.",
                 { type: "error", callback: () => setError("hourEnd") }
             );
         }
@@ -238,7 +238,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         const areEqualHours = alertOffAtSumup === alertOnAtSumup;
         if (areEqualHours) {
             return showToast(
-                "As datas não devem ser iguais. Mude uma das horas.",
+                "INST-13 | As datas não devem ser iguais. Mude uma das horas.",
                 { type: "error", callback: () => setError("hours") }
             );
         }

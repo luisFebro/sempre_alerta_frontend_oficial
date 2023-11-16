@@ -71,7 +71,7 @@ export async function useLoggedIn(navigate = null) {
                 handleRedirect({ destiny, navigate });
 
                 // msg only appears if navigate is passed thru as argument
-                showToast("Acesso não autorizado. Faça seu acesso.", {
+                showToast("ACE-4 | Acesso não autorizado. Faça seu acesso.", {
                     type: "error",
                 });
             }

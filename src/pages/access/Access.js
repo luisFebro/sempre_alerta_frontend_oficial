@@ -4,7 +4,7 @@ import EmailLoginBtn from "./EmailLoginBtn";
 import { updateData, useUify } from "global-data/useData";
 import { HOST_URL } from "config/root";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.12.13-2";
+const DASHBOARD_OFFICIAL_VERSION = "v1.12.14-2";
 
 export default function Access() {
     const isSmall = window.Helper.isSmallScreen();
