@@ -123,6 +123,7 @@ export default function HourField({
         <section>
             {picker()}
             <Field
+                readOnly={true}
                 name={name}
                 value={getLocalHour(hourDate)}
                 width={width}
@@ -131,6 +132,10 @@ export default function HourField({
                 FieldIcon={<AccessTime style={{ color: "var(--themeP)" }} />}
                 onChangeCallback={openPicker}
                 error={error}
+                onKeyPress={(e) => {
+                    e.preventDefault();
+                    return false;
+                }}
             />
         </section>
     );

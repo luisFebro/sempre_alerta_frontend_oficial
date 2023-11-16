@@ -7,7 +7,7 @@ import { Load } from "components/code-splitting/LoadableComp";
 const AsyncContent = Load({
     loader: () =>
         import(
-            "./TopNavbarEditBtnContent" /* webpackChunkName: "edit-filter-comp-lazy" */
+            "./TopNavbarEditBtnContent" /* webpackChunkName: "edit-filter-comp-lazy", webpackMode: "eager" */
         ),
 });
 
