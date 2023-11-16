@@ -138,6 +138,7 @@ export default function FormsContent({
                 Email:
                 <Field
                     name="userId"
+                    type="email"
                     error={error === "userId"}
                     value={userId}
                     disabled={isUpdate}
@@ -197,6 +198,7 @@ export default function FormsContent({
                 />
                 <Field
                     name="userId"
+                    type="email"
                     error={error === "userId"}
                     disabled={isUpdate}
                     value={userId}
