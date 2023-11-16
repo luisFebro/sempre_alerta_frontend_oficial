@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import IdentityGoogleLoginBtn from "./google/IdentityGoogleLoginBtn";
 import EmailLoginBtn from "./EmailLoginBtn";
 import { updateData, useUify } from "global-data/useData";
+import { HOST_URL } from "config/root";
 
 const DASHBOARD_OFFICIAL_VERSION = "v1.8.8-2";
 
@@ -79,7 +80,7 @@ export default function Access() {
             {isMainArea ? showMainCTAsArea() : showEmailArea()}
             <img
                 className="fixed -bottom-10 -left-10 -rotate-45 opacity-40"
-                src="/img/illustra/access/illustra_megaphone.svg"
+                src={`${HOST_URL}/img/illustra/access/illustra_megaphone.svg`}
                 width={isSmall ? 140 : 200}
                 height={isSmall ? 140 : 200}
             />

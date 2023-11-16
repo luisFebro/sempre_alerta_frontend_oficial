@@ -4,7 +4,7 @@ new google identity services apis: https://developers.googleblog.com/2021/07/lau
 google cloud credentials: https://console.cloud.google.com/apis/credentials?referrer=search&hl=pt-BR&project=sempre-alerta-official
 docs JS Sign In with Google for Web: https://developers.google.com/identity/gsi/web/reference/js-reference
 tutorial: https://www.youtube.com/watch?v=roxC8SMs7HU
-
+add new URLs to whitelist (IDs do cliente OAuth 2.0): https://console.cloud.google.com/apis/credentials?hl=pt-br&project=sempre-alerta-official
 // set <script src="https://accounts.google.com/gsi/client" async defer></script> to <head>
 */
 

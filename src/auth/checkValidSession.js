@@ -41,6 +41,7 @@ export function isThisPublicPage() {
 
     const result =
         window.location.href === HOST_URL + "/" ||
+        window.location.href === "www.semprealertasos.com" + "/" ||
         window.location.href === HOST_INTERNAL_URL + "/" ||
         window.location.href.indexOf("acesso") >= 0;
 
