@@ -499,6 +499,7 @@ const ShowTableBody = ({
                     <MyTableCell
                         id={ind}
                         align="left"
+                        className="inline-block whitespace-nowrap"
                         style={{
                             fontSize: "15px",
                             padding: "16px",
