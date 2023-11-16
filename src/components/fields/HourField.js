@@ -79,6 +79,11 @@ export default function HourField({
     };
 
     const closePicker = () => {
+        setDisabled(true);
+        setTimeout(() => {
+            setDisabled(false);
+        }, 1000);
+
         setOpen(false);
     };
 
@@ -110,12 +115,6 @@ export default function HourField({
                             fieldIconPos="end"
                             onOpen={openPicker}
                             cancelLabel={cancelLabel}
-                            onAbort={() => {
-                                setDisabled(true);
-                                setTimeout(() => {
-                                    setDisabled(false);
-                                }, 1000);
-                            }}
                             onAccept={() => {
                                 setDisabled(true);
                                 setTimeout(() => {
