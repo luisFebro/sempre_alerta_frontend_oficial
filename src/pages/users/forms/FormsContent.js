@@ -149,6 +149,7 @@ export default function FormsContent({
                 Número celular:
                 <Field
                     name="userPhone"
+                    type="tel" // digits only keyboard
                     error={error === "userPhone"}
                     value={userPhoneDisplay}
                     onChangeCallback={setData}

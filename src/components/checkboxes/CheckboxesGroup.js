@@ -110,6 +110,7 @@ export default function CheckboxesGroup({
                                         >
                                             {fieldTitle}
                                             <Field
+                                                type="tel" // digits only keyboard
                                                 name={label}
                                                 value={fieldData}
                                                 error={fieldError === true}
