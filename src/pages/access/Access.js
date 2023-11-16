@@ -90,7 +90,7 @@ export default function Access() {
                 width={isSmall ? 170 : 240}
                 height={isSmall ? 170 : 240}
             />
-            <p className="text-lg txt-p-light text-center absolute bottom-12 left-1/2 -translate-x-1/2">
+            <p className="text-lg txt-p-light text-center absolute bottom-16 left-1/2 -translate-x-1/2">
                 {DASHBOARD_OFFICIAL_VERSION}
             </p>
             <style>
