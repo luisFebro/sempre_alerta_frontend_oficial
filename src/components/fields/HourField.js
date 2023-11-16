@@ -131,6 +131,10 @@ export default function HourField({
                 FieldIcon={<AccessTime style={{ color: "var(--themeP)" }} />}
                 onChangeCallback={openPicker}
                 error={error}
+                onFocus={(e) => {
+                    e.preventDefault();
+                    return false;
+                }}
                 onKeyPress={(e) => {
                     e.preventDefault();
                     return false;
