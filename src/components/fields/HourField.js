@@ -126,22 +126,21 @@ export default function HourField({
                 name={name}
                 value={getLocalHour(hourDate)}
                 width={width}
+                type="text"
                 textAlign="text-center"
                 onClick={openPicker}
                 FieldIcon={<AccessTime style={{ color: "var(--themeP)" }} />}
                 onChangeCallback={openPicker}
                 error={error}
-                onFocus={(e) => {
-                    e.preventDefault();
-                    return false;
-                }}
-                onKeyPress={(e) => {
-                    e.preventDefault();
-                    return false;
-                }}
-                onKeyDown={(e) => {
-                    e.preventDefault();
-                    return false;
+                inputProps={{
+                    onKeyDown: (event) => {
+                        event.preventDefault();
+                        return false;
+                    },
+                    onFocus: (event) => {
+                        event.preventDefault();
+                        return false;
+                    },
                 }}
             />
         </section>

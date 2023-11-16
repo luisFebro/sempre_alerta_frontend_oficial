@@ -39,6 +39,7 @@ export default function Field({
     disabled = false,
     txtColor = "var(--themeS)",
     fancyMode = false,
+    inputProps,
 }) {
     //
     if (!name) throw new Error("it requires to pass name and value params");
@@ -99,6 +100,7 @@ export default function Field({
                     rows={multiline ? rows : undefined}
                     inputProps={{
                         maxLength: maxLength,
+                        ...inputProps,
                     }}
                     autoFocus={autoFocus}
                     InputProps={getInputProps}
