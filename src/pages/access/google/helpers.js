@@ -1,6 +1,8 @@
 import showToast from "components/toasts/showToast";
 
 export const showGoogleOneTapPrompt = (data) => {
+    const isSmall = window.Helper.isSmallScreen();
+
     const { google, handleSignInResponse } = data;
     if (!google)
         return showToast(
@@ -42,7 +44,8 @@ export const showGoogleOneTapPrompt = (data) => {
         if (googlePromptFrame)
             googlePromptFrame.src = googlePromptFrame.src + "&hl=pt-BR";
 
-        if (notification.isDisplayed()) {
+        if (notification.isDisplayed() && !isSmall) {
+            // mobile toast is blocking the popup which shows underneath
             showToast("Selecione uma conta e clique em continuar.", {
                 type: "warning",
                 dur: 3000,
