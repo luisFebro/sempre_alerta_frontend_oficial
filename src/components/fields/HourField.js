@@ -114,7 +114,7 @@ export default function HourField({
                                 setDisabled(true);
                                 setTimeout(() => {
                                     setDisabled(false);
-                                }, 3000);
+                                }, 1000);
                             }}
                             okLabel={okLabel}
                             disablePast
