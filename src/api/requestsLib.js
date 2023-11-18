@@ -17,6 +17,9 @@ export const readUserListAll = () => `${API_URL}/user/list/all`; // GET
 // INSTITUTES
 export const updateInstitute = () => `${API_URL}/institute/update`; // PUT
 
+// ALERTS
+export const readAlertListAll = () => `${API_URL}/alert/list/all`; // GET
+
 // GLOBAL
 export const searchCEP = (cep) => `${API_URL}/global/cep/search?cep=${cep}`; // GET
 

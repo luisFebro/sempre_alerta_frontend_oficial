@@ -671,8 +671,8 @@ video {
   right: -2.5rem;
 }
 
-.bottom-5 {
-  bottom: 1.25rem;
+.bottom-16 {
+  bottom: 4rem;
 }
 
 .left-1\/2 {
@@ -743,6 +743,10 @@ video {
   top: 1.25rem;
 }
 
+.top-4 {
+  top: 1rem;
+}
+
 .left-64 {
   left: 16rem;
 }
@@ -751,36 +755,12 @@ video {
   top: 0.75rem;
 }
 
-.bottom-10 {
-  bottom: 2.5rem;
-}
-
-.bottom-12 {
-  bottom: 3rem;
-}
-
-.bottom-16 {
-  bottom: 4rem;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
 .z-50 {
   z-index: 50;
 }
 
-.z-\[10000\] {
-  z-index: 10000;
-}
-
 .z-10 {
   z-index: 10;
-}
-
-.z-\[100000\] {
-  z-index: 100000;
 }
 
 .float-left {
@@ -854,21 +834,6 @@ video {
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.my-6 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.my-8 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 
 .ml-3 {
@@ -1274,9 +1239,9 @@ video {
   padding-right: 1rem;
 }
 
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .px-16 {
@@ -1322,11 +1287,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.py-10 {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 
 .pl-3 {
@@ -1493,11 +1453,6 @@ video {
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
-}
-
-.text-gray-50 {
-  --tw-text-opacity: 1;
-  color: rgb(249 250 251 / var(--tw-text-opacity));
 }
 
 .opacity-40 {
@@ -1672,10 +1627,6 @@ Your CSS bundle will be bigger — oof.
 
   .lg\:bottom-0 {
     bottom: 0px;
-  }
-
-  .lg\:mb-0 {
-    margin-bottom: 0px;
   }
 
   .lg\:mt-0 {

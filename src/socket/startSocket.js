@@ -37,7 +37,7 @@ export function useConnectSocket(socket, focusScreenId) {
 export default function getInitSocket() {
     // every namespace should includes nsp before the actual name. e.g nspApp
     // server test: https://sempre-alerta-backend-test-eaa42b8e19ca.herokuapp.com/socket/nspApp
-    const SOCKET_URI = "wss://207.244.226.58:5001/socket/nspApp";
+    const SOCKET_URI = "http://207.244.226.58:5001/socket/nspApp"; // before http: // ref: https://stackoverflow.com/questions/37712224/mixed-content-error-when-accessing-websocket-server-hosted-in-a-different-port
     console.log("socket.io URI: " + SOCKET_URI);
 
     const socket = io(SOCKET_URI, {
