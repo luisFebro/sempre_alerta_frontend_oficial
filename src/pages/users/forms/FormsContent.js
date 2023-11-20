@@ -165,7 +165,9 @@ export default function FormsContent({
                     } animated fadeInUp mt-3 flex flex-col justify-content items-center`}
                 >
                     <SwitchBtn
-                        titleQuestion="É whatsapp?"
+                        titleQuestion="Alerta SOS via:"
+                        titleLeft="SMS"
+                        titleRight="Whatsapp"
                         defaultStatus={true}
                         callback={handleWhatsappQuestion}
                     />
