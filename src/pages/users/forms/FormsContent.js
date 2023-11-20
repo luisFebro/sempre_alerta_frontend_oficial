@@ -48,7 +48,7 @@ export default function FormsContent({
     });
     const [error, setError] = useState(null);
 
-    const { instituteId } = useData("user");
+    const { instituteId } = useData();
 
     const { userId, userName, userPhone, isPhoneWhatsapp, disabledCTA } = data;
     const userPhoneDisplay = autoPhoneMask(userPhone);
