@@ -32,16 +32,16 @@ export function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
         setData((prev) => ({
             ...prev,
-            alertMsg: `Usuário ${options.userDisplayName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
+            alertMsg: `Usuário ${options.userName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
         }));
 
         const newItem = {
             alertId: options.alertId,
             userId: options.userId,
-            userDisplayName: options.userDisplayName,
+            userName: options.userName,
             role: options.role,
-            alertStatus: "pending_notify",
-            utcDate: options.utcDate,
+            status: "pending_notify",
+            createdAt: options.createdAt,
         };
 
         addItem(newItem, setData);
@@ -52,7 +52,7 @@ export function listenUpdateEmergencyStage(socket, setData) {
     socket.on("updateEmergencyStage", (options = {}) => {
         const updatedItem = {
             alertId: options.alertId,
-            alertStatus: options.status,
+            status: options.status,
         };
 
         updateItem(updatedItem, setData);

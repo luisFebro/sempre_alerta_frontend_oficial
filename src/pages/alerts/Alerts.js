@@ -3,6 +3,7 @@ import useData from "global-data/useData";
 import { useState } from "react";
 import { useConnectSocket, useInitSocket } from "socket/startSocket";
 import AnimatedRankingList from "./alerts_list/AnimatedRankingList";
+import useAPI, { readAlertListAll } from "api/useAPI";
 
 export default function Alerts() {
     const [data, setData] = useState({
@@ -10,25 +11,16 @@ export default function Alerts() {
     });
     const { alertMsg } = data;
 
-    const { userId, userName: userDisplayName = "L. Febro" } = useData("user");
+    const { userId, userName } = useData("user");
+    const { instituteId } = useData();
 
     const globalData = useData();
     const { roomId = "central" } = globalData;
 
-    // TEST
-    // dbList is loaded every time user loads the page (read only)
-    // only update in backend.
-    const dbList = [
-        // {
-        //     alertId: "1:031023:042652",
-        //     userId: "johndow@gmail.com",
-        //     userDisplayName: "Roberta Lira",
-        //     role: "equipe",
-        //     alertStatus: "finished",
-        //     utcDate: "2023-10-13T20:15:52.315Z",
-        //     sosRequested: false,
-        // },
-    ];
+    const { data: dbList, loading = false } = useAPI({
+        url: readAlertListAll(),
+        params: { userId, roomId: instituteId },
+    });
 
     // update socket when user is focusing.
     const focusScreenId = globalData.screenId;
@@ -45,7 +37,7 @@ export default function Alerts() {
         dbList,
         userId,
         roomId,
-        userDisplayName,
+        userName,
         socket,
     };
 
@@ -57,10 +49,16 @@ export default function Alerts() {
                 title="Histórico de Alertas"
                 desc="Usuários que acionaram o alerta SOS"
             />
-            <AnimatedRankingList
-                dataList={dataList}
-                focusScreenId={focusScreenId}
-            />
+            {loading ? (
+                <p className="text-subtitle text-center font-bold relative top-36">
+                    Carregando...
+                </p>
+            ) : (
+                <AnimatedRankingList
+                    dataList={dataList}
+                    focusScreenId={focusScreenId}
+                />
+            )}
         </section>
     );
 }

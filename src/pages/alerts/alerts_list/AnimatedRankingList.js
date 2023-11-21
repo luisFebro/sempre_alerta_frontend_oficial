@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { calendar } from "utils/dates/dateFns";
 import sortDatesFront from "utils/dates/sortDatesFront";
 import showToast from "components/toasts/showToast";
-import { Icon } from "@material-tailwind/react";
 import AnimatedRankingItems from "./AnimatedRankingItems";
 import {
     listenStartEmergencyDashboard,
@@ -11,7 +10,7 @@ import {
 import ItemModalBtn from "./items/ItemModalBtns";
 
 export default function AnimatedRankingList({ dataList, focusScreenId }) {
-    const { dbList, userId, roomId, userDisplayName, socket } = dataList;
+    const { dbList, userId, roomId, authorName, authorRole, socket } = dataList;
 
     const [data, setData] = useState({
         list: [],
@@ -44,7 +43,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
     }, [dbList.length]);
 
     sortDatesFront(list, {
-        target: "utcDate",
+        target: "createdAt",
     });
 
     useEffect(() => {
@@ -93,7 +92,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
     );
 
     const dataModalBtns = {
-        userDisplayName,
+        authorName,
         userId,
         roomId,
     };
@@ -122,7 +121,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                     </strong>
                                     <br />
                                     <span className="break-words text-center">
-                                        {item.userDisplayName} ({item.role})
+                                        {item.authorName} ({item.authorRole})
                                     </span>
                                 </div>
                                 <div className="lg:flex-[30%] lg:justify-center">
@@ -130,8 +129,8 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         Alertou:
                                     </strong>
                                     <br />{" "}
-                                    {Boolean(item.utcDate)
-                                        ? calendar(item.utcDate)
+                                    {Boolean(item.createdAt)
+                                        ? calendar(item.createdAt)
                                         : "sem data"}
                                 </div>
                                 <div className="lg:flex-[40%] self-center mt-5 lg:mt-0">
@@ -139,9 +138,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         {item.sosRequested !== null && (
                                             <section className="relative">
                                                 <img
-                                                    src={getIcon(
-                                                        item.alertStatus
-                                                    )}
+                                                    src={getIcon(item.status)}
                                                     width="80px"
                                                     height="80px"
                                                 />
@@ -149,9 +146,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         )}
 
                                         {item.sosRequested !== null &&
-                                            item.alertStatus.includes(
-                                                "pending"
-                                            ) && (
+                                            item.status.includes("pending") && (
                                                 <ItemModalBtn
                                                     type="confirm"
                                                     alertId={item.alertId}
@@ -168,8 +163,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         )}
 
                                         {item.sosRequested &&
-                                            item.alertStatus ===
-                                                "requested" && (
+                                            item.status === "requested" && (
                                                 <ItemModalBtn
                                                     type="finish"
                                                     alertId={item.alertId}

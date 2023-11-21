@@ -20,7 +20,7 @@ export function removeItem(userId, setList) {
 
 /* n1
 doesn't require full object, only the fields which need to be updated like:
-updateItem({ alertId, alertStatus: "canceled" }, setData);
+updateItem({ alertId, status: "canceled" }, setData);
 
 /*
 
@@ -56,7 +56,7 @@ function insert() {
             id: getId() + "@gmail.com",
             lastConnectAttemptDate: !isConnList ? new Date() : null,
             lastConnectedDate: isConnList ? new Date() : null,
-            alertStatus: isConnList ? 1 : 2,
+            status: isConnList ? 1 : 2,
         };
 
         setData((prev) => ({
