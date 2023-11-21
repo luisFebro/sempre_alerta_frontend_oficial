@@ -1653,6 +1653,10 @@ Your CSS bundle will be bigger — oof.
     flex: 40%;
   }
 
+  .lg\:flex-\[45\%\] {
+    flex: 45%;
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }

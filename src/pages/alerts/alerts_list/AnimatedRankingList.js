@@ -133,14 +133,14 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         ? calendar(item.createdAt)
                                         : "sem data"}
                                 </div>
-                                <div className="lg:flex-[40%] self-center mt-5 lg:mt-0">
+                                <div className="lg:flex-[45%] self-center mt-5 lg:mt-0">
                                     <div className="flex list-center items-center justify-center">
                                         {item.sosRequested !== null && (
                                             <section className="relative">
                                                 <img
                                                     src={getIcon(item.status)}
-                                                    width="80px"
-                                                    height="80px"
+                                                    width="90px"
+                                                    height="90px"
                                                 />
                                             </section>
                                         )}
