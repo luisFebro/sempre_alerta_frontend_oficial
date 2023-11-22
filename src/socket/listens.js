@@ -30,6 +30,7 @@ export function listenSocketEvents(socket) {
 // ALL EVENTS
 export function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
+        console.log("startEmergencyDashboard: " + JSON.stringify(options));
         setData((prev) => ({
             ...prev,
             alertMsg: `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
