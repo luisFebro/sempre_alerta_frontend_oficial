@@ -6,9 +6,9 @@
  * @return {Array} Array with sorted dates
  */
 export default function sortDatesFront(obj, options = {}) {
-    const { sortBy = "latest", target = "createdAt" } = options;
+    const { sortBy = "oldest", target = "createdAt" } = options;
 
-    const newArrayWithObjDate = obj;
+    const newArrayWithObjDate = obj || [];
 
     const validSort = ["latest", "oldest"];
     if (!validSort.includes(sortBy))

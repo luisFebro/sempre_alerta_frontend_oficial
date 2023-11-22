@@ -20,6 +20,7 @@ export function updateItem(updatedItem, setData) {
             list: updateObjInArray(currList, updatedItem, {
                 filterId: "alertId",
             }),
+            updateListId: getId(),
         };
     });
 }
