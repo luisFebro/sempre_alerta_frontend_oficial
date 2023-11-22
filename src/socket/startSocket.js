@@ -18,18 +18,18 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
             socket.disconnect();
         };
         // eslint-disable-next-line
-    }, [roomIdList]);
+    }, []);
 
     return socketData;
 }
 
-export function useConnectSocket(socket, focusScreenId) {
+export function useConnectSocket(socket, activeScreenId) {
     const isSocketAvailable = socket != null;
 
     useEffect(() => {
         if (!socket) return;
         if (socket.disconnected) socket.connect();
-    }, [focusScreenId, isSocketAvailable]);
+    }, [activeScreenId, isSocketAvailable]);
 }
 
 // HELPERS

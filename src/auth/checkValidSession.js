@@ -3,13 +3,17 @@ import disconnect from "auth/access/disconnect";
 import { HOST_INTERNAL_URL, HOST_URL } from "config/root";
 import { readData, updateData } from "global-data/useData";
 import getId from "utils/getId";
-import watchWindowFocus from "utils/window/watchWindowFocus";
 
 export default async function checkValidSession(uify) {
-    watchWindowFocus(() => runSessionCheck(uify));
+    window.addEventListener("visibilitychange", (e) => {
+        //ref: https://stackoverflow.com/questions/10338704/javascript-to-detect-if-user-changes-tab
+        if (document && document.visibilityState == "visible")
+            runSessionCheck(uify);
+    });
 }
 
 export async function runSessionCheck(uify) {
+    console.log("runningWindowFOCUS");
     updateData(uify, { screenId: getId() });
 
     const { token } = readData(uify);

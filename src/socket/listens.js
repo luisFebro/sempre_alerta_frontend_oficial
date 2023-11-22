@@ -34,14 +34,14 @@ export function listenStartEmergencyDashboard(socket, setData) {
         const alertMsg = `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
         showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
 
-        const newItem = {
-            alertId: options.alertId,
-            authorId: options.authorId,
-            authorName: options.authorName,
-            authorRole: options.authorRole,
-            status: "pending_notify",
-            alertDate: options.alertDate,
-        };
+        const newItem = options;
+        //     alertId: options.alertId,
+        //     authorId: options.authorId,
+        //     authorName: options.authorName,
+        //     authorRole: options.authorRole,
+        //     status: "pending_notify",
+        //     alertDate: options.alertDate,
+        // };
 
         addItem(newItem, setData);
     });

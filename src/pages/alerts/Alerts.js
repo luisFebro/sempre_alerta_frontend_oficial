@@ -5,26 +5,34 @@ import AnimatedRankingList from "./alerts_list/AnimatedRankingList";
 import useAPI, { readAlertListAll } from "api/useAPI";
 
 export default function Alerts() {
-    const { userId, userName } = useData("user");
-    const { instituteId } = useData();
+    const d = {
+        userId: "mr.febro@gmail.com ",
+        userName: "Luis Febro",
+        instituteId: "central-tajmjcv",
+    };
+    const { userId = "userIdTest", userName = "userNameTest" } =
+        useData("user");
+    const { instituteId = "instituteIdTest" } = useData();
 
     const globalData = useData();
     const { roomId = "central" } = globalData;
-
-    const { data: dbList, loading = false } = useAPI({
-        url: readAlertListAll(),
-        params: { userId, roomId: instituteId },
-    });
-
-    // update socket when user is focusing.
-    const focusScreenId = globalData.screenId;
 
     // MAIN SOCKET CONNECTION
     const socket = useInitSocket({
         userId,
         roomIdList: globalData.roomIdList,
     });
-    useConnectSocket(socket, focusScreenId);
+
+    // update socket and list when user is focusing.
+    const activeScreenId = globalData.screenId;
+
+    const { data: dbList, loading = false } = useAPI({
+        url: readAlertListAll(),
+        params: { userId, roomId: instituteId },
+        trigger: activeScreenId,
+    });
+
+    useConnectSocket(socket, activeScreenId);
     // END MAIN SOCKET CONNECTION
 
     const dataList = {
@@ -34,6 +42,8 @@ export default function Alerts() {
         userName,
         socket,
     };
+
+    console.log("RUNNING ALERTS PAGE");
 
     return (
         <section className="relative">
@@ -50,7 +60,7 @@ export default function Alerts() {
             ) : (
                 <AnimatedRankingList
                     dataList={dataList}
-                    focusScreenId={focusScreenId}
+                    activeScreenId={activeScreenId}
                 />
             )}
         </section>

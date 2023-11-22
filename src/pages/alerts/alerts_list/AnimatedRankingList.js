@@ -9,7 +9,7 @@ import {
 } from "socket/listens";
 import ItemModalBtn from "./items/ItemModalBtns";
 
-export default function AnimatedRankingList({ dataList, focusScreenId }) {
+export default function AnimatedRankingList({ dataList, activeScreenId }) {
     const { dbList, userId, roomId, authorName, socket } = dataList;
 
     const [data, setData] = useState({
@@ -21,7 +21,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
     const listCount = (list && list.length) || 0;
     const isPlural = listCount > 1;
 
-    const gotlist = Boolean(list.length);
+    const gotlist = Boolean(list && list.length);
 
     useEffect(() => {
         if (!socket) return;
@@ -34,7 +34,7 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
             ...prev,
             list: dbList,
         }));
-    }, [dbList.length]);
+    }, [dbList && dbList.length]);
 
     sortDatesFront(list, {
         target: "createdAt",
@@ -45,9 +45,9 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
         setData((prev) => ({
             ...prev,
             list: prev.list,
-            updateListId: focusScreenId,
+            updateListId: activeScreenId,
         }));
-    }, [focusScreenId]);
+    }, [activeScreenId]);
 
     const getIcon = (connStatus) => {
         if (connStatus.includes("pending"))
