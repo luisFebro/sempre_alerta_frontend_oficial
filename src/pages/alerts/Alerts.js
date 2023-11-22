@@ -5,11 +5,11 @@ import AnimatedRankingList from "./alerts_list/AnimatedRankingList";
 import useAPI, { readAlertListAll } from "api/useAPI";
 
 export default function Alerts() {
-    const d = {
-        userId: "mr.febro@gmail.com ",
-        userName: "Luis Febro",
-        instituteId: "central-tajmjcv",
-    };
+    // const d = {
+    //     userId: "mr.febro@gmail.com ",
+    //     userName: "Luis Febro",
+    //     instituteId: "central-tajmjcv",
+    // };
     const { userId = "userIdTest", userName = "userNameTest" } =
         useData("user");
     const { instituteId = "instituteIdTest" } = useData();
