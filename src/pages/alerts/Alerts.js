@@ -1,16 +1,10 @@
 import MainTitle from "components/MainTitle";
 import useData from "global-data/useData";
-import { useState } from "react";
 import { useConnectSocket, useInitSocket } from "socket/startSocket";
 import AnimatedRankingList from "./alerts_list/AnimatedRankingList";
 import useAPI, { readAlertListAll } from "api/useAPI";
 
 export default function Alerts() {
-    const [data, setData] = useState({
-        alertMsg: "",
-    });
-    const { alertMsg } = data;
-
     const { userId, userName } = useData("user");
     const { instituteId } = useData();
 

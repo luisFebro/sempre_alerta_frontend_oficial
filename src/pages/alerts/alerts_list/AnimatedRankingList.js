@@ -15,19 +15,13 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
     const [data, setData] = useState({
         list: [],
         updateListId: null,
-        alertMsg: null,
     });
-    const { list, updateListId, alertMsg } = data;
+    const { list, updateListId } = data;
 
     const listCount = (list && list.length) || 0;
     const isPlural = listCount > 1;
 
     const gotlist = Boolean(list.length);
-
-    useEffect(() => {
-        if (alertMsg)
-            showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
-    }, [alertMsg]);
 
     useEffect(() => {
         if (!socket) return;

@@ -1,8 +1,9 @@
+import showToast from "components/toasts/showToast";
 import {
     addItem,
     updateItem,
 } from "pages/alerts/alerts_list/items/itemMethods";
-//
+// IMPORTANT: if not displaying logs, comment out switchConsoleLogs() from App.js
 export function listenSocketEvents(socket) {
     socket.onAny((event, ...args) => {
         console.log(`socket.onAny: ${event}`, args);
@@ -30,19 +31,16 @@ export function listenSocketEvents(socket) {
 // ALL EVENTS
 export function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
-        console.log("startEmergencyDashboard: " + JSON.stringify(options));
-        setData((prev) => ({
-            ...prev,
-            alertMsg: `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
-        }));
+        const alertMsg = `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
+        showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
 
         const newItem = {
             alertId: options.alertId,
-            userId: options.userId,
+            authorId: options.authorId,
             authorName: options.authorName,
-            role: options.authorRole,
+            authorRole: options.authorRole,
             status: "pending_notify",
-            createdAt: options.createdAt,
+            alertDate: options.alertDate,
         };
 
         addItem(newItem, setData);
