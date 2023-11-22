@@ -32,13 +32,13 @@ export function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
         setData((prev) => ({
             ...prev,
-            alertMsg: `Usuário ${options.userName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
+            alertMsg: `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`,
         }));
 
         const newItem = {
             alertId: options.alertId,
             userId: options.userId,
-            userName: options.userName,
+            authorName: options.authorName,
             role: options.role,
             status: "pending_notify",
             createdAt: options.createdAt,
