@@ -29,32 +29,25 @@ export function listenSocketEvents(socket) {
 }
 
 // ALL EVENTS
-export function listenStartEmergencyDashboard(socket, setData) {
-    socket.on("startEmergencyDashboard", (options = {}) => {
-        const alertMsg = `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
-        // TODO showing multiple times. create mechanism to only trigger once in backend. showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
-
-        const newItem = options;
-        //     alertId: options.alertId,
-        //     authorId: options.authorId,
-        //     authorName: options.authorName,
-        //     authorRole: options.authorRole,
-        //     status: "pending_notify",
-        //     alertDate: options.alertDate,
-        // };
-
-        addItem(newItem, setData);
-    });
-}
-
 export function listenUpdateEmergencyStage(socket, setData) {
     socket.on("updateEmergencyStage", (options = {}) => {
-        const updatedItem = {
-            alertId: options.alertId,
-            status: options.status,
-        };
+        const status = options.status;
+        const isStartStatus = status === "pending_notify";
 
-        updateItem(updatedItem, setData);
+        if (isStartStatus) {
+            const alertMsg = `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
+            // TODO showing multiple times. create mechanism to only trigger once in backend. showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
+
+            addItem(options, setData);
+            //     alertId: options.alertId,
+            //     authorId: options.authorId,
+            //     authorName: options.authorName,
+            //     authorRole: options.authorRole,
+            //     status: "pending_notify",
+            //     alertDate: options.alertDate,
+        } else {
+            updateItem(options, setData);
+        }
     });
 }
 // END ALL EVENTS

@@ -26,6 +26,7 @@ export default function Alerts() {
     // update socket and list when user is focusing.
     const activeScreenId = globalData.screenId;
 
+    // no need loading for real time data, otherwise it will be flicking "loading" every update
     const { data: dbList } = useAPI({
         url: readAlertListAll(),
         params: { userId, roomId: instituteId },

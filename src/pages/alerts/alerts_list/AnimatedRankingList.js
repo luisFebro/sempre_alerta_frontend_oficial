@@ -3,10 +3,7 @@ import { calendar } from "utils/dates/dateFns";
 import sortDatesFront from "utils/dates/sortDatesFront";
 import showToast from "components/toasts/showToast";
 import AnimatedRankingItems from "./AnimatedRankingItems";
-import {
-    listenStartEmergencyDashboard,
-    listenUpdateEmergencyStage,
-} from "socket/listens";
+import { listenUpdateEmergencyStage } from "socket/listens";
 import ItemModalBtn from "./items/ItemModalBtns";
 
 export default function AnimatedRankingList({ dataList, activeScreenId }) {
@@ -25,7 +22,6 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
 
     useEffect(() => {
         if (!socket) return;
-        listenStartEmergencyDashboard(socket, setData);
         listenUpdateEmergencyStage(socket, setData);
     }, [socket]);
 
