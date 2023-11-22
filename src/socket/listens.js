@@ -39,7 +39,7 @@ export function listenStartEmergencyDashboard(socket, setData) {
             alertId: options.alertId,
             userId: options.userId,
             authorName: options.authorName,
-            role: options.role,
+            role: options.authorRole,
             status: "pending_notify",
             createdAt: options.createdAt,
         };

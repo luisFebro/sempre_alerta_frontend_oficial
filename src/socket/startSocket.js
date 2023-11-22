@@ -9,7 +9,6 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
 
     useEffect(() => {
         const socket = getInitSocket();
-        console.log("socket:" + socket);
         listenSocketEvents(socket);
 
         emitJoinRoom(socket, userId, roomIdList);
