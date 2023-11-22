@@ -15,19 +15,16 @@ export default function Alerts() {
         userName = "userNameTest",
         role,
     } = useData("user");
-    const { instituteId = "instituteIdTest" } = useData();
-
-    const globalData = useData();
-    const { roomId = "central" } = globalData;
+    const { instituteId: roomId, roomIdList, screenId } = useData();
 
     // MAIN SOCKET CONNECTION
     const socket = useInitSocket({
         userId,
-        roomIdList: globalData.roomIdList,
+        roomIdList,
     });
 
     // update socket and list when user is focusing.
-    const activeScreenId = globalData.screenId;
+    const activeScreenId = screenId;
 
     // no need loading for real time data, otherwise it will be flicking "loading" every update
     const { data: dbList } = useAPI({

@@ -8,15 +8,10 @@ export function emitJoinRoom(socket, userId, roomIdList) {
     socket.emit("joinRoom", roomData);
 }
 
-export function emitConfirmEmergency(socket, data, cb) {
-    socket.emit("confirmEmergency", data, cb);
-}
-
 export function emitUpdateEmergencyStage(socket, data, cb) {
     socket.emit("updateEmergencyStage", data, cb);
 }
 
-export function emitFinishEmergencyDashboard(socket, data) {
-    /*data alertId, userId, roomId, msg */
-    socket.emit("finishEmergencyDashboard", data);
+export function emitConfirmEmergency(socket, data, cb) {
+    socket.emit("confirmEmergency", data, cb);
 }

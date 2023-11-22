@@ -1,12 +1,8 @@
 import { useState } from "react";
 import MainBtn from "components/btns/MainBtn";
 import ModalYesNo from "components/modals/ModalYesNo";
-import {
-    emitUpdateEmergencyStage,
-    emitConfirmEmergency,
-    emitFinishEmergencyDashboard,
-} from "socket/emits";
-import { updateItem } from "./itemMethods";
+import { emitUpdateEmergencyStage, emitConfirmEmergency } from "socket/emits";
+import showToast from "components/toasts/showToast";
 
 export default function ItemModalBtn({
     type = "finish",
@@ -15,7 +11,6 @@ export default function ItemModalBtn({
     setData,
 }) {
     const [fullOpen, setFullOpen] = useState(false);
-    const alertId = data && data.alertId;
 
     const handleFullOpen = () => {
         setFullOpen(true);
@@ -26,13 +21,13 @@ export default function ItemModalBtn({
     };
 
     // CTA METHODS
-    const finishEmergency = () => {
+    const updateEmergencyStageFinished = () => {
         if (!socket)
             return console.log(
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        emitFinishEmergencyDashboard(socket, data);
+        emitUpdateEmergencyStage(socket, { ...data, status: "finished" });
 
         handleFullClose();
     };
@@ -43,20 +38,8 @@ export default function ItemModalBtn({
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        const updatedItem = {
-            alertId,
-            sosRequested: null,
-        };
-
-        updateItem(updatedItem, setData);
-
-        const cb = (response) => {
-            const updatedItem = {
-                alertId,
-                sosRequested: true,
-            };
-
-            updateItem(updatedItem, setData);
+        const cb = ({ msg }) => {
+            showToast(msg);
         };
 
         emitConfirmEmergency(
@@ -87,7 +70,9 @@ export default function ItemModalBtn({
     const subtitle = isFinished
         ? "Se a emergência foi concluída ou resolvida, clique em SIM para aviso de conclusão para os demais e marcar alerta como concluído"
         : `Para prosseguir com o protocolo de emergência, faça confirmação do alerta: <span style="font-weight:bold;">Você confirma que a emergência real?</span>`;
-    const ctaFunc = isFinished ? finishEmergency : confirmEmergency;
+    const ctaFunc = isFinished
+        ? updateEmergencyStageFinished
+        : confirmEmergency;
     const ctaTitle = isFinished ? "SIM, CONCLUÍDA" : "SIM, CONFIRMO";
 
     return (
