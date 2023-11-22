@@ -32,7 +32,7 @@ export function listenSocketEvents(socket) {
 export function listenStartEmergencyDashboard(socket, setData) {
     socket.on("startEmergencyDashboard", (options = {}) => {
         const alertMsg = `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
-        showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
+        // TODO showing multiple times. create mechanism to only trigger once in backend. showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
 
         const newItem = options;
         //     alertId: options.alertId,
