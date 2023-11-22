@@ -129,8 +129,8 @@ export default function AnimatedRankingList({ dataList, focusScreenId }) {
                                         Alertou:
                                     </strong>
                                     <br />{" "}
-                                    {Boolean(item.createdAt)
-                                        ? calendar(item.createdAt)
+                                    {Boolean(item.alertDate)
+                                        ? item.alertDate
                                         : "sem data"}
                                 </div>
                                 <div className="lg:flex-[45%] self-center mt-5 lg:mt-0">
