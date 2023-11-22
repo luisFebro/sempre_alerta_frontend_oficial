@@ -1,11 +1,7 @@
-export function emitJoinRoom(
-    socket,
-    userId,
-    roomIdList = ["central", "central-teste"]
-) {
+export function emitJoinRoom(socket, userId, roomIdList) {
     const roomData = {
         userId,
-        roomIdList: roomIdList,
+        roomIdList, // ex: ["central-tajmjcv"]
         origin: "dashboard",
     };
 

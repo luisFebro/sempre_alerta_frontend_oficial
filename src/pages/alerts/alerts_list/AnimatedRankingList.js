@@ -10,7 +10,7 @@ import {
 import ItemModalBtn from "./items/ItemModalBtns";
 
 export default function AnimatedRankingList({ dataList, focusScreenId }) {
-    const { dbList, userId, roomId, authorName, authorRole, socket } = dataList;
+    const { dbList, userId, roomId, authorName, socket } = dataList;
 
     const [data, setData] = useState({
         list: [],

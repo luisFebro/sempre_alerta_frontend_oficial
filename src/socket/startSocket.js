@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import showToast from "components/toasts";
 import { emitJoinRoom } from "./emits";
 import { listenSocketEvents } from "./listens";
 
