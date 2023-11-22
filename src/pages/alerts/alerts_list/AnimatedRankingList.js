@@ -12,7 +12,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
         updateListId: null,
     });
     const { list, updateListId } = data;
-    console.log("AnimatedRankingList: " + JSON.stringify(list));
+    // console.log("AnimatedRankingList: " + JSON.stringify(list));
 
     const listCount = (list && list.length) || 0;
     const isPlural = listCount > 1;

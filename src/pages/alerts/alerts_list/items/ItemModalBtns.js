@@ -46,7 +46,7 @@ export default function ItemModalBtn({
             socket,
             {
                 origin: "dashboard",
-                confirmCollector: [
+                confirmCollector: JSON.stringify([
                     ...data.confirmCollector,
                     {
                         role: data.role,
@@ -54,7 +54,7 @@ export default function ItemModalBtn({
                         userName: data.userName,
                         answer: true,
                     },
-                ],
+                ]),
                 ...data,
             },
             cb

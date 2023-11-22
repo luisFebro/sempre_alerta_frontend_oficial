@@ -29,7 +29,7 @@ export default function Alerts() {
     // no need loading for real time data, otherwise it will be flicking "loading" every update
     const { data: dbList } = useAPI({
         url: readAlertListAll(),
-        params: { userId, roomId: instituteId },
+        params: { userId, roomId },
         trigger: activeScreenId,
     });
 
