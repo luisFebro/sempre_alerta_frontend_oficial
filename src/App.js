@@ -29,7 +29,7 @@ function App() {
 
     useEffect(() => {
         // remove console.log in production's env
-        switchConsoleLogs();
+        // switchConsoleLogs();
     }, []);
 
     useLoggedIn();
