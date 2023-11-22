@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { calendar } from "utils/dates/dateFns";
 import sortDatesFront from "utils/dates/sortDatesFront";
-import showToast from "components/toasts/showToast";
 import AnimatedRankingItems from "./AnimatedRankingItems";
 import { listenUpdateEmergencyStage } from "socket/listens";
 import ItemModalBtn from "./items/ItemModalBtns";
@@ -41,9 +39,8 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
         setData((prev) => ({
             ...prev,
             list,
-            updateListId: activeScreenId,
         }));
-    }, [activeScreenId]);
+    }, [activeScreenId, updateListId]);
 
     const getIcon = (connStatus) => {
         if (connStatus.includes("pending"))
