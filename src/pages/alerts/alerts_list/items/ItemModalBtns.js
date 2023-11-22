@@ -42,19 +42,30 @@ export default function ItemModalBtn({
             showToast(msg);
         };
 
+        const confirmCollector = data.confirmCollector
+            ? JSON.stringify([
+                  ...data.confirmCollector,
+                  {
+                      role: data.role,
+                      userId: data.userId,
+                      userName: data.userName,
+                      answer: true,
+                  },
+              ])
+            : JSON.stringify([
+                  {
+                      role: data.role,
+                      userId: data.userId,
+                      userName: data.userName,
+                      answer: true,
+                  },
+              ]);
+
         emitConfirmEmergency(
             socket,
             {
                 origin: "dashboard",
-                confirmCollector: JSON.stringify([
-                    ...data.confirmCollector,
-                    {
-                        role: data.role,
-                        userId: data.userId,
-                        userName: data.userName,
-                        answer: true,
-                    },
-                ]),
+                confirmCollector,
                 ...data,
             },
             cb
