@@ -31,12 +31,12 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
         }));
     }, [dbList && dbList.length]);
 
+    sortDatesFront(list, {
+        target: "createdAt",
+    });
+
     useEffect(() => {
         // update list by date when a change happens
-
-        sortDatesFront(list, {
-            target: "createdAt",
-        });
 
         setData((prev) => ({
             ...prev,
