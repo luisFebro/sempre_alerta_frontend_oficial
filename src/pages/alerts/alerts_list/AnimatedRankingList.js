@@ -44,7 +44,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
         // update list by date when a change happens
         setData((prev) => ({
             ...prev,
-            list: prev.list,
+            list,
             updateListId: activeScreenId,
         }));
     }, [activeScreenId]);
