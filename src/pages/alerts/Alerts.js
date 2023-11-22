@@ -26,7 +26,7 @@ export default function Alerts() {
     // update socket and list when user is focusing.
     const activeScreenId = globalData.screenId;
 
-    const { data: dbList, loading = false } = useAPI({
+    const { data: dbList } = useAPI({
         url: readAlertListAll(),
         params: { userId, roomId: instituteId },
         trigger: activeScreenId,
@@ -53,16 +53,10 @@ export default function Alerts() {
                 title="Histórico de Alertas"
                 desc="Usuários que acionaram o alerta SOS"
             />
-            {loading ? (
-                <p className="text-subtitle text-center font-bold relative top-36">
-                    Carregando...
-                </p>
-            ) : (
-                <AnimatedRankingList
-                    dataList={dataList}
-                    activeScreenId={activeScreenId}
-                />
-            )}
+            <AnimatedRankingList
+                dataList={dataList}
+                activeScreenId={activeScreenId}
+            />
         </section>
     );
 }
