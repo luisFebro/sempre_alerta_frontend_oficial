@@ -9,6 +9,7 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
 
     useEffect(() => {
         const socket = getInitSocket();
+        console.log("socket:" + socket);
         listenSocketEvents(socket);
 
         emitJoinRoom(socket, userId, roomIdList);
@@ -38,7 +39,7 @@ export default function getInitSocket() {
     // server test: https://sempre-alerta-backend-72437300b00c.herokuapp.com/socket/nspApp
     // patrick server: http://207.244.226.58:5001/socket/nspApp
     const SOCKET_URI =
-        "https://sempre-alerta-backend-72437300b00c.herokuapp.com/socket/nspApp"; // before http: // ref: https://stackoverflow.com/questions/37712224/mixed-content-error-when-accessing-websocket-server-hosted-in-a-different-port
+        "https://sempre-alerta-backend-72437300b00c.herokuapp.com/socket/nspApp"; // http: // ref: https://stackoverflow.com/questions/37712224/mixed-content-error-when-accessing-websocket-server-hosted-in-a-different-port
     console.log("socket.io URI: " + SOCKET_URI);
 
     const socket = io(SOCKET_URI, {
