@@ -10,8 +10,11 @@ export default function Alerts() {
     //     userName: "Luis Febro",
     //     instituteId: "central-tajmjcv",
     // };
-    const { userId = "userIdTest", userName = "userNameTest" } =
-        useData("user");
+    const {
+        userId = "userIdTest",
+        userName = "userNameTest",
+        role,
+    } = useData("user");
     const { instituteId = "instituteIdTest" } = useData();
 
     const globalData = useData();
@@ -42,6 +45,7 @@ export default function Alerts() {
         roomId,
         userName,
         socket,
+        role,
     };
 
     console.log("RUNNING ALERTS PAGE");

@@ -2,6 +2,7 @@ import { useState } from "react";
 import MainBtn from "components/btns/MainBtn";
 import ModalYesNo from "components/modals/ModalYesNo";
 import {
+    emitUpdateEmergencyStage,
     emitConfirmEmergency,
     emitFinishEmergencyDashboard,
 } from "socket/emits";
@@ -9,12 +10,12 @@ import { updateItem } from "./itemMethods";
 
 export default function ItemModalBtn({
     type = "finish",
-    alertId,
     socket,
     data,
     setData,
 }) {
     const [fullOpen, setFullOpen] = useState(false);
+    const alertId = data && data.alertId;
 
     const handleFullOpen = () => {
         setFullOpen(true);
@@ -25,28 +26,25 @@ export default function ItemModalBtn({
     };
 
     // CTA METHODS
-    const finishEmergency = (alertIdFinish) => {
+    const finishEmergency = () => {
         if (!socket)
             return console.log(
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        emitFinishEmergencyDashboard(socket, {
-            alertId: alertIdFinish,
-            ...data,
-        });
+        emitFinishEmergencyDashboard(socket, data);
 
-        setFullOpen(false);
+        handleFullClose();
     };
 
-    const confirmEmergency = (alertIdConfirm) => {
+    const confirmEmergency = () => {
         if (!socket)
             return console.log(
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
         const updatedItem = {
-            alertId: alertIdConfirm,
+            alertId,
             sosRequested: null,
         };
 
@@ -54,7 +52,7 @@ export default function ItemModalBtn({
 
         const cb = (response) => {
             const updatedItem = {
-                alertId: response.alertId,
+                alertId,
                 sosRequested: true,
             };
 
@@ -65,8 +63,15 @@ export default function ItemModalBtn({
             socket,
             {
                 origin: "dashboard",
-                role: "admin",
-                alertId,
+                confirmCollector: [
+                    ...data.confirmCollector,
+                    {
+                        role: data.role,
+                        userId: data.userId,
+                        userName: data.userName,
+                        answer: true,
+                    },
+                ],
                 ...data,
             },
             cb
@@ -103,7 +108,6 @@ export default function ItemModalBtn({
                     setFullOpen(false);
                 }}
                 actionFunc={ctaFunc}
-                actionFuncParam={alertId}
             />
         </>
     );

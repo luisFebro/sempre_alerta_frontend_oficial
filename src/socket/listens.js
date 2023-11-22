@@ -39,12 +39,6 @@ export function listenUpdateEmergencyStage(socket, setData) {
             // TODO showing multiple times. create mechanism to only trigger once in backend. showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
 
             addItem(options, setData);
-            //     alertId: options.alertId,
-            //     authorId: options.authorId,
-            //     authorName: options.authorName,
-            //     authorRole: options.authorRole,
-            //     status: "pending_notify",
-            //     alertDate: options.alertDate,
         } else {
             updateItem(options, setData);
         }

@@ -5,7 +5,7 @@ import { listenUpdateEmergencyStage } from "socket/listens";
 import ItemModalBtn from "./items/ItemModalBtns";
 
 export default function AnimatedRankingList({ dataList, activeScreenId }) {
-    const { dbList, userId, roomId, authorName, socket } = dataList;
+    const { dbList, userId, roomId, userName, socket } = dataList;
 
     const [data, setData] = useState({
         list: [],
@@ -43,7 +43,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
         }));
     }, [activeScreenId, updateListId]);
 
-    const getIcon = (connStatus) => {
+    const getIcon = (connStatus = "") => {
         if (connStatus.includes("pending"))
             return "/img/siren_status/siren_history_pending.png";
         if (connStatus === "canceled")
@@ -80,7 +80,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
     );
 
     const dataModalBtns = {
-        authorName,
+        userName, // admin/dev name
         userId,
         roomId,
     };
@@ -137,9 +137,11 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                             item.status.includes("pending") && (
                                                 <ItemModalBtn
                                                     type="confirm"
-                                                    alertId={item.alertId}
                                                     socket={socket}
-                                                    data={dataModalBtns}
+                                                    data={{
+                                                        ...item,
+                                                        ...dataModalBtns,
+                                                    }}
                                                     setData={setData}
                                                 />
                                             )}
@@ -156,7 +158,10 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                                     type="finish"
                                                     alertId={item.alertId}
                                                     socket={socket}
-                                                    data={dataModalBtns}
+                                                    data={{
+                                                        ...item,
+                                                        ...dataModalBtns,
+                                                    }}
                                                     setData={setData}
                                                 />
                                             )}
