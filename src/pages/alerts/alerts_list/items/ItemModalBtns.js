@@ -4,12 +4,7 @@ import ModalYesNo from "components/modals/ModalYesNo";
 import { emitUpdateEmergencyStage, emitConfirmEmergency } from "socket/emits";
 import showToast from "components/toasts/showToast";
 
-export default function ItemModalBtn({
-    type = "finish",
-    socket,
-    data,
-    setData,
-}) {
+export default function ItemModalBtn({ type = "finish", socket, data }) {
     const [fullOpen, setFullOpen] = useState(false);
 
     const handleFullOpen = () => {
@@ -42,31 +37,20 @@ export default function ItemModalBtn({
             showToast(msg);
         };
 
-        const confirmCollector = data.confirmCollector
-            ? JSON.stringify([
-                  ...data.confirmCollector,
-                  {
-                      role: data.role,
-                      userId: data.userId,
-                      userName: data.userName,
-                      answer: true,
-                  },
-              ])
-            : JSON.stringify([
-                  {
-                      role: data.role,
-                      userId: data.userId,
-                      userName: data.userName,
-                      answer: true,
-                  },
-              ]);
+        console.log("data confirmEmergency: " + JSON.stringify(data));
 
         emitConfirmEmergency(
             socket,
             {
-                origin: "dashboard",
-                confirmCollector,
-                ...data,
+                alertId: data.alertId,
+                roomId: data.roomId,
+                confirmCollector: {
+                    origin: "dashboard",
+                    role: data.role,
+                    userId: data.userId,
+                    userName: data.userName,
+                    answer: true,
+                },
             },
             cb
         );

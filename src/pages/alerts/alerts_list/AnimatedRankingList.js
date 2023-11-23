@@ -5,7 +5,7 @@ import { listenUpdateEmergencyStage } from "socket/listens";
 import ItemModalBtn from "./items/ItemModalBtns";
 
 export default function AnimatedRankingList({ dataList, activeScreenId }) {
-    const { dbList, userId, roomId, userName, socket } = dataList;
+    const { dbList, userId, roomId, userName, socket, role } = dataList;
 
     const [data, setData] = useState({
         list: [],
@@ -84,10 +84,14 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
         userName, // admin/dev name
         userId,
         roomId,
+        role,
     };
 
-    const isConfirming = (status) =>
-        ["pending_collector", "pending_protocol"].includes(status);
+    const isConfirming = (status, confirmCollectorOpen) => {
+        const didHitWeight = confirmCollectorOpen === false; // false means collector hits a weight and closed analysis
+        if (didHitWeight) return false;
+        return ["pending_collector", "pending_protocol"].includes(status);
+    };
 
     return (
         <section className="mx-3 my-[200px]">
@@ -127,7 +131,10 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                 </div>
                                 <div className="lg:flex-[45%] self-center mt-5 lg:mt-0">
                                     <div className="flex list-center items-center justify-center">
-                                        {!isConfirming(item.status) && (
+                                        {!isConfirming(
+                                            item.status,
+                                            item.confirmCollectorOpen
+                                        ) && (
                                             <section className="relative">
                                                 <img
                                                     src={getIcon(item.status)}
@@ -145,28 +152,32 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                                     ...item,
                                                     ...dataModalBtns,
                                                 }}
-                                                setData={setData}
                                             />
                                         )}
 
-                                        {isConfirming(item.status) && (
+                                        {isConfirming(
+                                            item.status,
+                                            item.confirmCollectorOpen
+                                        ) && (
                                             <p className="text-normal font-bold">
                                                 Aguardando confirmação...
                                             </p>
                                         )}
 
-                                        {item.status === "requested" && (
-                                            <ItemModalBtn
-                                                type="finish"
-                                                alertId={item.alertId}
-                                                socket={socket}
-                                                data={{
-                                                    ...item,
-                                                    ...dataModalBtns,
-                                                }}
-                                                setData={setData}
-                                            />
-                                        )}
+                                        {(item.status === "requested" ||
+                                            item.confirmCollectorOpen ===
+                                                false) &&
+                                            item.status != "finished" && (
+                                                <ItemModalBtn
+                                                    type="finish"
+                                                    alertId={item.alertId}
+                                                    socket={socket}
+                                                    data={{
+                                                        ...item,
+                                                        ...dataModalBtns,
+                                                    }}
+                                                />
+                                            )}
                                     </div>
                                 </div>
                             </section>
