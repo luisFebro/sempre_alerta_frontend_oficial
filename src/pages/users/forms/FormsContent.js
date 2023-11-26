@@ -57,7 +57,9 @@ export default function FormsContent({
         userPhoneDisplay && userPhoneDisplay.length >= 15;
 
     const isUpdate = Boolean(updateData);
-    const isEverybody = selectedRole === "todos";
+
+    // LESSON selectedRole fails when updating. Role should comes from updateData when user clicks 'edit' button
+    const isEverybody = selectedRole === "todos" && !isUpdate;
     const isAuthority = selectedRole === "autoridade";
 
     const [dataCheckbox, updateCheckbox] = useState([
@@ -241,7 +243,7 @@ export default function FormsContent({
             instituteId,
             userName: userName && userName.trim(),
             roomId,
-            role: selectedRole,
+            role: isUpdate ? updateData.role : selectedRole,
             numberAlertList: addNumberAlertList({
                 isAuthority,
                 allMarkedAlerts,
@@ -570,7 +572,7 @@ export default function FormsContent({
     const removeCurrentUser = async () => {
         await removeUserToDb({
             userId,
-            role: selectedRole,
+            role: isUpdate ? updateData.role : selectedRole,
             handleFullClose,
             setList,
             disableCTAClick,
