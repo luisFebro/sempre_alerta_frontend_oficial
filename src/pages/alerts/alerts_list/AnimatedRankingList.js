@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import sortDatesFront from "utils/dates/sortDatesFront";
 import AnimatedRankingItems from "./AnimatedRankingItems";
 import { listenUpdateEmergencyStage } from "socket/listens";
 import ItemModalBtn from "./items/ItemModalBtns";
@@ -30,10 +29,6 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
             list: dbList,
         }));
     }, [dbList && dbList.length]);
-
-    // sortDatesFront(list, {
-    //     target: "createdAt",
-    // });
 
     useEffect(() => {
         // update list by date when a change happens
@@ -117,7 +112,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                     </strong>
                                     <br />
                                     <span className="break-words text-center">
-                                        {item.authorName} ({item.authorRole})
+                                        {item.alertAuthor} ({item.authorRole})
                                     </span>
                                 </div>
                                 <div className="lg:flex-[30%] lg:justify-center">

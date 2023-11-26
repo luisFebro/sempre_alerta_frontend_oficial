@@ -35,7 +35,7 @@ export function listenUpdateEmergencyStage(socket, setData) {
         const isStartStatus = status === "pending_notify";
 
         if (isStartStatus) {
-            const alertMsg = `Usuário ${options.authorName} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
+            const alertMsg = `Usuário ${options.alertAuthor} acabou de acionar emergência com ID: ${options.alertId}. Verifique o status na lista de histórico de alertas`;
             // TODO showing multiple times. create mechanism to only trigger once in backend. showToast(alertMsg, { type: "warning", dur: 60 * 60 * 60 });
 
             addItem(options, setData);
