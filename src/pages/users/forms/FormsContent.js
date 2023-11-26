@@ -50,21 +50,14 @@ export default function FormsContent({
 
     const { instituteId } = useData();
 
-    const {
-        userId,
-        userName,
-        userPhone,
-        role: userRole,
-        isPhoneWhatsapp,
-        disabledCTA,
-    } = data;
+    const { userId, userName, userPhone, isPhoneWhatsapp, disabledCTA } = data;
     const userPhoneDisplay = autoPhoneMask(userPhone);
 
     const isMobilePhoneReady =
         userPhoneDisplay && userPhoneDisplay.length >= 15;
 
     const isUpdate = Boolean(updateData);
-    const isEverybody = selectedRole === "todos" && !isUpdate;
+    const isEverybody = selectedRole === "todos";
     const isAuthority = selectedRole === "autoridade";
 
     const [dataCheckbox, updateCheckbox] = useState([
@@ -248,7 +241,7 @@ export default function FormsContent({
             instituteId,
             userName: userName && userName.trim(),
             roomId,
-            role: userRole,
+            role: selectedRole,
             numberAlertList: addNumberAlertList({
                 isAuthority,
                 allMarkedAlerts,
@@ -577,7 +570,7 @@ export default function FormsContent({
     const removeCurrentUser = async () => {
         await removeUserToDb({
             userId,
-            role: userRole,
+            role: selectedRole,
             handleFullClose,
             setList,
             disableCTAClick,
@@ -631,7 +624,7 @@ export default function FormsContent({
                         />
                     </div>
                 )}
-                {isUpdate && (
+                {!isEverybody && isUpdate && (
                     <div className="my-7 flex justify-center items-center">
                         <div className="mr-7">
                             <RemoveUserBtn {...removalData} />
