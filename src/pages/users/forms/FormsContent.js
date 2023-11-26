@@ -60,7 +60,9 @@ export default function FormsContent({
 
     // LESSON selectedRole fails when updating. Role should comes from updateData when user clicks 'edit' button
     const isEverybody = selectedRole === "todos" && !isUpdate;
-    const isAuthority = selectedRole === "autoridade";
+    const isAuthority = isUpdate
+        ? updateData.role === "autoridade"
+        : selectedRole === "autoridade";
 
     const [dataCheckbox, updateCheckbox] = useState([
         {
