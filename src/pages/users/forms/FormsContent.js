@@ -50,7 +50,14 @@ export default function FormsContent({
 
     const { instituteId } = useData();
 
-    const { userId, userName, userPhone, isPhoneWhatsapp, disabledCTA } = data;
+    const {
+        userId,
+        userName,
+        userPhone,
+        role: userRole,
+        isPhoneWhatsapp,
+        disabledCTA,
+    } = data;
     const userPhoneDisplay = autoPhoneMask(userPhone);
 
     const isMobilePhoneReady =
@@ -241,7 +248,7 @@ export default function FormsContent({
             instituteId,
             userName: userName && userName.trim(),
             roomId,
-            role: selectedRole,
+            role: userRole,
             numberAlertList: addNumberAlertList({
                 isAuthority,
                 allMarkedAlerts,
@@ -570,7 +577,7 @@ export default function FormsContent({
     const removeCurrentUser = async () => {
         await removeUserToDb({
             userId,
-            role: selectedRole,
+            role: userRole,
             handleFullClose,
             setList,
             disableCTAClick,
