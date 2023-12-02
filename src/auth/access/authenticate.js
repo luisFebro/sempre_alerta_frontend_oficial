@@ -1,4 +1,4 @@
-import { isThisPublicPage } from "auth/checkValidSession";
+import { isAccessOrMainPage, isPrivatePage } from "auth/checkValidSession";
 import getVar, { setVars } from "cache/indexedDB";
 import showToast from "components/toasts/showToast";
 import { updateData } from "global-data/useData";
@@ -51,20 +51,19 @@ export default async function authenticate(uify, data = {}) {
 
 // redirect user to main authorized page if s/he is logged in
 // use it on App and Navigation component (which applies to all tabs pages)
-
-export async function useLoggedIn(navigate = null) {
+// IMPORTANT: Every protected route should be listed on the isPrivatePage list.
+export async function usePrivateAccess(navigate = null) {
     useEffect(() => {
         (async () => {
             const isLoggedIn = await getVar("success");
-            const isPublicPage = isThisPublicPage();
-
-            const isPrivatePage = !isPublicPage;
+            const isAccessOrMain = isAccessOrMainPage();
+            const isPrivate = isPrivatePage();
             const isLoggedOut = !isLoggedIn;
 
-            if (isPublicPage && isLoggedIn) {
+            if (isAccessOrMain && isLoggedIn) {
                 const destiny = handleDestiny();
                 handleRedirect({ destiny, navigate });
-            } else if (isPrivatePage && isLoggedOut) {
+            } else if (isPrivate && isLoggedOut) {
                 // disconnect unthorized user
 
                 const destiny = "/";

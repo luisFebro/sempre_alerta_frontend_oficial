@@ -1,6 +1,8 @@
+// ref: https://worldofdragon.us.eu.org/information/
+
 const PrivacyPolicy = () => {
     return (
-        <div className="px-5 md:px-80 mb-96">
+        <div className="px-5 lg:px-80 mb-96">
             <h1 className="text-center text-4xl font-bold py-5">
                 Política de Privacidade da Sempre Alerta SOS
             </h1>

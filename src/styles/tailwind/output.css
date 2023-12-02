@@ -1724,6 +1724,11 @@ Your CSS bundle will be bigger — oof.
     padding-right: 45px;
   }
 
+  .lg\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .lg\:pt-0 {
     padding-top: 0px;
   }

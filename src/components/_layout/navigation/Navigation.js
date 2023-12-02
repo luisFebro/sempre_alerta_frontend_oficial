@@ -6,7 +6,7 @@ import CurvesDesign from "./top_navbar/curves_design/CurvesDesign";
 import checkValidSession from "auth/checkValidSession";
 import { useUify } from "global-data/useData";
 import loadInit from "auth/api";
-import { useLoggedIn } from "auth/access/authenticate";
+import { usePrivateAccess } from "auth/access/authenticate";
 import { useNavigate } from "react-router-dom";
 import getVar from "cache/indexedDB";
 
@@ -23,7 +23,7 @@ export default function Navigation() {
         });
     }, []);
 
-    useLoggedIn(useNavigate());
+    usePrivateAccess(useNavigate());
 
     const wrapperRef = useRef(null);
     useEffect(() => {

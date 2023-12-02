@@ -20,7 +20,7 @@ export async function runSessionCheck(uify) {
     const isLoggedIn = Boolean(token);
 
     // redirect users logout in whatever private page
-    if (isThisPublicPage()) return;
+    if (!isPrivatePage()) return;
 
     if (isPrivatePage() || !isLoggedIn) {
         const isUnauthPriPage = isPrivatePage() && !isLoggedIn;
@@ -36,13 +36,7 @@ export async function runSessionCheck(uify) {
 }
 
 // HELPERS
-export function isThisPublicPage() {
-    const exceptionList = ["privacidade"];
-    const isException = exceptionList.some((pg) =>
-        window.location.href.includes(pg)
-    );
-    if (isException) return true;
-
+export function isAccessOrMainPage() {
     const result =
         window.location.href === HOST_URL + "/" ||
         window.location.href === "www.semprealertasos.com" + "/" ||
@@ -52,7 +46,7 @@ export function isThisPublicPage() {
     return result;
 }
 
-function isPrivatePage() {
+export function isPrivatePage() {
     const privatePages = ["/alertas", "/usuarios"];
 
     return privatePages.some((pg) => window.location.href.includes(pg));

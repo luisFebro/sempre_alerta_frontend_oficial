@@ -7,7 +7,7 @@ import isObjEmpty from "utils/objects/isObjEmpty";
 import useToken, { chooseHeader } from "auth/useToken";
 import disconnect from "auth/access/disconnect.js";
 import showToast from "components/toasts";
-import { isThisPublicPage } from "auth/checkValidSession";
+import { isPrivatePage } from "auth/checkValidSession";
 import { setRun, useUify } from "global-data/useData.js";
 
 export * from "./requestsLib.js";
@@ -115,7 +115,7 @@ export default function useAPI({
 
         const gotExpiredToken = status === 401 || status === 403;
 
-        if (gotExpiredToken && !isThisPublicPage()) {
+        if (gotExpiredToken && isPrivatePage()) {
             (async () => {
                 await disconnect();
                 showToast("Sua sessão terminou.");

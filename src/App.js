@@ -22,8 +22,10 @@ import "styles/tailwind/output.css";
 import "styles/libs/animate.selected.min.css";
 import { useEffect } from "react";
 import switchConsoleLogs from "utils/security/switchConsoleLogs";
-import { useLoggedIn } from "auth/access/authenticate";
+import { usePrivateAccess } from "auth/access/authenticate";
 import Privacy from "pages/docs/PrivacyPolicy";
+import TermsOfUse from "pages/docs/TermsOfUse";
+import Qa from "pages/docs/Qa";
 
 function App() {
     const store = useGlobalApp();
@@ -33,8 +35,7 @@ function App() {
         // switchConsoleLogs();
     }, []);
 
-    useLoggedIn();
-
+    usePrivateAccess();
     // all main checking methods (loadInit, checkValidSession) is inside Navigation component
 
     return (
@@ -64,6 +65,8 @@ function App() {
                     />
                     <Route path="*" element={<Access />} />
                     <Route path="/privacidade" element={<Privacy />} />
+                    <Route path="/termos-de-uso" element={<TermsOfUse />} />
+                    <Route path="/perguntas" element={<Qa />} />
                 </Routes>
             </GlobalProvider>
         </BrowserRouter>
