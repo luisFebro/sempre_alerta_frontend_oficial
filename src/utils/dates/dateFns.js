@@ -115,18 +115,20 @@ const calendar = (date, locale) => {
 };
 
 const getLocalHour = (date, options = {}) => {
-    const { sumup = false } = options;
+    const { weight = false } = options;
 
-    if (sumup) {
+    if (weight) {
         const hour = getHours(new Date(date));
 
         const min = getMinutes(new Date(date));
         const isSingleMinDigit = min <= 9;
 
         const minOutput = isSingleMinDigit ? `0${min}` : min;
-        // every number should have 3 (up to 9 hours) and 4 digits for others.
+        // every weight should have 3, for hours up to 9, or 4 digits for others.
+        // hours can have 1 or 2 digits
         // minutes always have 2 digits.
-        // If not, 20:00 (20) would be less than 19:30 (1930)
+
+        // If not like that, 20:00 (20) would be less than 19:30 (1930)
 
         return Number(String(hour) + String(minOutput));
     }

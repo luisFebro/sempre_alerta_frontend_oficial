@@ -23,6 +23,7 @@ import "styles/libs/animate.selected.min.css";
 import { useEffect } from "react";
 import switchConsoleLogs from "utils/security/switchConsoleLogs";
 import { useLoggedIn } from "auth/access/authenticate";
+import Privacy from "pages/docs/PrivacyPolicy";
 
 function App() {
     const store = useGlobalApp();
@@ -62,6 +63,7 @@ function App() {
                         }
                     />
                     <Route path="*" element={<Access />} />
+                    <Route path="/privacidade" element={<Privacy />} />
                 </Routes>
             </GlobalProvider>
         </BrowserRouter>

@@ -2,7 +2,7 @@
   "name": "sempre_alerta_frontend",
   "version": "1.12.13-2",
   "private": true,
-  "proxy": "http://localhost:5001",
+  "proxy": "http://localhost:500",
   "scripts": {
     "cypress:open": "cypress open",
     "build:tailwind": "tailwindcss -i ./src/styles/tailwind/input.css -o ./src/styles/tailwind/output.css --env production",

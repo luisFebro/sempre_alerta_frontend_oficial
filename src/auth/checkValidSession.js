@@ -37,11 +37,11 @@ export async function runSessionCheck(uify) {
 
 // HELPERS
 export function isThisPublicPage() {
-    const exceptionList = [];
+    const exceptionList = ["privacidade"];
     const isException = exceptionList.some((pg) =>
         window.location.href.includes(pg)
     );
-    if (isException) return false;
+    if (isException) return true;
 
     const result =
         window.location.href === HOST_URL + "/" ||

@@ -85,8 +85,13 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
     const isConfirming = (status, confirmCollectorOpen) => {
         const didHitWeight = confirmCollectorOpen === false; // false means collector hits a weight and closed analysis
         if (didHitWeight) return false;
-        return ["pending_collector", "pending_protocol"].includes(status);
+
+        return status === "pending_collector";
     };
+
+    const isProtocol = (status) => status === "pending_protocol";
+    const needStatusIcon = (status) =>
+        ["pending_notify", "canceled", "failed", "finished"].includes(status);
 
     return (
         <section className="mx-3 my-[200px]">
@@ -126,10 +131,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                 </div>
                                 <div className="lg:flex-[45%] self-center mt-5 lg:mt-0">
                                     <div className="flex list-center items-center justify-center">
-                                        {!isConfirming(
-                                            item.status,
-                                            item.confirmCollectorOpen
-                                        ) && (
+                                        {needStatusIcon(item.status) && (
                                             <section className="relative">
                                                 <img
                                                     src={getIcon(item.status)}
@@ -139,25 +141,32 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                             </section>
                                         )}
 
-                                        {item.status === "pending_notify" && (
-                                            <ItemModalBtn
-                                                type="confirm"
-                                                socket={socket}
-                                                data={{
-                                                    ...item,
-                                                    ...dataModalBtns,
-                                                }}
-                                            />
-                                        )}
-
                                         {isConfirming(
                                             item.status,
                                             item.confirmCollectorOpen
                                         ) && (
-                                            <p className="text-normal font-bold">
+                                            <p className="text-normal font-bold mr-4">
                                                 Aguardando confirmação...
                                             </p>
                                         )}
+
+                                        {isProtocol(item.status) && (
+                                            <p className="text-normal font-bold">
+                                                Avisando Autoridades...
+                                            </p>
+                                        )}
+
+                                        {item.status === "pending_notify" ||
+                                            (isConfirming(item.status) && (
+                                                <ItemModalBtn
+                                                    type="confirm"
+                                                    socket={socket}
+                                                    data={{
+                                                        ...item,
+                                                        ...dataModalBtns,
+                                                    }}
+                                                />
+                                            ))}
 
                                         {(item.status === "requested" ||
                                             item.confirmCollectorOpen ===

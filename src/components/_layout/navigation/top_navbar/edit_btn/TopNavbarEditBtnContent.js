@@ -224,8 +224,8 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         }
 
         // working hours validation
-        const alertOnAtSumup = getLocalHour(alertOnAt, { sumup: true });
-        const alertOffAtSumup = getLocalHour(alertOffAt, { sumup: true });
+        const alertOnAtSumup = getLocalHour(alertOnAt, { weight: true });
+        const alertOffAtSumup = getLocalHour(alertOffAt, { weight: true });
 
         const isEndDateEarlyThanInit = alertOnAtSumup > alertOffAtSumup;
         if (isEndDateEarlyThanInit) {
