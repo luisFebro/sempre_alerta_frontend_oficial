@@ -156,17 +156,17 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                             </p>
                                         )}
 
-                                        {item.status === "pending_notify" ||
-                                            (isConfirming(item.status) && (
-                                                <ItemModalBtn
-                                                    type="confirm"
-                                                    socket={socket}
-                                                    data={{
-                                                        ...item,
-                                                        ...dataModalBtns,
-                                                    }}
-                                                />
-                                            ))}
+                                        {(item.status === "pending_notify" ||
+                                            isConfirming(item.status)) && (
+                                            <ItemModalBtn
+                                                type="confirm"
+                                                socket={socket}
+                                                data={{
+                                                    ...item,
+                                                    ...dataModalBtns,
+                                                }}
+                                            />
+                                        )}
 
                                         {(item.status === "requested" ||
                                             item.confirmCollectorOpen ===

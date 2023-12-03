@@ -11,6 +11,8 @@ export default function ModalYesNo({
     fullOpen,
     setFullOpen,
     contentComp,
+    actionNoOptionFunc,
+    actionNoOptionFuncParam,
     actionFunc,
     actionFuncParam = false,
     marginCTA,
@@ -19,22 +21,71 @@ export default function ModalYesNo({
     needCTAs = true,
     yesTitle = "SIM",
     yesBtnColor = "var(--mainRed)",
+    noBtnColor = "var(--mainRed)",
     yesBtnIcon = "times",
     noTitle = "NÃO",
+    noBtnIcon = "times",
     noCallback,
+    addBackBtn = false,
 }) {
     const [isYesBtnDisabled, setIsYesBtnDisabled] = useState(false);
+    const [isNoBtnDisabled, setIsNoBtnDisabled] = useState(false);
     // LESSON: for critical data handling, the button should be permanent disabled
 
-    const showActionBtns = () => (
-        <Fragment>
-            {needBackBtn ? (
-                <MainBtn
-                    title="Voltar"
-                    size="lg"
-                    onClick={() => setFullOpen(false)}
-                    variant="link"
-                />
+    const handleMainBtns = () => (
+        <>
+            {addBackBtn ? (
+                <>
+                    <section
+                        className={`${
+                            marginCTA || "mt-5 mb-2"
+                        } flex justify-around`}
+                    >
+                        <MainBtn
+                            title={noTitle}
+                            disabled={!!isNoBtnDisabled}
+                            onClick={() => {
+                                setIsNoBtnDisabled(true);
+                                setFullOpen(false);
+                                actionNoOptionFunc(actionNoOptionFuncParam);
+                            }}
+                            iconFontAwesome={
+                                <FontAwesomeIcon
+                                    icon={noBtnIcon}
+                                    // style={faStyle}
+                                />
+                            }
+                            backgroundColor={noBtnColor}
+                        />
+                        <MainBtn
+                            title={yesTitle}
+                            disabled={!!isYesBtnDisabled}
+                            onClick={() => {
+                                setIsYesBtnDisabled(true);
+                                setFullOpen(false);
+                                actionFunc(actionFuncParam);
+                            }}
+                            iconFontAwesome={
+                                <FontAwesomeIcon
+                                    icon={yesBtnIcon}
+                                    // style={faStyle}
+                                />
+                            }
+                            backgroundColor={yesBtnColor}
+                        />
+                    </section>
+                    <section className="flex justify-center my-3">
+                        <TxtBtn
+                            title="VOLTAR"
+                            onClick={() => {
+                                if (typeof noCallback === "function") {
+                                    noCallback();
+                                }
+                                setFullOpen(false);
+                            }}
+                        />
+                    </section>
+                </>
             ) : (
                 <section
                     className={`${marginCTA || "my-9"} flex justify-around`}
@@ -65,6 +116,21 @@ export default function ModalYesNo({
                         backgroundColor={yesBtnColor}
                     />
                 </section>
+            )}
+        </>
+    );
+
+    const showActionBtns = () => (
+        <Fragment>
+            {needBackBtn ? (
+                <MainBtn
+                    title="Voltar"
+                    size="lg"
+                    onClick={() => setFullOpen(false)}
+                    variant="link"
+                />
+            ) : (
+                handleMainBtns()
             )}
         </Fragment>
     );

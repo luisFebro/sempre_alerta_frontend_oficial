@@ -27,6 +27,17 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
         handleFullClose();
     };
 
+    const updateEmergencyStageCanceled = () => {
+        if (!socket)
+            return console.log(
+                "Socket.io not ready. Maybe you rushed up too early to click on this btn"
+            );
+
+        emitUpdateEmergencyStage(socket, { ...data, status: "canceled" });
+
+        handleFullClose();
+    };
+
     const confirmEmergency = () => {
         if (!socket)
             return console.log(
@@ -68,7 +79,7 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
     const ctaFunc = isFinished
         ? updateEmergencyStageFinished
         : confirmEmergency;
-    const ctaTitle = isFinished ? "SIM, CONCLUÍDA" : "SIM, CONFIRMO";
+    const ctaTitle = isFinished ? "SIM, CONCLUIR" : "SIM, CONFIRMAR";
 
     return (
         <>
@@ -79,15 +90,17 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
             )}
             <ModalYesNo
                 title={title}
-                noTitle="voltar"
                 noCallback={() => null}
                 subTitle={subtitle}
+                addBackBtn={isFinished ? false : true}
                 fullOpen={fullOpen}
                 yesTitle={ctaTitle}
+                noTitle={isFinished ? "voltar" : "NÃO, CANCELAR"}
                 setFullOpen={() => {
                     setFullOpen(false);
                 }}
                 actionFunc={ctaFunc}
+                actionNoOptionFunc={updateEmergencyStageCanceled}
             />
         </>
     );
