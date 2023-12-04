@@ -91,7 +91,13 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
 
     const isProtocol = (status) => status === "pending_protocol";
     const needStatusIcon = (status) =>
-        ["pending_notify", "canceled", "failed", "finished"].includes(status);
+        [
+            "pending_notify",
+            "canceled",
+            "failed",
+            "requested",
+            "finished",
+        ].includes(status);
 
     return (
         <section className="mx-3 my-[200px]">
