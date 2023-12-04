@@ -162,8 +162,7 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                             </p>
                                         )}
 
-                                        {(item.status === "pending_notify" ||
-                                            isConfirming(item.status)) && (
+                                        {item.status === "pending_notify" && (
                                             <ItemModalBtn
                                                 type="confirm"
                                                 socket={socket}
