@@ -17,7 +17,7 @@ export default function DeletionFieldArea() {
 
     const showRemovalTerms = () => (
         <section
-            className="px-5 md:w-[700px] text-justify"
+            className="px-5 md:w-[700px] text-justify text-normal"
             style={{
                 color: "var(--txtGrayLight)",
             }}

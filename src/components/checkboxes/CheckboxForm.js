@@ -41,7 +41,7 @@ export default function CheckBoxForm({
         <p
             className={`${
                 txtFontweight ? "font-weight-bold" : ""
-            } text-small ${txtColor}`}
+            } text-normal ${txtColor}`}
             style={{ margin: 0 }}
         >
             {text}
