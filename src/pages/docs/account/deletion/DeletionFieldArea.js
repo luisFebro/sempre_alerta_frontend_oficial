@@ -29,7 +29,7 @@ export default function DeletionFieldArea() {
                 Termos de Exclusão
             </h2>
             <h2 className="text-xl pt-5 font-bold">
-                Os seguintes dados serão excluídos:
+                Os dados para ser excluídos incluem:
             </h2>
             <ul
                 className="list-disc ml-8 text-normal"
@@ -40,7 +40,7 @@ export default function DeletionFieldArea() {
                 <li>Nome Completo;</li>
                 <li>Email;</li>
                 <li>Telefone;</li>
-                <li>Dados relacionados à interação com app;</li>
+                <li>Dados relacionados à interação com app e/ou painel;</li>
             </ul>
 
             <h2 className="text-xl pt-5 font-bold">
@@ -58,10 +58,10 @@ export default function DeletionFieldArea() {
                 </a>
             </p>
             <p className="mt-3">
-                2. Você é removido da lista de contatos da instituição, e não
-                receberá nenhuma forma de alerta, incluindo: SMS, Whatsapp,
-                email eletrônico, notificação ou ligação (este último para
-                autoridades).
+                2. Sua conta é removida da lista de contatos da instituição e
+                não receberá mais nenhuma forma de alerta, incluindo: SMS,
+                Whatsapp, email eletrônico, notificação ou ligação (este último
+                para autoridades) de alertas SOS.
             </p>
             <p className="mt-3">
                 3. É deslogado do app e perde acesso a todos os serviços da
@@ -151,7 +151,7 @@ export default function DeletionFieldArea() {
             </section>
             {showRemovalTerms()}
 
-            <section className="my-10">
+            <section className="mt-10 mb-20">
                 <FabBtn
                     classNameTitle="text-shadow text-xl px-16"
                     title="EXCLUIR CONTA"
