@@ -26,13 +26,14 @@ import { usePrivateAccess } from "auth/access/authenticate";
 import Privacy from "pages/docs/PrivacyPolicy";
 import TermsOfUse from "pages/docs/TermsOfUse";
 import Qa from "pages/docs/Qa";
+import AccountDeletion from "pages/docs/account/deletion/AccountDeletion";
 
 function App() {
     const store = useGlobalApp();
 
     useEffect(() => {
         // remove console.log in production's env
-        // switchConsoleLogs();
+        switchConsoleLogs();
     }, []);
 
     usePrivateAccess();
@@ -67,6 +68,10 @@ function App() {
                     <Route path="/privacidade" element={<Privacy />} />
                     <Route path="/termos-de-uso" element={<TermsOfUse />} />
                     <Route path="/perguntas" element={<Qa />} />
+                    <Route
+                        path="/conta/exclusao"
+                        element={<AccountDeletion />}
+                    />
                 </Routes>
             </GlobalProvider>
         </BrowserRouter>

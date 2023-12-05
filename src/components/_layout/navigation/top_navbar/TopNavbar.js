@@ -15,6 +15,62 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
     const alertOnAtDisplay = alertWorkingHours && alertWorkingHours[0];
     const alertOffAtDisplay = alertWorkingHours && alertWorkingHours[1];
 
+    const alertDaysData = [
+        {
+            day: "Segunda",
+            dayShort: "Seg.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+        {
+            day: "Terça",
+            dayShort: "Ter.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+        {
+            day: "Quarta",
+            dayShort: "Qua.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+        {
+            day: "Quinta",
+            dayShort: "Qui.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+        {
+            day: "Sexta",
+            dayShort: "Sex.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+        {
+            day: "Sábado",
+            dayShort: "Sab.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+        {
+            day: "Domingo",
+            dayShort: "Dom.",
+            display: ["7:00", "18:00"],
+            weight: [700, 1800],
+        },
+    ];
+    const alertStartDay = alertDaysData[0].day;
+    const alertEndDay = alertDaysData[6].day;
+
+    // if day off only saturday and sunday: format: Segunda a Sexta
+    // if there is day off between weekdays (Seg a Sex) and thus with gaps and not sequential: format: Seg., Quar., Sex e Dom.
+
+    const earliestHour = alertDaysData[0].display[0]; // TODO: hora + cedo: 7:00 (Seg) || hora + tarde: 18:00 (Dom)
+    const earliestHourDayShort = alertDaysData[0].dayShort;
+
+    const latestHour = alertDaysData[6].display[1];
+    const latestHourDayShort = alertDaysData[6].dayShort;
+
     const showInstituteBoard = () => (
         <section className="relative top-2 md:top-0">
             <section
@@ -40,11 +96,12 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     <p
                         className={`max-w-max pr-2 mt-2 block text-sm text-gray-300`}
                     >
-                        <AccessTime style={{ fontSize: 20 }} /> HORÁRIO ALERTAS:
+                        <AccessTime style={{ fontSize: 20 }} /> DIAS E HORÁRIOS
+                        ALERTAS:
                     </p>
                     <p className="font-light text-white sm:whitespace-nowrap">
                         <span className={`inline-block pr-1`}>&#8226;</span>
-                        {alertOnAtDisplay} até {alertOffAtDisplay}
+                        {alertStartDay} a {alertEndDay}
                     </p>
                 </div>
                 <div

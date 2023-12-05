@@ -4,7 +4,7 @@ import EmailLoginBtn from "./EmailLoginBtn";
 import { updateData, useUify } from "global-data/useData";
 import { HOST_URL } from "config/root";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.15.16-4";
+const DASHBOARD_OFFICIAL_VERSION = "v1.16.16-4";
 //
 export default function Access() {
     const isSmall = window.Helper.isSmallScreen();
@@ -71,7 +71,7 @@ export default function Access() {
                     Acesso
                 </h1>
                 <h2
-                    className="text-title text-center"
+                    className="text-subtitle text-center font-bold"
                     style={{ color: "var(--txtPrimaryLight)" }}
                 >
                     Painel Sempre Alerta

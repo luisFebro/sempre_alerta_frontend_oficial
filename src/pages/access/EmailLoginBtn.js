@@ -13,11 +13,11 @@ export default function EmailLoginBtn({ isMainArea, toggleEmailArea }) {
     const [data, setData] = useState({
         userId: "",
     });
+    const { userId } = data;
 
     const navigate = useNavigate();
     const uify = useUify();
 
-    const { userId } = data;
     const [error, setError] = useState(null);
     const handleEmailAuth = async () => {
         // VALIDATION

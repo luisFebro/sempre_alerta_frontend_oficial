@@ -14,6 +14,9 @@ export const updateUser = () => `${API_URL}/user/update`; // PUT
 export const removeUser = () => `${API_URL}/user/remove`; // DELETE
 export const readUserListAll = () => `${API_URL}/user/list/all`; // GET
 
+// ACCOUNTS
+export const updateAccount = () => `${API_URL}/account/update`; // PUT
+
 // INSTITUTES
 export const updateInstitute = () => `${API_URL}/institute/update`; // PUT
 

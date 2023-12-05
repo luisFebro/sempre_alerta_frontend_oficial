@@ -55,7 +55,7 @@
   
       --mainFont: "Rubik", sans-serif; /* "Poppins", sans-serif; */ /* Quicksand */
       --mainTxtSize: 1.4rem;
-
+      --txtGrayLight: #BDC2C5;
 
     /*Secondary colors are best to accent select parts of your UI.:
 Floating action buttons
@@ -101,3 +101,5 @@ https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=4
 .text-black { color: black; }
 /* more colors */
 .txt-gray-dark, .surface-gray-dark { color: var(--grayDark); }
+
+.txt-gray-light { color: #BDC2C5 }
