@@ -54,7 +54,7 @@ export default function DeletionFieldArea() {
                     target="_blank"
                     className="underline"
                 >
-                    lei LGPD (Art. 19, inciso II).
+                    lei de proteção de dados LGPD (Art. 19, inciso II).
                 </a>
             </p>
             <p className="mt-3">
