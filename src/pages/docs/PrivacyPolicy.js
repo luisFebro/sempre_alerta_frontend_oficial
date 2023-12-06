@@ -6,20 +6,19 @@ import useBackColor from "hooks/useBackColor";
 
 const text2 = (
     <section className="section-accordion font-normal">
-        <h2 className="text-lg pt-5 font-bold">
-            Chave de Sessão e Rotas Protegidas
-        </h2>
         <p>
             A chave de sessão é uma proteção para assegurar que todas as sessões
             de acesso sejam autênticas. Provar quem está acessando sua conta é
-            realmente você. Prevenimos que terceiros tenham a possibilidade de
-            acessar a conta de outros clientes com a chave ou por inspeção de
-            rotas e API.
+            realmente você.
+        </p>
+        <p>
+            Prevenimos que terceiros tenham a possibilidade de acessar a conta
+            de outros clientes com a chave ou por inspeção de rotas e API.
         </p>
         <p>
             Implementamos{" "}
             <strong>mecanismos especializados em seus servidores</strong> para
-            bloquear quaisquer sites ou servidores não autorizados de fazerem
+            bloquear quaisquer sites ou servidores não autorizados de realizar
             requerimentos em nossas APIs.
         </p>
         <p>
@@ -44,7 +43,7 @@ const text4 = (
         <ul className="list-disc ml-8">
             <li>
                 <strong>email: </strong>garantir que o acesso da conta seja
-                único ao sistema, comunicados importantes e autentificação.
+                único no sistema, comunicados importantes e autentificação.
             </li>
             <li>
                 <strong>nome completo: </strong>identificação nominal nos
@@ -63,8 +62,8 @@ const text4 = (
 
         <h2 className="text-lg pt-5 font-bold">Dados de Análise adicionais</h2>
         <p>
-            Quando você visita nossa plataforma ou apps, serviços de análise
-            podem ser utilizados.
+            Quando você visita nosso painel ou apps, serviços de análise podem
+            ser utilizados.
         </p>
         <p>
             Dados adicionais podem ser coletados, tais como: endereço IP,
@@ -85,16 +84,13 @@ const text4 = (
 const text6 = (
     <section className="section-accordion font-normal">
         <p>
-            A Sempre Alerta SOS está de acordo com a nova Lei Geral de Proteção
-            de Dados (LGPD) - artigo 18 - e{" "}
-            <strong>
-                respeita o direito dos usuários de remover ou alterar seus dados
-            </strong>
-            .
+            A Sempre Alerta SOS segue as medidas propostas pela Lei Geral de
+            Proteção de Dados (LGPD). Principalmente no que diz respeito do Art.
+            18 sobre exclusão e alteração de dados.
         </p>
         <p>
-            Você como usuário de nossos serviços, possui direitos de proteção de
-            dados, tais como:
+            Você, como usuário de nossos serviços, possui direitos de proteção
+            de dados, tais como:
         </p>
 
         <ul className="list-disc ml-8">
@@ -131,8 +127,8 @@ const text6 = (
             </li>
         </ul>
         <p>
-            Temos até <strong>15 dias</strong> para excluir todos seus dados de
-            nossos servidores de acordo com a{" "}
+            Temos até <strong>15 dias</strong>, contando da data da solicitação,
+            para excluir todos seus dados de nossos servidores de acordo com a{" "}
             <a
                 href="https://www.trf5.jus.br/index.php/lgpd/lgpd-direitos-do-titular"
                 target="_blank"
@@ -143,7 +139,8 @@ const text6 = (
         </p>
 
         <p>
-            O usuário pode pedir a exclusão de dados, acessando a página de{" "}
+            O usuário pode pedir a exclusão de suas informações, acessando a
+            página de{" "}
             <a
                 href="https://semprealertasos.com/conta/exclusao"
                 target="_blank"
@@ -153,8 +150,8 @@ const text6 = (
             </a>
         </p>
         <p>
-            Para alterar algum dado, favor acesse o app ou painel para
-            alterações. Você também pode entrar em contato conosco.
+            Para alterar algum dado, favor acesse o app ou painel na opção de
+            usuário. Você também pode entrar em contato conosco.
         </p>
     </section>
 );
@@ -214,7 +211,7 @@ export default function PrivacyPolicy() {
                         className="text-title text-center"
                         style={{ color: "var(--txtPrimaryLight)" }}
                     >
-                        Política de Privacidade - Sempre Alerta SOS
+                        Política de Privacidade
                     </h1>
                     <h2
                         className="text-subtitle px-5 md:w-[700px] text-justify md:text-center"
