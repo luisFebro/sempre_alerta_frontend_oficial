@@ -223,7 +223,7 @@ export default function PrivacyPolicy() {
                 </section>
             </section>
             <section className="flex justify-center">
-                <section className="my-5 px-5 md:w-[700px] text-justify">
+                <section className="mt-5 mb-60 px-5 md:w-[700px] text-justify">
                     <FaqAccordion dataArray={dataArray} />
                     <style>{`
                         .section-accordion p {
