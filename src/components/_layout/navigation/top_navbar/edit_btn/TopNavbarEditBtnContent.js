@@ -4,7 +4,6 @@ import SyncIcon from "@mui/icons-material/Sync";
 import InstructionBtn from "components/btns/InstructionBtn";
 import { useEffect, useState } from "react";
 import useData, { updateData, useUify } from "global-data/useData";
-import HourField from "components/fields/HourField";
 import { getLocalHour } from "utils/dates/dateFns";
 import getAPI, { searchCEP, updateInstitute } from "api/getAPI";
 import showToast from "components/toasts/showToast";
@@ -15,6 +14,9 @@ import convertPhoneStrToInt from "utils/numbers/convertPhoneStrToInt";
 import setZipcodeMask from "utils/validation/masks/setZipcodeMask";
 import { Search } from "@mui/icons-material";
 import getBrazilUF from "./helpers/getBrazilUF";
+import CheckboxesGroupWorkingHours from "./working_hours/CheckboxesGroupWorkingHours";
+import useUpdateCheckboxesData from "./working_hours/useUpdateCheckboxesData";
+import { convertCheckboxDataToList } from "./working_hours/helpers/checkboxDataHandlers";
 
 export default function TopNavbarEditBtnContent({ handleFullClose }) {
     const cache = useData();
@@ -31,12 +33,10 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         city: "",
         state: "",
         zipCode: 0,
-        alertOnAt: null,
-        alertOffAt: null,
+        alertWorkingHours: [],
+        isInvalidZipCode: false,
     });
     const {
-        alertOnAt,
-        alertOffAt,
         instituteName,
         contact,
         thoroughfare,
@@ -45,13 +45,82 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         neighborhood,
         city,
         state,
+        alertWorkingHours,
+        isInvalidZipCode,
     } = update;
+
     const contactDisplay = autoPhoneMask(contact);
     const zipCodeDisplay = setZipcodeMask(zipCode);
 
     const [error, setError] = useState(null);
 
     const [lastZipcode, setLastZipcode] = useState(null);
+
+    const defaultFields = {
+        fieldData: {
+            alertOnAt: new Date(),
+            alertOffAt: new Date(),
+        },
+        fieldError: {
+            alertOnAt: false,
+            alertOffAt: false,
+        },
+    };
+    const [dataCheckbox, updateCheckbox] = useState([
+        {
+            label: "Segunda-Feira",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+        {
+            label: "Terça-Feira",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+        {
+            label: "Quarta-Feira",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+        {
+            label: "Quinta-Feira",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+        {
+            label: "Sexta-Feira",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+        {
+            label: "Sábado",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+        {
+            label: "Domingo",
+            checked: false,
+            fieldData: defaultFields.fieldData,
+            fieldError: defaultFields.fieldError,
+        },
+    ]);
+
+    // console.log("DATA CHECKBOXES: " + JSON.stringify(dataCheckbox));
+    // console.log(
+    //     "CONVERTED CHECKBOXES: " +
+    //         JSON.stringify(convertCheckboxDataToList(dataCheckbox))
+    // );
+
+    useUpdateCheckboxesData({
+        list: alertWorkingHours,
+        updateCheckbox,
+    });
 
     const getNewZipcodeData = async (cep = 69030070) => {
         const newCEPData = await getAPI({
@@ -82,6 +151,11 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                             type: "error",
                             callback: () => setError("zipCode"),
                         });
+
+                        setUpdate((prev) => ({
+                            ...prev,
+                            isInvalidZipCode: true,
+                        }));
                         return;
                     }
                 );
@@ -95,6 +169,11 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                         callback: () => setError("zipCode"),
                     });
 
+                    setUpdate((prev) => ({
+                        ...prev,
+                        isInvalidZipCode: true,
+                    }));
+
                     return;
                 }
 
@@ -104,6 +183,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                     neighborhood: newZipData.neighborhood,
                     city: newZipData.city,
                     state: newZipData.state,
+                    isInvalidZipCode: false,
                 }));
             })();
         }
@@ -121,15 +201,14 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                 city: cache.city,
                 state: getBrazilUF(cache.state, { toUF: true }),
                 zipCode: String(cache.zipCode),
-                alertOnAt: cache.alertOnAt,
-                alertOffAt: cache.alertOffAt,
+                alertWorkingHours: cache.alertWorkingHours,
             }));
 
             setTimeout(() => setLastZipcode(String(cache.zipCode)), 1000);
         }
     }, [isCacheAvailable]);
 
-    const saveAndCloseModal = async () => {
+    const updateAndCloseModal = async () => {
         // VALIDATION
         if (!instituteName) {
             return showToast(
@@ -190,6 +269,13 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
             });
         }
 
+        if (isInvalidZipCode) {
+            return showToast("INST-7-b | Novo CEP informado não é válido.", {
+                type: "error",
+                callback: () => setError("zipCode"),
+            });
+        }
+
         if (!neighborhood) {
             return showToast("INST-8 | Favor, informe o bairro.", {
                 type: "error",
@@ -224,33 +310,95 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         }
 
         // working hours validation
-        const alertOnAtSumup = getLocalHour(alertOnAt, { weight: true });
-        const alertOffAtSumup = getLocalHour(alertOffAt, { weight: true });
+        const allMarkedOptionsWithInvalidFields = [];
 
-        const isEndDateEarlyThanInit = alertOnAtSumup > alertOffAtSumup;
-        if (isEndDateEarlyThanInit) {
-            return showToast(
-                "INST-12 | A hora FINAL precisa ser mais tarde/maior que a hora inicial. Favor, corrija hora final.",
-                { type: "error", callback: () => setError("hourEnd") }
-            );
-        }
+        dataCheckbox.forEach((elem) => {
+            const isChecked = elem.checked;
 
-        const areEqualHours = alertOffAtSumup === alertOnAtSumup;
-        if (areEqualHours) {
-            return showToast(
-                "INST-13 | As datas não devem ser iguais. Mude uma das horas.",
-                { type: "error", callback: () => setError("hours") }
-            );
+            const { alertOnAt = new Date(), alertOffAt = new Date() } =
+                elem.fieldData;
+
+            if (isChecked) {
+                const alertOnAtWeight = getLocalHour(alertOnAt, {
+                    weight: true,
+                });
+                const alertOffAtWeight = getLocalHour(alertOffAt, {
+                    weight: true,
+                });
+
+                const isEndDateEarlyThanInit =
+                    alertOnAtWeight > alertOffAtWeight;
+                if (isEndDateEarlyThanInit) {
+                    allMarkedOptionsWithInvalidFields.push({
+                        ...elem,
+                        errorType: "INST-12",
+                    });
+                }
+
+                const areEqualHours = alertOffAtWeight === alertOnAtWeight;
+                if (areEqualHours) {
+                    allMarkedOptionsWithInvalidFields.push({
+                        ...elem,
+                        errorType: "INST-13",
+                    });
+                }
+            }
+        });
+
+        const gotInvalidFields = Boolean(
+            allMarkedOptionsWithInvalidFields &&
+                allMarkedOptionsWithInvalidFields.length
+        );
+
+        if (gotInvalidFields) {
+            const markCheckboxFieldError = (label, errorUpdateData = {}) => {
+                updateCheckbox((prev) => {
+                    return prev.map((elem) => {
+                        if (elem.label === label) {
+                            return {
+                                ...elem,
+                                fieldError: {
+                                    ...elem.fieldError,
+                                    ...errorUpdateData,
+                                },
+                            };
+                        } else return elem;
+                    });
+                });
+            };
+
+            const itemWithIssue = allMarkedOptionsWithInvalidFields[0];
+            const weekDayBr = (itemWithIssue && itemWithIssue.label) || " ";
+            const errorType = (itemWithIssue && itemWithIssue.errorType) || " ";
+
+            return errorType === "INST-12"
+                ? showToast(
+                      `INST-12 | No dia ${weekDayBr.toUpperCase()}, a hora FINAL precisa ser mais tarde/maior que a hora inicial. Favor, corrija hora final.`,
+                      {
+                          type: "error",
+                          callback: () =>
+                              markCheckboxFieldError(itemWithIssue.label, {
+                                  alertOffAt: "hourEnd",
+                              }),
+                      }
+                  )
+                : showToast(
+                      `INST-13 | No dia ${weekDayBr.toUpperCase()}, as horas não devem ser iguais. Mude uma das horas.`,
+                      {
+                          type: "error",
+                          callback: () =>
+                              markCheckboxFieldError(itemWithIssue.label, {
+                                  alertOnAt: "hours",
+                                  alertOffAt: "hours",
+                              }),
+                      }
+                  );
         }
+        // end working hours validation
 
         const dataToUpdate = {
             ...update,
-            alertWorkingHours: [
-                getLocalHour(alertOnAt), // for display purposes
-                getLocalHour(alertOffAt),
-                alertOnAtSumup, //  for validation only
-                alertOffAtSumup,
-            ],
+            alertWorkingHours: convertCheckboxDataToList(dataCheckbox),
             state: ufState,
             contact: convertPhoneStrToInt(contactDisplay),
             zipCode: convertPhoneStrToInt(zipCode),
@@ -421,49 +569,21 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
     const showAlertWorkingHours = () => (
         <form onBlur={() => setError(null)}>
             <h2 className="relative text-center text-xl my-3 font-bold text-blue-900 flex justify-center">
-                Horário para alertas:
-                <div className="absolute -top-3 left-64">
+                Dias e Horários para alertas:
+                <div className="absolute -top-5 left-[21rem]">
                     <InstructionBtn
-                        text="É o horário que é permitido disparar os alertas. No app, os usuários não poderão disparar alertas se fora do horário para alertas."
+                        text="É o período que é permitido disparar os alertas para evitar acionar fora do horário que a organização funciona. No app, os usuários não poderão disparar alertas se fora do horário para alertas. Atualizado em tempo real uma vez atualizado aqui."
                         tooltipProps={{ disablePortal: true }}
                         btnSize={30}
                     />
                 </div>
             </h2>
-            <section className="container-center items-center">
-                <div className="w-36">
-                    <p className="text-center text-lg text-normal">
-                        Hora Inicial
-                    </p>
-                    <HourField
-                        name="hourInit"
-                        hourDate={alertOnAt}
-                        error={error === "hourInit" || error === "hours"}
-                        onChangeHour={(newDate) =>
-                            setUpdate((prev) => ({
-                                ...prev,
-                                alertOnAt: newDate,
-                            }))
-                        }
-                    />
-                </div>
-                <div className="w-36 ml-5">
-                    <p className="text-center text-lg text-normal">
-                        Hora Final
-                    </p>
-                    <HourField
-                        name="hourEnd"
-                        hourDate={alertOffAt}
-                        error={error === "hourEnd" || error === "hours"}
-                        onChangeHour={(newDate) =>
-                            setUpdate((prev) => ({
-                                ...prev,
-                                alertOffAt: newDate,
-                            }))
-                        }
-                    />
-                </div>
-            </section>
+            <CheckboxesGroupWorkingHours
+                selectTitle="Marque os dias que alertas ficam disponíveis:"
+                dataCheckbox={dataCheckbox}
+                updateCheckbox={updateCheckbox}
+                isUpdate={false}
+            />
         </form>
     );
 
@@ -482,7 +602,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                 <MainBtn
                     title="atualizar"
                     Icon={SyncIcon}
-                    onClick={saveAndCloseModal}
+                    onClick={updateAndCloseModal}
                 />
             </div>
         </>

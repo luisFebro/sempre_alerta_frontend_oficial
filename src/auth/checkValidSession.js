@@ -47,7 +47,7 @@ export function isAccessOrMainPage() {
 }
 
 export function isPrivatePage() {
-    const privatePages = ["/alertas", "/usuarios"];
+    const privatePages = ["/alertas", "/cadastros"];
 
     return privatePages.some((pg) => window.location.href.includes(pg));
 }

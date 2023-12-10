@@ -610,8 +610,9 @@ function getComparator(order, orderBy) {
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
+function stableSort(array = [], comparator) {
+    const stabilizedThis =
+        array && array.length ? array.map((el, index) => [el, index]) : [];
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
         if (order !== 0) return order;

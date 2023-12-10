@@ -759,6 +759,34 @@ video {
   top: 0.75rem;
 }
 
+.-top-32 {
+  top: -8rem;
+}
+
+.-top-10 {
+  top: -2.5rem;
+}
+
+.left-72 {
+  left: 18rem;
+}
+
+.left-32 {
+  left: 8rem;
+}
+
+.left-80 {
+  left: 20rem;
+}
+
+.left-96 {
+  left: 24rem;
+}
+
+.left-\[21rem\] {
+  left: 21rem;
+}
+
 .z-50 {
   z-index: 50;
 }

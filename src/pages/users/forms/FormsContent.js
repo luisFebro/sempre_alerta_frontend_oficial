@@ -11,7 +11,7 @@ import {
     Shield,
     PublishedWithChanges,
 } from "@mui/icons-material";
-import CheckboxesGroup from "components/checkboxes/CheckboxesGroup";
+import CheckboxesGroup from "./CheckboxesGroup";
 import InstructionBtn from "components/btns/InstructionBtn";
 import SwitchBtn from "components/btns/SwitchBtn";
 import autoPhoneMask from "utils/validation/masks/autoPhoneMask";
@@ -259,8 +259,8 @@ export default function FormsContent({
         // VALIDATION
         if (!userName) {
             const msg = isAuthority
-                ? "Favor, informe o nome da instituição de emergência"
-                : "Favor, informe o nome do usuário a ser cadastrado";
+                ? "CAD-1-a | Favor, informe o nome da instituição de emergência"
+                : "CAD-1-b | Favor, informe o nome do usuário a ser cadastrado";
             return showToast(msg, {
                 type: "error",
                 callback: () => setError("userName"),
@@ -268,16 +268,19 @@ export default function FormsContent({
         }
 
         if (!isAuthority && !isValidNameWithSurname(userName)) {
-            return showToast("Nome Inválido. Precisa de um nome e sobrenome.", {
-                type: "error",
-                callback: () => setError("userName"),
-            });
+            return showToast(
+                "CAD-2-a | Nome Inválido. Precisa de um nome e sobrenome.",
+                {
+                    type: "error",
+                    callback: () => setError("userName"),
+                }
+            );
         }
 
         if (!userId) {
             const msg = isAuthority
-                ? "Favor, informe o email da instituição"
-                : "Favor, informe o email do novo usuário";
+                ? "CAD-2-b | Favor, informe o email da instituição"
+                : "CAD-2-c | Favor, informe o email do novo usuário";
 
             return showToast(msg, {
                 type: "error",
@@ -287,7 +290,7 @@ export default function FormsContent({
 
         if (!validateEmail(userId)) {
             return showToast(
-                "O email informado é inválido. Revise e tente novamente",
+                "CAD-3 | O email informado é inválido. Revise e tente novamente",
                 {
                     type: "error",
                     callback: () => setError("userId"),
@@ -298,7 +301,7 @@ export default function FormsContent({
         if (!isAuthority) {
             if (!userPhone) {
                 return showToast(
-                    "Favor, informe um número celular para contato",
+                    "CAD-4 | Favor, informe um número celular para contato",
                     {
                         type: "error",
                         callback: () => setError("userPhone"),
@@ -308,7 +311,7 @@ export default function FormsContent({
 
             if (!validateMobilePhone(userPhoneDisplay)) {
                 return showToast(
-                    "O número de celular é inválido. Revise e tente novamente.",
+                    "CAD-5 | O número de celular é inválido. Revise e tente novamente.",
                     {
                         type: "error",
                         callback: () => setError("userPhone"),
@@ -324,7 +327,7 @@ export default function FormsContent({
 
             if (didUserMarkedNoAlert) {
                 return showToast(
-                    "Você precisa selecionar um tipo de alerta para avisar a autoridade cadastrada.",
+                    "CAD-6 | Você precisa selecionar um tipo de alerta para avisar a autoridade cadastrada.",
                     {
                         type: "error",
                         callback: () => setError("userPhone"),
@@ -392,7 +395,7 @@ export default function FormsContent({
             if (gotInvalidFields) {
                 const itemWithIssue = allMarkedAlertsWithInvalidFields[0];
                 return showToast(
-                    `Contato de ${itemWithIssue.label} é inválido. Revise e tente novamente.`,
+                    `CAD-7 | Contato de ${itemWithIssue.label} é inválido. Revise e tente novamente.`,
                     {
                         type: "error",
                         callback: () =>
@@ -417,8 +420,8 @@ export default function FormsContent({
         // VALIDATION
         if (!userName) {
             const msg = isAuthority
-                ? "Favor, informe o nome da instituição de emergência"
-                : "Favor, informe o nome do usuário a ser cadastrado";
+                ? "CAD-1-a | Favor, informe o nome da instituição de emergência"
+                : "CAD-1-b | Favor, informe o nome do usuário a ser cadastrado";
             return showToast(msg, {
                 type: "error",
                 callback: () => setError("userName"),
@@ -426,16 +429,19 @@ export default function FormsContent({
         }
 
         if (!isAuthority && !isValidNameWithSurname(userName)) {
-            return showToast("Nome Inválido. Precisa de um nome e sobrenome.", {
-                type: "error",
-                callback: () => setError("userName"),
-            });
+            return showToast(
+                "CAD-2-a | Nome Inválido. Precisa de um nome e sobrenome.",
+                {
+                    type: "error",
+                    callback: () => setError("userName"),
+                }
+            );
         }
 
         if (!userId) {
             const msg = isAuthority
-                ? "Favor, informe o email da instituição"
-                : "Favor, informe o email do novo usuário";
+                ? "CAD-2-b | Favor, informe o email da instituição"
+                : "CAD-2-c | Favor, informe o email do novo usuário";
 
             return showToast(msg, {
                 type: "error",
@@ -445,7 +451,7 @@ export default function FormsContent({
 
         if (!validateEmail(userId)) {
             return showToast(
-                "O email informado é inválido. Revise e tente novamente",
+                "CAD-3 | O email informado é inválido. Revise e tente novamente",
                 {
                     type: "error",
                     callback: () => setError("userId"),
@@ -456,7 +462,7 @@ export default function FormsContent({
         if (!isAuthority) {
             if (!userPhone) {
                 return showToast(
-                    "Favor, informe um número celular para contato",
+                    "CAD-4 | Favor, informe um número celular para contato",
                     {
                         type: "error",
                         callback: () => setError("userPhone"),
@@ -466,7 +472,7 @@ export default function FormsContent({
 
             if (!validateMobilePhone(userPhoneDisplay)) {
                 return showToast(
-                    "O número de celular é inválido. Revise e tente novamente.",
+                    "CAD-5 | O número de celular é inválido. Revise e tente novamente.",
                     {
                         type: "error",
                         callback: () => setError("userPhone"),
@@ -482,7 +488,7 @@ export default function FormsContent({
 
             if (didUserMarkedNoAlert) {
                 return showToast(
-                    "Você precisa selecionar um tipo de alerta para avisar a autoridade cadastrada.",
+                    "CAD-6 | Você precisa selecionar um tipo de alerta para avisar a autoridade cadastrada.",
                     {
                         type: "error",
                         callback: () => setError("userPhone"),
@@ -550,7 +556,7 @@ export default function FormsContent({
             if (gotInvalidFields) {
                 const itemWithIssue = allMarkedAlertsWithInvalidFields[0];
                 return showToast(
-                    `Contato de ${itemWithIssue.label} é inválido. Revise e tente novamente.`,
+                    `CAD-7 | Contato de ${itemWithIssue.label} é inválido. Revise e tente novamente.`,
                     {
                         type: "error",
                         callback: () =>

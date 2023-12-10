@@ -18,12 +18,6 @@ export default function TopNavbarEditBtn(props) {
     const isSmall = window.Helper.isSmallScreen();
 
     const handleFullOpen = () => {
-        // TEST (on) - DONT ALLOW ACCESS OF EDIT UNTIL CHANGE NEW DAYS AND HOURS STRUCTURE
-        showToast(
-            "Temporariamente desativado. Desenvolvendo nova estrutura de dias e horas aqui."
-        );
-        return null;
-
         setFullOpen(true);
     };
 

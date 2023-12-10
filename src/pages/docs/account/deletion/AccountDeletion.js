@@ -1,4 +1,3 @@
-import useData from "global-data/useData";
 import DeletionFieldArea from "./DeletionFieldArea";
 
 export default function AccountDeletion() {
