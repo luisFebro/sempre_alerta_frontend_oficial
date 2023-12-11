@@ -569,8 +569,8 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
     const showAlertWorkingHours = () => (
         <form onBlur={() => setError(null)}>
             <h2 className="relative text-center text-xl my-3 font-bold text-blue-900 flex justify-center">
-                Dias e Horários para alertas:
-                <div className="absolute -top-5 left-[21rem]">
+                Alertas Disponíveis:
+                <div className="absolute -top-5 left-[18rem]">
                     <InstructionBtn
                         text="É o período que é permitido disparar os alertas para evitar acionar fora do horário que a organização funciona. No app, os usuários não poderão disparar alertas se fora do horário para alertas. Atualizado em tempo real uma vez atualizado aqui."
                         tooltipProps={{ disablePortal: true }}
@@ -598,7 +598,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
             <div className="flex justify-center mb-14">
                 {showAlertWorkingHours()}
             </div>
-            <div className={"mb-16 container-center"}>
+            <div className="mb-16 container-center">
                 <MainBtn
                     title="atualizar"
                     Icon={SyncIcon}

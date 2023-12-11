@@ -787,6 +787,30 @@ video {
   left: 21rem;
 }
 
+.right-10 {
+  right: 2.5rem;
+}
+
+.-right-5 {
+  right: -1.25rem;
+}
+
+.left-10 {
+  left: 2.5rem;
+}
+
+.left-\[20rem\] {
+  left: 20rem;
+}
+
+.left-\[19rem\] {
+  left: 19rem;
+}
+
+.left-\[18rem\] {
+  left: 18rem;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -1396,6 +1420,10 @@ video {
   padding-left: 0.5rem;
 }
 
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1445,6 +1473,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
 }
 
 .font-bold {
@@ -1529,6 +1562,11 @@ video {
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
+}
+
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1650,6 +1688,10 @@ Your CSS bundle will be bigger — oof.
 }
 
 @media (min-width: 640px) {
+  .sm\:-right-3 {
+    right: -0.75rem;
+  }
+
   .sm\:mx-5 {
     margin-left: 1.25rem;
     margin-right: 1.25rem;
@@ -1657,6 +1699,10 @@ Your CSS bundle will be bigger — oof.
 
   .sm\:whitespace-nowrap {
     white-space: nowrap;
+  }
+
+  .sm\:text-center {
+    text-align: center;
   }
 }
 
@@ -1767,6 +1813,10 @@ Your CSS bundle will be bigger — oof.
 }
 
 @media (min-width: 1280px) {
+  .xl\:-right-3 {
+    right: -0.75rem;
+  }
+
   .xl\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;

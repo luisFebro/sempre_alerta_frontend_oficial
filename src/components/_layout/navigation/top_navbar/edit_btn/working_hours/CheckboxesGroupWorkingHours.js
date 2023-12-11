@@ -61,7 +61,11 @@ export default function CheckboxesGroupWorkingHours({
     return (
         <Box sx={{ display: "flex" }}>
             <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
-                <FormLabel component="legend" style={{ fontSize: 18 }}>
+                <FormLabel
+                    className="text-center"
+                    component="legend"
+                    style={{ fontSize: 18 }}
+                >
                     {selectTitle}
                 </FormLabel>
                 <FormGroup>

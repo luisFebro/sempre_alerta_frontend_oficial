@@ -4,77 +4,59 @@ import Dropdown from "components/dropdowns/TailwindDropdown";
 import useData from "global-data/useData";
 import truncateWords from "utils/string/truncateWords";
 import TopNavbarEditBtn from "./edit_btn/TopNavbarEditBtn";
-import { AccessTime } from "@mui/icons-material";
+import { AccessTime, CalendarMonth } from "@mui/icons-material";
+import { useLayoutEffect, useState } from "react";
+import { getCheckboxDisplayData } from "./edit_btn/working_hours/helpers/checkboxDataHandlers";
 
 export default function TopNavbar({ showSideBar, setShowSideBar }) {
     const location = useLocation().pathname;
 
     const isSmall = window.Helper.isSmallScreen();
 
-    const { instituteName, alertWorkingHours } = useData();
-    const alertOnAtDisplay = alertWorkingHours && alertWorkingHours[0];
-    const alertOffAtDisplay = alertWorkingHours && alertWorkingHours[1];
+    const { instituteName, alertWorkingHours = [] } = useData();
+    const [data, setData] = useState({
+        displayDays: "",
+        displayEarliestHour: "",
+        displayLatestHour: "",
+        isAlertsDisabled: false,
+        gotWeekDayGaps: false,
+        isSingleDayMarked: false,
+    });
+    const {
+        displayDays,
+        displayEarliestHour,
+        displayLatestHour,
+        isAlertsDisabled,
+        gotWeekDayGaps,
+        isSingleDayMarked,
+    } = data;
 
-    const alertDaysData = [
-        {
-            day: "Segunda",
-            dayShort: "Seg.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-        {
-            day: "Terça",
-            dayShort: "Ter.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-        {
-            day: "Quarta",
-            dayShort: "Qua.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-        {
-            day: "Quinta",
-            dayShort: "Qui.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-        {
-            day: "Sexta",
-            dayShort: "Sex.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-        {
-            day: "Sábado",
-            dayShort: "Sab.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-        {
-            day: "Domingo",
-            dayShort: "Dom.",
-            display: ["7:00", "18:00"],
-            weight: [700, 1800],
-        },
-    ];
-    const alertStartDay = alertDaysData[0].day;
-    const alertEndDay = alertDaysData[6].day;
+    const gotAlertWorkingHours = JSON.stringify(alertWorkingHours);
+    useLayoutEffect(() => {
+        if (gotAlertWorkingHours) {
+            const dataWorkingHoursDisplay =
+                getCheckboxDisplayData(alertWorkingHours);
+            setData((prev) => ({
+                ...prev,
+                ...dataWorkingHoursDisplay,
+            }));
+        }
+    }, [gotAlertWorkingHours]);
 
-    // if day off only saturday and sunday: format: Segunda a Sexta
-    // if there is day off between weekdays (Seg a Sex) and thus with gaps and not sequential: format: Seg., Quar., Sex e Dom.
+    const handleDisplayDaysClassName = () => {
+        if (gotWeekDayGaps) return "text-sm font-light text-white";
 
-    const earliestHour = alertDaysData[0].display[0]; // TODO: hora + cedo: 7:00 (Seg) || hora + tarde: 18:00 (Dom)
-    const earliestHourDayShort = alertDaysData[0].dayShort;
-
-    const latestHour = alertDaysData[6].display[1];
-    const latestHourDayShort = alertDaysData[6].dayShort;
-
+        const defaultClasses =
+            "text-lg sm:whitespace-nowrap text-white text-center";
+        if (isSingleDayMarked) return `${defaultClasses}`;
+        return `${defaultClasses} ${
+            isAlertsDisabled ? "text-gray-400 text-center" : ""
+        }`;
+    };
     const showInstituteBoard = () => (
         <section className="relative top-2 md:top-0">
             <section
-                className="flex bg-purple-700 rounded-lg py-2 pb-3 [@media(min-width:870px)]:pb-6"
+                className="flex bg-purple-70 rounded-lg py-2 pb-10 [@media(min-width:870px)]:pb-6"
                 style={{ backgroundColor: "var(--themeSurface)" }}
             >
                 <div className="mx-2">
@@ -96,13 +78,24 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     <p
                         className={`max-w-max pr-2 mt-2 block text-sm text-gray-300`}
                     >
-                        <AccessTime style={{ fontSize: 20 }} /> DIAS E HORÁRIOS
-                        ALERTAS:
+                        ALERTAS DISPONÍVEIS:
                     </p>
-                    <p className="font-light text-white sm:whitespace-nowrap">
-                        <span className={`inline-block pr-1`}>&#8226;</span>
-                        {alertStartDay} a {alertEndDay}
+                    <p className={handleDisplayDaysClassName()}>
+                        {!isAlertsDisabled && (
+                            <CalendarMonth style={{ fontSize: 20 }} />
+                        )}{" "}
+                        {displayDays}
                     </p>
+                    <section className={`${isAlertsDisabled ? "hidden" : ""}`}>
+                        <div className="text-sm font-light text-gray-300">
+                            <AccessTime style={{ fontSize: 15 }} />{" "}
+                            {displayEarliestHour}
+                        </div>
+                        <div className="text-sm font-light text-gray-300">
+                            <AccessTime style={{ fontSize: 15 }} />{" "}
+                            {displayLatestHour}
+                        </div>
+                    </section>
                 </div>
                 <div
                     className={`absolute -bottom-5 -right-3 [@media(min-width:870px)]:-right-2.5`}
@@ -138,7 +131,7 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     </div>
 
                     <section className="flex relative top-4">
-                        <div className="md:hidden">
+                        <div className="md:hidden relative -right-3">
                             <Button
                                 color="transparent"
                                 buttonType="link"
@@ -154,7 +147,7 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                                     )
                                 }
                                 style={{
-                                    margin: "0 10px 0 0",
+                                    margin: "0 0 0 0",
                                 }}
                             >
                                 <Icon
