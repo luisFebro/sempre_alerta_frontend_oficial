@@ -222,12 +222,12 @@ function getMinMaxWeekDaysData(list = []) {
     );
 
     const earliestHour = earliestItem.display[0];
-    const earliestHourDayShort = earliestItem.dayShort;
+    // const earliestHourDayShort = earliestItem.dayShort;
 
     const latestItem = getMinMaxObjInArray("max", list, (obj) => obj.weight[1]);
 
     const latestHour = latestItem.display[1];
-    const latestHourDayShort = latestItem.dayShort;
+    // const latestHourDayShort = latestItem.dayShort;
 
     return {
         displayEarliestHour: `hora + cedo: <span className="text-white">${earliestHour}</span>`, //  (${earliestHourDayShort})

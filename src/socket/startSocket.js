@@ -28,7 +28,9 @@ export function useConnectSocket(socket, activeScreenId) {
 
     useEffect(() => {
         if (!socket) return;
-        if (socket.disconnected) socket.connect();
+        console.log("RUNNING SOCKET");
+        // if(socket.disconnected)
+        socket.connect();
     }, [activeScreenId, isSocketAvailable]);
 }
 
@@ -44,7 +46,7 @@ export default function getInitSocket() {
     const socket = io(SOCKET_URI, {
         reconnection: true,
         reconnectionDelay: 1000, // The initial delay before reconnection in milliseconds (affected by the randomizationFactor value).
-        reconnectionDelayMax: 5000, // The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.
+        reconnectionDelayMax: 1000, // The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.
         randomizationFactor: 0.5, //  n1
         timeout: 2000,
         autoConnect: true,

@@ -18,9 +18,11 @@ import CheckboxesGroupWorkingHours from "./working_hours/CheckboxesGroupWorkingH
 import useUpdateCheckboxesData from "./working_hours/useUpdateCheckboxesData";
 import { convertCheckboxDataToList } from "./working_hours/helpers/checkboxDataHandlers";
 import { emitUpdateWorkingHoursDashboard } from "socket/emits";
+import { useInitSocket } from "socket/startSocket";
 
 export default function TopNavbarEditBtnContent({ handleFullClose }) {
     const cache = useData();
+    const { userId = "userIdTest" } = useData("user");
     const isCacheAvailable = cache !== null;
 
     const uify = useUify();
@@ -52,6 +54,11 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
 
     const contactDisplay = autoPhoneMask(contact);
     const zipCodeDisplay = setZipcodeMask(zipCode);
+
+    const socket = useInitSocket({
+        userId,
+        roomIdList: cache.roomIdList,
+    });
 
     const [error, setError] = useState(null);
 
@@ -424,7 +431,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
 
         showToast("Dados da instituição atualizados!", { type: "success" });
 
-        emitUpdateWorkingHoursDashboard({
+        emitUpdateWorkingHoursDashboard(socket, {
             roomId: cache.roomIdList && cache.roomIdList[0],
             alertWorkingHours: alertWorkingHoursUpdated,
         });
