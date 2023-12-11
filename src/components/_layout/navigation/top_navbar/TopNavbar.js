@@ -7,6 +7,7 @@ import TopNavbarEditBtn from "./edit_btn/TopNavbarEditBtn";
 import { AccessTime, CalendarMonth } from "@mui/icons-material";
 import { useLayoutEffect, useState } from "react";
 import { getCheckboxDisplayData } from "./edit_btn/working_hours/helpers/checkboxDataHandlers";
+import parse from "html-react-parser";
 
 export default function TopNavbar({ showSideBar, setShowSideBar }) {
     const location = useLocation().pathname;
@@ -56,7 +57,7 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
     const showInstituteBoard = () => (
         <section className="relative top-2 md:top-0">
             <section
-                className="flex bg-purple-70 rounded-lg py-2 pb-10 [@media(min-width:870px)]:pb-6"
+                className="flex bg-purple-70 rounded-lg py-2 pb-6 [@media(min-width:870px)]:pb-6"
                 style={{ backgroundColor: "var(--themeSurface)" }}
             >
                 <div className="mx-2">
@@ -80,7 +81,7 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     >
                         ALERTAS DISPONÍVEIS:
                     </p>
-                    <p className={handleDisplayDaysClassName()}>
+                    <p className={`my-1 ${handleDisplayDaysClassName()}`}>
                         {!isAlertsDisabled && (
                             <CalendarMonth style={{ fontSize: 20 }} />
                         )}{" "}
@@ -89,11 +90,11 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     <section className={`${isAlertsDisabled ? "hidden" : ""}`}>
                         <div className="text-sm font-light text-gray-300">
                             <AccessTime style={{ fontSize: 15 }} />{" "}
-                            {displayEarliestHour}
+                            {parse(displayEarliestHour)}
                         </div>
                         <div className="text-sm font-light text-gray-300">
                             <AccessTime style={{ fontSize: 15 }} />{" "}
-                            {displayLatestHour}
+                            {parse(displayLatestHour)}
                         </div>
                     </section>
                 </div>

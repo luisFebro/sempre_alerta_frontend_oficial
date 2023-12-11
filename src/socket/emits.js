@@ -15,3 +15,7 @@ export function emitUpdateEmergencyStage(socket, data, cb) {
 export function emitConfirmEmergency(socket, data, cb) {
     socket.emit("confirmEmergency", data, cb);
 }
+
+export function emitUpdateWorkingHoursDashboard(socket, data) {
+    socket.emit("updateWorkingHoursDashboard", data);
+}

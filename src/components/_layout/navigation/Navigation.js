@@ -51,11 +51,11 @@ export default function Navigation() {
 
     return (
         <section ref={wrapperRef}>
-            <CurvesDesign />
             <TopNavbar
                 showSideBar={showSideBar}
                 setShowSideBar={setShowSideBar}
             />
+            <CurvesDesign />
             <SidebarNavbar
                 closeSideBar={closeSideBar}
                 showSideBar={showSideBar}

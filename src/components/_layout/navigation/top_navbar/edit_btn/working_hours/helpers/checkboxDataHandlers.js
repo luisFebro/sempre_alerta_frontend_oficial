@@ -230,8 +230,8 @@ function getMinMaxWeekDaysData(list = []) {
     const latestHourDayShort = latestItem.dayShort;
 
     return {
-        displayEarliestHour: `+ cedo: ${earliestHour} (${earliestHourDayShort})`,
-        displayLatestHour: `+ tarde: ${latestHour} (${latestHourDayShort})`,
+        displayEarliestHour: `hora + cedo: <span className="text-white">${earliestHour}</span>`, //  (${earliestHourDayShort})
+        displayLatestHour: `hora + tarde: <span className="text-white">${latestHour}</span>`, // (${latestHourDayShort})
     };
 }
 

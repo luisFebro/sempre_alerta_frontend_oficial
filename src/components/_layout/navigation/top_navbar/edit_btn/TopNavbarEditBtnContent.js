@@ -17,6 +17,7 @@ import getBrazilUF from "./helpers/getBrazilUF";
 import CheckboxesGroupWorkingHours from "./working_hours/CheckboxesGroupWorkingHours";
 import useUpdateCheckboxesData from "./working_hours/useUpdateCheckboxesData";
 import { convertCheckboxDataToList } from "./working_hours/helpers/checkboxDataHandlers";
+import { emitUpdateWorkingHoursDashboard } from "socket/emits";
 
 export default function TopNavbarEditBtnContent({ handleFullClose }) {
     const cache = useData();
@@ -396,9 +397,12 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         }
         // end working hours validation
 
+        const alertWorkingHoursUpdated =
+            convertCheckboxDataToList(dataCheckbox);
+
         const dataToUpdate = {
             ...update,
-            alertWorkingHours: convertCheckboxDataToList(dataCheckbox),
+            alertWorkingHours: alertWorkingHoursUpdated,
             state: ufState,
             contact: convertPhoneStrToInt(contactDisplay),
             zipCode: convertPhoneStrToInt(zipCode),
@@ -419,6 +423,11 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
         if (!output) return;
 
         showToast("Dados da instituição atualizados!", { type: "success" });
+
+        emitUpdateWorkingHoursDashboard({
+            roomId: cache.roomIdList && cache.roomIdList[0],
+            alertWorkingHours: alertWorkingHoursUpdated,
+        });
 
         updateData(uify, dataToUpdate);
 

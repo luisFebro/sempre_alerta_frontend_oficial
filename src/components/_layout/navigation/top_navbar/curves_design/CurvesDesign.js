@@ -5,10 +5,7 @@ export default function CurvesDesign() {
     return (
         <>
             <div className="px-3 md:px-8 h-0" />
-            <div
-                className="custom-shape-divider-top-1665201393"
-                style={{ top: 115 }}
-            >
+            <div className="custom-shape-divider-top-1665201393">
                 <svg
                     data-name="Layer 1"
                     xmlns="http://www.w3.org/2000/svg"
