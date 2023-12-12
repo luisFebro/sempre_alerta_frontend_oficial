@@ -93,11 +93,13 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
                     <section className={`${isAlertsDisabled ? "hidden" : ""}`}>
                         <div className="text-sm font-light text-gray-300">
                             <AccessTime style={{ fontSize: 15 }} />{" "}
-                            {parse(displayEarliestHour)}
+                            {!Boolean(isAlertsDisabled) &&
+                                parse(displayEarliestHour)}
                         </div>
                         <div className="text-sm font-light text-gray-300">
                             <AccessTime style={{ fontSize: 15 }} />{" "}
-                            {parse(displayLatestHour)}
+                            {!Boolean(isAlertsDisabled) &&
+                                parse(displayLatestHour)}
                         </div>
                     </section>
                 </div>
