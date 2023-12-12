@@ -32,6 +32,8 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
         isSingleDayMarked,
     } = data;
 
+    console.log("isSingleDayMarked: " + isSingleDayMarked);
+
     const gotAlertWorkingHours = JSON.stringify(alertWorkingHours);
     useLayoutEffect(() => {
         if (gotAlertWorkingHours) {
@@ -45,11 +47,12 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
     }, [gotAlertWorkingHours]);
 
     const handleDisplayDaysClassName = () => {
+        const defaultClasses =
+            "text-center  text-white text-lg sm:whitespace-nowrap";
+        if (isSingleDayMarked) return `${defaultClasses}`;
+
         if (gotWeekDayGaps) return "text-sm font-light text-white";
 
-        const defaultClasses =
-            "text-lg sm:whitespace-nowrap text-white text-center";
-        if (isSingleDayMarked) return `${defaultClasses}`;
         return `${defaultClasses} ${
             isAlertsDisabled ? "text-gray-400 text-center" : ""
         }`;
