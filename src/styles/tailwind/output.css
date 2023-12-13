@@ -759,54 +759,6 @@ video {
   top: 0.75rem;
 }
 
-.-top-32 {
-  top: -8rem;
-}
-
-.-top-10 {
-  top: -2.5rem;
-}
-
-.left-72 {
-  left: 18rem;
-}
-
-.left-32 {
-  left: 8rem;
-}
-
-.left-80 {
-  left: 20rem;
-}
-
-.left-96 {
-  left: 24rem;
-}
-
-.left-\[21rem\] {
-  left: 21rem;
-}
-
-.right-10 {
-  right: 2.5rem;
-}
-
-.-right-5 {
-  right: -1.25rem;
-}
-
-.left-10 {
-  left: 2.5rem;
-}
-
-.left-\[20rem\] {
-  left: 20rem;
-}
-
-.left-\[19rem\] {
-  left: 19rem;
-}
-
 .left-\[18rem\] {
   left: 18rem;
 }
@@ -835,11 +787,6 @@ video {
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-}
-
-.my-0 {
-  margin-top: 0px;
-  margin-bottom: 0px;
 }
 
 .mx-5 {
@@ -877,6 +824,11 @@ video {
   margin-bottom: 200px;
 }
 
+.my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .my-7 {
   margin-top: 1.75rem;
   margin-bottom: 1.75rem;
@@ -887,19 +839,14 @@ video {
   margin-bottom: 100px;
 }
 
-.mx-16 {
-  margin-left: 4rem;
-  margin-right: 4rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.mx-16 {
+  margin-left: 4rem;
+  margin-right: 4rem;
 }
 
 .ml-3 {
@@ -950,12 +897,16 @@ video {
   margin-bottom: 2.5rem;
 }
 
-.mb-96 {
-  margin-bottom: 24rem;
-}
-
 .ml-8 {
   margin-left: 2rem;
+}
+
+.mb-60 {
+  margin-bottom: 15rem;
+}
+
+.mb-96 {
+  margin-bottom: 24rem;
 }
 
 .mr-4 {
@@ -998,10 +949,6 @@ video {
   margin-right: 0.25rem;
 }
 
-.ml-5 {
-  margin-left: 1.25rem;
-}
-
 .mb-14 {
   margin-bottom: 3.5rem;
 }
@@ -1010,8 +957,8 @@ video {
   margin-bottom: 4rem;
 }
 
-.mb-60 {
-  margin-bottom: 15rem;
+.ml-5 {
+  margin-left: 1.25rem;
 }
 
 .block {
@@ -1249,24 +1196,14 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-slate-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
-}
-
-.bg-purple-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(126 34 206 / var(--tw-bg-opacity));
-}
-
-.bg-slate-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#243B55\] {
   --tw-bg-opacity: 1;
   background-color: rgb(36 59 85 / var(--tw-bg-opacity));
+}
+
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-tr {
@@ -1414,8 +1351,8 @@ video {
   padding-left: 0.25rem;
 }
 
-.pb-3 {
-  padding-bottom: 0.75rem;
+.pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .pr-1 {
@@ -1428,18 +1365,6 @@ video {
 
 .pl-2 {
   padding-left: 0.5rem;
-}
-
-.pb-10 {
-  padding-bottom: 2.5rem;
-}
-
-.pb-5 {
-  padding-bottom: 1.25rem;
-}
-
-.pb-6 {
-  padding-bottom: 1.5rem;
 }
 
 .text-left {
@@ -1493,17 +1418,8 @@ video {
   line-height: 1rem;
 }
 
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
-}
-
 .font-bold {
   font-weight: 700;
-}
-
-.font-thin {
-  font-weight: 100;
 }
 
 .font-normal {
@@ -1512,6 +1428,10 @@ video {
 
 .font-light {
   font-weight: 300;
+}
+
+.font-thin {
+  font-weight: 100;
 }
 
 .uppercase {
@@ -1580,11 +1500,6 @@ video {
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
-}
-
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1706,10 +1621,6 @@ Your CSS bundle will be bigger — oof.
 }
 
 @media (min-width: 640px) {
-  .sm\:-right-3 {
-    right: -0.75rem;
-  }
-
   .sm\:mx-5 {
     margin-left: 1.25rem;
     margin-right: 1.25rem;
@@ -1717,10 +1628,6 @@ Your CSS bundle will be bigger — oof.
 
   .sm\:whitespace-nowrap {
     white-space: nowrap;
-  }
-
-  .sm\:text-center {
-    text-align: center;
   }
 }
 
@@ -1831,10 +1738,6 @@ Your CSS bundle will be bigger — oof.
 }
 
 @media (min-width: 1280px) {
-  .xl\:-right-3 {
-    right: -0.75rem;
-  }
-
   .xl\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;

@@ -588,7 +588,7 @@ export default function TopNavbarEditBtnContent({ handleFullClose }) {
                 Alertas Disponíveis:
                 <div className="absolute -top-5 left-[18rem]">
                     <InstructionBtn
-                        text="É o período que é permitido disparar os alertas para evitar acionar fora do horário que a organização funciona. No app, os usuários não poderão disparar alertas se fora do horário para alertas. Atualizado em tempo real uma vez atualizado aqui."
+                        text="É o período que é permitido disparar os alertas para evitar acionar fora do horário que a organização funciona. No app, os usuários não poderão disparar alertas se fora do horário para alertas. Atualizado em tempo real uma vez editado aqui."
                         tooltipProps={{ disablePortal: true }}
                         btnSize={30}
                     />

@@ -4,6 +4,7 @@ export default function validateLandlineAndMobilePhone(phone) {
     const regEx = /^\([1-9]{2}\) (?:[2-8]|9[0-9])[0-9]{3}\-[0-9]{4}$/;
     return regEx.test(phone);
 }
+// /^\([1-9]{2}\) (?:[2-8]|9[0-9])[0-9]{3}\-[0-9]{4}$/
 
 // reference: https://pt.stackoverflow.com/questions/46672/como-fazer-uma-express%C3%A3o-regular-para-telefone-celular
 // https://pt.stackoverflow.com/posts/46676/revisions
