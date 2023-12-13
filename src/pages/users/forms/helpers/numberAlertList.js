@@ -16,10 +16,6 @@ export function addNumberAlertList({
                 return "ligação";
             };
 
-            console.log(
-                "convertPhoneStrToInt(elem.fieldData): " +
-                    convertPhoneStrToInt(elem.fieldData)
-            );
             return {
                 contact: convertPhoneStrToInt(elem.fieldData),
                 type: handleType(),
