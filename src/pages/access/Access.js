@@ -3,8 +3,9 @@ import IdentityGoogleLoginBtn from "./google/IdentityGoogleLoginBtn";
 import EmailLoginBtn from "./EmailLoginBtn";
 import { updateData, useUify } from "global-data/useData";
 import { HOST_URL } from "config/root";
+import useBackColor from "hooks/useBackColor";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.17.18-5";
+const DASHBOARD_OFFICIAL_VERSION = "v1.17.18-6";
 
 export default function Access() {
     const isSmall = window.Helper.isSmallScreen();
@@ -16,6 +17,8 @@ export default function Access() {
     const isMainArea = area === "main";
 
     const uify = useUify();
+
+    useBackColor("bg-[#243B55]");
 
     useEffect(() => {
         updateData(uify, {
@@ -56,7 +59,7 @@ export default function Access() {
     );
 
     return (
-        <section className="relative background-access">
+        <section className="relative">
             <section className="flex flex-col items-center">
                 <img
                     className="my-5"
@@ -90,25 +93,9 @@ export default function Access() {
                 width={isSmall ? 170 : 240}
                 height={isSmall ? 170 : 240}
             />
-            <p className="text-lg txt-p-light text-center absolute bottom-16 left-1/2 -translate-x-1/2">
+            <p className="text-lg txt-p-light text-center fixed bottom-1 left-1/2 -translate-x-1/2">
                 {DASHBOARD_OFFICIAL_VERSION}
             </p>
-            <style>
-                {`
-
-                    .background-access {
-                        height: 100vh;
-                        width: 100vw;
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        background-color: #243B55;  /* fallback for old browsers */
-                        background-color: -webkit-linear-gradient(to bottom, #141E30, #243B55);  /* Chrome 10-25, Safari 5.1-6 */
-                        background-color: linear-gradient(to bottom, #141E30, #243B55); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */               
-                    }
-                
-                `}
-            </style>
         </section>
     );
 }
