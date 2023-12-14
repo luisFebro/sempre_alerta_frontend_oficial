@@ -8,7 +8,7 @@ export function emitJoinRoom(socket, userId, roomIdList) {
     socket.emit("joinRoom", roomData);
 }
 
-export function emitUpdateEmergencyStage(socket, data, cb) {
+export function emitUpdateEmergencyStage(socket, data, cb = () => null) {
     socket.emit("updateEmergencyStage", data, cb);
 }
 
