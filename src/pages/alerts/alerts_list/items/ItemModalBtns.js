@@ -70,32 +70,61 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
     };
 
     const isFinished = type === "finish";
-    const title = isFinished
-        ? "Conclusão - Alerta SOS"
-        : "Confirmação - Alerta SOS";
-    const subtitle = isFinished
-        ? "Se a emergência foi concluída ou resolvida, clique em SIM para aviso de conclusão para os demais e marcar alerta como concluído"
-        : `Para prosseguir com o protocolo de emergência, faça confirmação do alerta: <span style="font-weight:bold;">Você confirma que a emergência real?</span>`;
-    const ctaFunc = isFinished
-        ? updateEmergencyStageFinished
-        : confirmEmergency;
-    const ctaTitle = isFinished ? "SIM, CONCLUIR" : "SIM, CONFIRMAR";
+    const isCancel = type === "cancel";
+
+    const handleTitle = () => {
+        if (isCancel) return "Cancelamento - Alerta SOS";
+
+        return isFinished
+            ? "Conclusão - Alerta SOS"
+            : "Confirmação - Alerta SOS";
+    };
+
+    const handleSubtitle = () => {
+        if (isCancel)
+            return "O alerta SOS será cancelado e uma mensagem avisando a todos os contatos da instituição será enviada. Você confirma que não é uma emergência?";
+
+        return isFinished
+            ? "Se a emergência foi concluída ou resolvida, clique em SIM para aviso de conclusão para os demais e marcar alerta como concluído"
+            : `Para prosseguir com o protocolo de emergência, faça confirmação do alerta: <span style="font-weight:bold;">Você confirma que a emergência real?</span>`;
+    };
+
+    const handlePopupCtaYesTitle = () => {
+        if (isCancel) return "SIM, CANCELAR";
+        return isFinished ? "SIM, CONCLUIR" : "SIM, CONFIRMAR";
+    };
+
+    const handleBtnName = () => {
+        if (isFinished) return "finalizar";
+        if (isCancel) return "cancelar";
+
+        return "confirmar";
+    };
+
+    const handleCtaFunc = () => {
+        if (isFinished) return updateEmergencyStageFinished;
+        if (isCancel) return updateEmergencyStageCanceled;
+
+        return confirmEmergency;
+    };
+
+    const title = handleTitle();
+    const subtitle = handleSubtitle();
+    const ctaYesPopupTitle = handlePopupCtaYesTitle();
+    const ctaFunc = handleCtaFunc();
+    const btnName = handleBtnName();
 
     return (
         <>
-            {isFinished ? (
-                <MainBtn title="finalizar" onClick={handleFullOpen} />
-            ) : (
-                <MainBtn title="confirmar" onClick={handleFullOpen} />
-            )}
+            <MainBtn title={btnName} onClick={handleFullOpen} />
             <ModalYesNo
                 title={title}
                 noCallback={() => null}
                 subTitle={subtitle}
-                addBackBtn={isFinished ? false : true}
+                addBackBtn={isFinished || isCancel ? false : true}
                 fullOpen={fullOpen}
-                yesTitle={ctaTitle}
-                noTitle={isFinished ? "voltar" : "NÃO, CANCELAR"}
+                yesTitle={ctaYesPopupTitle}
+                noTitle={isFinished || isCancel ? "voltar" : "NÃO, CANCELAR"}
                 setFullOpen={() => {
                     setFullOpen(false);
                 }}

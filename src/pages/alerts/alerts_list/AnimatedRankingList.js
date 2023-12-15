@@ -162,6 +162,18 @@ export default function AnimatedRankingList({ dataList, activeScreenId }) {
                                             </p>
                                         )}
 
+                                        {item.status ===
+                                            "pending_collector" && (
+                                            <ItemModalBtn
+                                                type="cancel"
+                                                socket={socket}
+                                                data={{
+                                                    ...item,
+                                                    ...dataModalBtns,
+                                                }}
+                                            />
+                                        )}
+
                                         {item.status === "pending_notify" && (
                                             <ItemModalBtn
                                                 type="confirm"
