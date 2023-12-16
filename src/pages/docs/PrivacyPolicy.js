@@ -57,7 +57,17 @@ const text4 = (
 
         <p>
             Se for cadastro de instituição, podemos solicitar e coletar dados
-            adicionais como relacionados ao endereço.
+            adicionais como relacionados ao <strong>endereço</strong>.
+        </p>
+
+        <p>
+            Coletamos informações dos dispositivos e de software para análise e
+            fonte de informação para solução de eventuais problemas técnicos em
+            aparelhos específicos e afins. Os dados incluem:{" "}
+            <strong>
+                versão do app, tipo de conectividade, tipo de chip, modelo,
+                fabricante de aparelho e sistema operacional.
+            </strong>
         </p>
 
         <h2 className="text-lg pt-5 font-bold">Dados de Análise adicionais</h2>
