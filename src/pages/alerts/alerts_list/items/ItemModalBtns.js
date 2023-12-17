@@ -22,7 +22,15 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        emitUpdateEmergencyStage(socket, { ...data, status: "finished" });
+        const cb = ({ status = {} }) => {
+            const isError = status.ok === false;
+            const msg = status.msg;
+
+            if (isError) showToast(msg, { type: "error" });
+            else showToast(msg, { type: "success" });
+        };
+
+        emitUpdateEmergencyStage(socket, { ...data, status: "finished" }, cb);
 
         handleFullClose();
     };
@@ -33,7 +41,15 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        emitUpdateEmergencyStage(socket, { ...data, status: "canceled" });
+        const cb = ({ status = {} }) => {
+            const isError = status.ok === false;
+            const msg = status.msg;
+
+            if (isError) showToast(msg, { type: "error" });
+            else showToast(msg, { type: "success" });
+        };
+
+        emitUpdateEmergencyStage(socket, { ...data, status: "canceled" }, cb);
 
         handleFullClose();
     };
@@ -44,8 +60,12 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        const cb = ({ msg }) => {
-            showToast(msg);
+        const cb = ({ status = {} }) => {
+            const isError = status.ok === false;
+            const msg = status.msg;
+
+            if (isError) showToast(msg, { type: "error" });
+            else showToast(msg, { type: "success" });
         };
 
         console.log("data confirmEmergency: " + JSON.stringify(data));

@@ -12,7 +12,7 @@ export function emitUpdateEmergencyStage(socket, data, cb = () => null) {
     socket.emit("updateEmergencyStage", data, cb);
 }
 
-export function emitConfirmEmergency(socket, data, cb) {
+export function emitConfirmEmergency(socket, data, cb = () => null) {
     socket.emit("confirmEmergency", data, cb);
 }
 
