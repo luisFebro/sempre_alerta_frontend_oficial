@@ -36,6 +36,7 @@ export function useConnectSocket(socket, activeScreenId) {
 
 // HELPERS
 export default function getInitSocket() {
+    // DOCS: https://socket.io/docs/v4/client-options/
     // every namespace should includes nsp before the actual name. e.g nspApp
     // server test: https://sempre-alerta-backend-72437300b00c.herokuapp.com/socket/nspApp
     // patrick server: http://207.244.226.58:5001/socket/nspApp
@@ -44,15 +45,20 @@ export default function getInitSocket() {
     console.log("socket.io URI: " + SOCKET_URI);
 
     const socket = io(SOCKET_URI, {
-        reconnection: true,
-        reconnectionDelay: 1000, // The initial delay before reconnection in milliseconds (affected by the randomizationFactor value).
-        reconnectionDelayMax: 1000, // The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.
+        reconnection: true, // default: true - Whether reconnection is enabled or not. If set to false, you need to manually reconnect:
+        reconnectionDelay: 1000, // default: 1000 - The initial delay before reconnection in milliseconds (affected by the randomizationFactor value).
+        reconnectionDelayMax: 5000, // default: 5000 (before: 1000) The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.
+        reconnectionAttempts: Infinity, // Default value: Infinity - The number of reconnection attempts before giving up.
         randomizationFactor: 0.5, //  n1
-        timeout: 2000,
-        autoConnect: true,
+        timeout: 20000, // default: 20000 (before: 2000) The timeout in milliseconds for each connection attempt.
+        autoConnect: true, // default: true - Whether to automatically connect upon creation. If set to false, you need to manually connect:
         path: "/socket.io",
         query: { origin: "dashboard" },
-        transports: ["websocket", "polling"], // a list of transports to try (in order). Engine always attempts to connect directly with the first one, provided the feature detection test for it passes.
+        transports: ["polling", "websocket"], // a list of transports to try (in order). Engine always attempts to connect directly with the first one, provided the feature detection test for it passes.
+        upgrade: true, // default: true Whether the client should try to upgrade the transport from HTTP long-polling to something better.
+        // SOCKET OPTIONS enable retries - https://socket.io/docs/v4/tutorial/step-8#at-least-once
+        ackTimeout: 10000, // default: - The default timeout in milliseconds used when waiting for an acknowledgement (not to be mixed up with the already existing timeout option, which is used by the Manager during the connection)
+        retries: 3, // default: - The maximum number of retries. Above the limit, the packet will be discarded.
     });
 
     return socket;
