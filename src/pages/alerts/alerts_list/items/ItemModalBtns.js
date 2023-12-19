@@ -24,10 +24,9 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
 
         const cb = ({ status = {} }) => {
             const isError = status.ok === false;
-            const msg = status.msg;
+            const msg = status.msg || " ";
 
-            if (isError && msg !== "duplicate_item_id")
-                showToast(msg, { type: "error" });
+            if (isError) showToast(msg, { type: "error" });
             else showToast(msg, { type: "success" });
         };
 
@@ -44,10 +43,9 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
 
         const cb = ({ status = {} }) => {
             const isError = status.ok === false;
-            const msg = status.msg;
+            const msg = status.msg || " ";
 
-            if (isError && msg !== "duplicate_item_id")
-                showToast(msg, { type: "error" });
+            if (isError) showToast(msg, { type: "error" });
             else showToast(msg, { type: "success" });
         };
 
