@@ -28,7 +28,7 @@ export default function Alerts() {
         trigger: activeScreenId,
     });
 
-    useConnectSocket(socket, activeScreenId);
+    // useConnectSocket(socket, activeScreenId);
     // END MAIN SOCKET CONNECTION
 
     const dataList = {

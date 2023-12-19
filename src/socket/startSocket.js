@@ -14,6 +14,7 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
         emitJoinRoom(socket, userId, roomIdList);
 
         setSocketData(socket);
+
         return () => {
             socket.disconnect();
         };
@@ -23,16 +24,16 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
     return socketData;
 }
 
-export function useConnectSocket(socket, activeScreenId) {
-    const isSocketAvailable = socket != null;
+// export function useConnectSocket(socket, activeScreenId) {
+//     const isSocketAvailable = socket != null;
 
-    useEffect(() => {
-        if (!socket) return;
-        console.log("RUNNING SOCKET");
-        // if(socket.disconnected)
-        socket.connect();
-    }, [activeScreenId, isSocketAvailable]);
-}
+//     useEffect(() => {
+//         if (!socket) return;
+//         console.log("RUNNING SOCKET");
+//         // if(socket.disconnected)
+//         // socket.connect();
+//     }, [activeScreenId, isSocketAvailable]);
+// }
 
 // HELPERS
 export default function getInitSocket() {
