@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { emitJoinRoom } from "./emits";
 import { listenSocketEvents } from "./listens";
+import { useUify } from "global-data/useData";
 
 export function useInitSocket({
     userId = "johndoe@gmail.com",
@@ -11,9 +12,11 @@ export function useInitSocket({
     // LESSON: always use useEffect to initialize methods like io(). It was bugging aorund with many requests and preventing using broadcast.imit to exclude the sender
     const [socketData, setSocketData] = useState(null);
 
+    const uify = useUify();
+
     useEffect(() => {
         const socket = getInitSocket();
-        listenSocketEvents(socket);
+        listenSocketEvents(socket, uify);
 
         emitJoinRoom(socket, userId, roomIdList);
 
@@ -63,8 +66,9 @@ export default function getInitSocket() {
         transports: ["websocket", "polling"], // a list of transports to try (in order). Engine always attempts to connect directly with the first one, provided the feature detection test for it passes.
         upgrade: true, // default: true Whether the client should try to upgrade the transport from HTTP long-polling to something better.
         // SOCKET OPTIONS enable retries - https://socket.io/docs/v4/tutorial/step-8#at-least-once
-        ackTimeout: 10000, // default: - The default timeout in milliseconds used when waiting for an acknowledgement (not to be mixed up with the already existing timeout option, which is used by the Manager during the connection)
-        retries: 3, // default: - The maximum number of retries. Above the limit, the packet will be discarded.
+        // IMPORTANT: ackTimeout and retries prevents receiving data from callback and delays by reloading 3 times before actually triggering event
+        // ackTimeout: 10000, // default: - The default timeout in milliseconds used when waiting for an acknowledgement (not to be mixed up with the already existing timeout option, which is used by the Manager during the connection)
+        // retries: 3, // default: - The maximum number of retries. Above the limit, the packet will be discarded.
     });
 
     return socket;

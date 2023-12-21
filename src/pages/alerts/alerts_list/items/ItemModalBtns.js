@@ -27,10 +27,10 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
             const status = options ? options.status : {};
 
             const isError = status.ok === false;
-            const msg = status.msg || " ";
+            const msg = status.msg;
 
-            if (isError) showToast(msg, { type: "error" });
-            else showToast(msg, { type: "success" });
+            if (isError && msg) showToast(msg, { type: "error" });
+            else if (msg) showToast(msg, { type: "success" });
         };
 
         emitUpdateEmergencyStage(socket, { ...data, status: "finished" }, cb);
@@ -45,13 +45,17 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
             );
 
         const cb = (options = {}) => {
+            console.log(
+                "callback: updateEmergencyStageCanceled -> " +
+                    JSON.stringify(options)
+            );
             const status = options ? options.status : {};
 
             const isError = status.ok === false;
-            const msg = status.msg || " ";
+            const msg = status.msg;
 
-            if (isError) showToast(msg, { type: "error" });
-            else showToast(msg, { type: "success" });
+            if (isError && msg) showToast(msg, { type: "error" });
+            else if (msg) showToast(msg, { type: "success" });
         };
 
         emitUpdateEmergencyStage(socket, { ...data, status: "canceled" }, cb);
@@ -71,11 +75,11 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
             const isError = status.ok === false;
             const msg = status.msg;
 
-            if (isError) showToast(msg, { type: "error" });
-            else showToast(msg, { type: "success" });
+            if (isError && msg) showToast(msg, { type: "error" });
+            else if (msg) showToast(msg, { type: "success" });
         };
 
-        console.log("data confirmEmergency: " + JSON.stringify(data));
+        // console.log("data confirmEmergency: " + JSON.stringify(data));
 
         emitConfirmEmergency(
             socket,

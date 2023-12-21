@@ -1,10 +1,13 @@
 import showToast from "components/toasts/showToast";
+import { updateData } from "global-data/useData";
 import {
     addItem,
     updateItem,
 } from "pages/alerts/alerts_list/items/itemMethods";
+import getId from "utils/getId";
+
 // IMPORTANT: if not displaying logs, comment out switchConsoleLogs() from App.js
-export function listenSocketEvents(socket) {
+export function listenSocketEvents(socket, uify) {
     socket.onAny((event, ...args) => {
         console.log(`socket.onAny: ${event}`, args);
     });
@@ -43,14 +46,16 @@ export function listenSocketEvents(socket) {
     });
 
     // ref:
-    socket.on("connect_error", (err) => {
-        console.log("socket.io CONNECT_ERROR: " + err && err.message);
-        if (err.message === "missing required data") {
-            showToast("ocorreu um erro ao conectar com socket.io");
+    socket.on("connect_error", (err = {}) => {
+        console.log(`socket.io CONNECT_ERROR: ${err.message}`);
+
+        if (err.message === "timeout") {
+            // e.g when the server is reloading and gets temporarily off
+            updateData(uify, { screenId: getId() });
         }
 
-        if (err.message === "xhr post error") {
-            // removeItems("global", ["chatRoomId", "chatUserId"])
+        if (err.message === "missing required data") {
+            showToast("ocorreu um erro ao conectar com socket.io");
         }
 
         // https://socket.io/docs/v3/client-initialization/#socket-options
