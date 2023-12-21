@@ -7,6 +7,8 @@ import getId from "utils/getId";
 export default async function checkValidSession(uify) {
     window.addEventListener("visibilitychange", (e) => {
         //ref: https://stackoverflow.com/questions/10338704/javascript-to-detect-if-user-changes-tab
+        console.log(`VISIBILITY STATE: ${document.visibilityState}`);
+
         if (document && document.visibilityState == "visible")
             runSessionCheck(uify);
     });

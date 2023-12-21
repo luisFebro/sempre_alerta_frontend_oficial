@@ -44,7 +44,6 @@ export function listenSocketEvents(socket) {
 
     // ref:
     socket.on("connect_error", (err) => {
-        socket.connect();
         console.log("socket.io CONNECT_ERROR: " + err && err.message);
         if (err.message === "missing required data") {
             showToast("ocorreu um erro ao conectar com socket.io");

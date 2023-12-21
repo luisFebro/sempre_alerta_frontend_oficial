@@ -22,7 +22,10 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        const cb = ({ status = {} }) => {
+        const cb = (options = {}) => {
+            // can be null
+            const status = options ? options.status : {};
+
             const isError = status.ok === false;
             const msg = status.msg || " ";
 
@@ -41,7 +44,9 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        const cb = ({ status = {} }) => {
+        const cb = (options = {}) => {
+            const status = options ? options.status : {};
+
             const isError = status.ok === false;
             const msg = status.msg || " ";
 
@@ -60,7 +65,9 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
-        const cb = ({ status = {} }) => {
+        const cb = (options = {}) => {
+            const status = options ? options.status : {};
+
             const isError = status.ok === false;
             const msg = status.msg;
 

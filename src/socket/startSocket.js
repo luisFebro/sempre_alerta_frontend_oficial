@@ -3,7 +3,11 @@ import { io } from "socket.io-client";
 import { emitJoinRoom } from "./emits";
 import { listenSocketEvents } from "./listens";
 
-export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
+export function useInitSocket({
+    userId = "johndoe@gmail.com",
+    roomIdList,
+    updateId,
+}) {
     // LESSON: always use useEffect to initialize methods like io(). It was bugging aorund with many requests and preventing using broadcast.imit to exclude the sender
     const [socketData, setSocketData] = useState(null);
 
@@ -19,7 +23,7 @@ export function useInitSocket({ userId = "johndoe@gmail.com", roomIdList }) {
             socket.disconnect();
         };
         // eslint-disable-next-line
-    }, []);
+    }, [updateId]);
 
     return socketData;
 }
@@ -46,6 +50,7 @@ export default function getInitSocket() {
     console.log("socket.io URI: " + SOCKET_URI);
 
     const socket = io(SOCKET_URI, {
+        forceNew: false, // default: false, should we force a new manager for this connection
         reconnection: true, // default: true - Whether reconnection is enabled or not. If set to false, you need to manually reconnect:
         reconnectionDelay: 1000, // default: 1000 - The initial delay before reconnection in milliseconds (affected by the randomizationFactor value).
         reconnectionDelayMax: 5000, // default: 5000 (before: 1000) The maximum delay between two reconnection attempts. Each attempt increases the reconnection delay by 2x.

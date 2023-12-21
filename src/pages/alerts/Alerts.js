@@ -13,23 +13,22 @@ export default function Alerts() {
     const { instituteId: roomId, roomIdList, screenId } = useData();
 
     // MAIN SOCKET CONNECTION
+    // update socket and list when current tab is visible and focused.
+    console.log("UPDATE_SCREEN_ID: " + screenId);
+
     const socket = useInitSocket({
         userId,
         roomIdList,
+        updateId: screenId,
     });
-
-    // update socket and list when user is focusing.
-    const activeScreenId = screenId;
+    // END MAIN SOCKET CONNECTION
 
     // no need loading for real time data, otherwise it will be flicking "loading" every update
     const { data: dbList } = useAPI({
         url: readAlertListAll(),
         params: { userId, roomId },
-        trigger: activeScreenId,
+        trigger: screenId,
     });
-
-    // useConnectSocket(socket, activeScreenId);
-    // END MAIN SOCKET CONNECTION
 
     const dataList = {
         dbList,
@@ -40,7 +39,7 @@ export default function Alerts() {
         role,
     };
 
-    console.log("RUNNING ALERTS PAGE");
+    // console.log("RUNNING ALERTS PAGE");
 
     return (
         <section className="relative">
@@ -52,7 +51,7 @@ export default function Alerts() {
             />
             <AnimatedRankingList
                 dataList={dataList}
-                activeScreenId={activeScreenId}
+                activeScreenId={screenId}
             />
         </section>
     );
