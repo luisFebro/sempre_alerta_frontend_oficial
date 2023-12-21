@@ -44,6 +44,8 @@ export default function ItemModalBtn({ type = "finish", socket, data }) {
                 "Socket.io not ready. Maybe you rushed up too early to click on this btn"
             );
 
+        showToast("Cancelando alerta agora...");
+
         const cb = (options = {}) => {
             console.log(
                 "callback: updateEmergencyStageCanceled -> " +
