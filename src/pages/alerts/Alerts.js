@@ -14,7 +14,7 @@ export default function Alerts() {
 
     // MAIN SOCKET CONNECTION
     // update socket and list when current tab is visible and focused.
-    console.log("UPDATE_SCREEN_ID: " + screenId);
+    // console.log("UPDATE_SCREEN_ID: " + screenId);
 
     const socket = useInitSocket({
         userId,
@@ -38,8 +38,6 @@ export default function Alerts() {
         socket,
         role,
     };
-
-    // console.log("RUNNING ALERTS PAGE");
 
     return (
         <section className="relative">

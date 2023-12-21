@@ -32,8 +32,6 @@ export default function TopNavbar({ showSideBar, setShowSideBar }) {
         isSingleDayMarked,
     } = data;
 
-    console.log("isSingleDayMarked: " + isSingleDayMarked);
-
     const gotAlertWorkingHours = JSON.stringify(alertWorkingHours);
     useLayoutEffect(() => {
         if (gotAlertWorkingHours) {
