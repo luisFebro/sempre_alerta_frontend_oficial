@@ -1,6 +1,6 @@
 import MainTitle from "components/MainTitle";
 import useData from "global-data/useData";
-import { useConnectSocket, useInitSocket } from "socket/startSocket";
+import { useInitSocket } from "socket/startSocket";
 import AnimatedRankingList from "./alerts_list/AnimatedRankingList";
 import useAPI, { readAlertListAll } from "api/useAPI";
 
