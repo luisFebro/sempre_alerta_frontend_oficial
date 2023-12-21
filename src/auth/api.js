@@ -44,7 +44,6 @@ export const doLogin = async (
         timeout: 30000,
         loader: true,
         fullCatch: true,
-        waitInSec: 2000,
     }).catch((err) => {
         if (!err) return null;
         const errorMsg = err.data && err.data.error;

@@ -7,10 +7,9 @@ import getId from "utils/getId";
 export default async function checkValidSession(uify) {
     window.addEventListener("focus", (e) => {
         //ref: https://stackoverflow.com/questions/10338704/javascript-to-detect-if-user-changes-tab
-        console.log("EVENT FOCUS TRIGGERED");
         // console.log(`VISIBILITY STATE FROM FOCUS: ${document.visibilityState}`);
+        console.log("EVENT FOCUS TRIGGERED");
 
-        // visibilityState is always hidden when focusing and unfocusing the current screen. Whereas visible when switching back and forth the current tab
         if (document && document.visibilityState == "hidden")
             runSessionCheck(uify);
     });
@@ -24,6 +23,14 @@ export default async function checkValidSession(uify) {
         if (document && document.visibilityState == "visible")
             runSessionCheck(uify);
     });
+
+    // const hasFocus = document && document.hasFocus();
+    // if (hasFocus) {
+    //     console.log("EVENT FOCUS TRIGGERED FROM HAS FOCUS");
+    //     // visibilityState is always hidden when focusing and unfocusing the current screen. Whereas visible when switching back and forth the current tab
+    //     if (document && document.visibilityState == "hidden")
+    //         runSessionCheck(uify);
+    // }
 }
 
 export async function runSessionCheck(uify) {
