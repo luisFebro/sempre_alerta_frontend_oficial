@@ -5,23 +5,25 @@ import { readData, updateData } from "global-data/useData";
 import getId from "utils/getId";
 
 export default async function checkValidSession(uify) {
-    window.addEventListener("focus", (e) => {
-        //ref: https://stackoverflow.com/questions/10338704/javascript-to-detect-if-user-changes-tab
-        // console.log(`VISIBILITY STATE FROM FOCUS: ${document.visibilityState}`);
-        console.log("EVENT FOCUS TRIGGERED");
-
-        if (document && document.visibilityState == "hidden")
-            runSessionCheck(uify);
-    });
+    // LESSON: if event triggers simutaneously, then the last triggered will executed and override the previous one
 
     window.addEventListener("visibilitychange", (e) => {
+        const screenVisibility = document && document.visibilityState;
         //ref: https://stackoverflow.com/questions/10338704/javascript-to-detect-if-user-changes-tab
+        console.log(`EVENT VISIBILITY STATE: ${screenVisibility}`);
+
+        if (screenVisibility == "visible") runSessionCheck(uify);
+    });
+
+    window.addEventListener("focus", (e) => {
+        const screenVisibility = document && document.visibilityState;
+        //ref: https://stackoverflow.com/questions/10338704/javascript-to-detect-if-user-changes-tab
+        // console.log(`VISIBILITY STATE FROM FOCUS: ${document.visibilityState}`);
         console.log(
-            `EVENT VISIBILITY STATE: ${document && document.visibilityState}`
+            "EVENT FOCUS TRIGGERED - SCREEN VISIBILITY: " + screenVisibility
         );
 
-        if (document && document.visibilityState == "visible")
-            runSessionCheck(uify);
+        if (screenVisibility == "hidden") runSessionCheck(uify);
     });
 
     // const hasFocus = document && document.hasFocus();
