@@ -28,7 +28,7 @@ export function listenSocketEvents(socket, uify) {
             console.log("Socket.io reconnecting");
             // ref: https://socket.io/pt-br/docs/v3/client-socket-instance/#disconnect
             // the disconnection was initiated by the server, you need to reconnect manually
-            socket.connect();
+            updateData(uify, { screenId: getId() });
         }
 
         // ref: https://github.com/socketio/socket.io/issues/2476#issuecomment-316926924
@@ -39,7 +39,7 @@ export function listenSocketEvents(socket, uify) {
                 "Socket.io reconnecting: REASON: socket not in the manager's list"
             );
             //you should renew token or do another important things before reconnecting
-            socket.connect();
+            updateData(uify, { screenId: getId() });
         }
 
         // else the socket will automatically try to reconnect
