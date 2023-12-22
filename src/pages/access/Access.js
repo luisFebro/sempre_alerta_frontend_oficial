@@ -5,7 +5,7 @@ import { updateData, useUify } from "global-data/useData";
 import { HOST_URL } from "config/root";
 import useBackColor from "hooks/useBackColor";
 
-const DASHBOARD_OFFICIAL_VERSION = "v1.18.20-6";
+const DASHBOARD_OFFICIAL_VERSION = "v1.18.20-7";
 
 export default function Access() {
     const isSmall = window.Helper.isSmallScreen();

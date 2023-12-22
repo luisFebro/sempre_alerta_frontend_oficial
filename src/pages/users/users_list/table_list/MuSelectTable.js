@@ -462,7 +462,10 @@ const ShowTableBody = ({
                     };
 
                     return list.map((itemNumber, ind) => (
-                        <div className="inline-block mr-5 whitespace-nowrap">
+                        <div
+                            className="inline-block mr-5"
+                            style={{ width: 180 }}
+                        >
                             <img
                                 src={handleIconType(itemNumber.type)}
                                 width={30}
@@ -499,7 +502,7 @@ const ShowTableBody = ({
                     <MyTableCell
                         id={ind}
                         align="left"
-                        className="inline-block whitespace-nowrap"
+                        className="inline-block whitespace-nowrap mx-auto"
                         style={{
                             fontSize: "15px",
                             padding: "16px",
